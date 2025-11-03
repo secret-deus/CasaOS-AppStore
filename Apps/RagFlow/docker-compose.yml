@@ -8,10 +8,8 @@ services:
         required: true
     deploy:
       resources:
-        limits:
-          memory: 7656M
         reservations:
-          memory: "2147483648"
+          memory: "3G"
     environment:
       - ES_HOST=ragflow-es01
       - INFINITY_HOST=ragflow-infinity
@@ -313,9 +311,6 @@ services:
             sv_SE: RagFlow Historikdatakatalog
             tr_TR: RagFlow Geçmiş Veri Dizini
             zh_CN: RagFlow历史数据目录
-    devices: []
-    cap_add: []
-    command: []
     networks:
       - ragflow
     privileged: false
@@ -324,10 +319,8 @@ services:
     container_name: ragflow-es01
     deploy:
       resources:
-        limits:
-          memory: 7656M
         reservations:
-          memory: "1073741824"
+          memory: "1.5G"
     environment:
       - ELASTIC_PASSWORD=infini_rag_flow
       - TZ=$TZ
@@ -480,9 +473,7 @@ services:
             sv_SE: Elasticsearch Datakatalog
             tr_TR: Elasticsearch Veri Dizini
             zh_CN: Elasticsearch数据目录
-    devices: []
-    cap_add: []
-    command: []
+
     networks:
       - ragflow
     privileged: false
@@ -608,17 +599,15 @@ services:
             sv_SE: Infinity Datakatalog
             tr_TR: Infinity Veri Dizini
             zh_CN: Infinity数据目录
-    devices: []
-    cap_add: []
-    command: []
+
     networks:
       - ragflow
     privileged: false
     cpu_shares: 90
     deploy:
       resources:
-        limits:
-          memory: 7656M
+        reservations:
+          memory: 1G
   ragflow-minio:
     command:
       - server
@@ -628,10 +617,8 @@ services:
     container_name: ragflow-minio
     deploy:
       resources:
-        limits:
-          memory: 7656M
         reservations:
-          memory: "536870912"
+          memory: "3G"
     environment:
       - MINIO_ROOT_PASSWORD=infini_rag_flow
       - MINIO_ROOT_USER=rag_flow
@@ -764,8 +751,6 @@ services:
             sv_SE: MinIO Datakatalog
             tr_TR: MinIO Veri Dizini
             zh_CN: MinIO数据目录
-    devices: []
-    cap_add: []
     networks:
       - ragflow
     privileged: false
@@ -781,10 +766,8 @@ services:
     container_name: ragflow-mysql
     deploy:
       resources:
-        limits:
-          memory: 7656M
         reservations:
-          memory: "536870912"
+          memory: "2G"
     environment:
       - MYSQL_PASSWORD=infini_rag_flow
       - MYSQL_ROOT_PASSWORD=mysql
@@ -898,8 +881,6 @@ services:
             sv_SE: MySQL Datakatalog
             tr_TR: MySQL Veri Dizini
             zh_CN: MySQL数据目录
-    devices: []
-    cap_add: []
     networks:
       - ragflow
     privileged: false
@@ -908,10 +889,8 @@ services:
     container_name: ragflow-opensearch-01
     deploy:
       resources:
-        limits:
-          memory: 7656M
         reservations:
-          memory: "1073741824"
+          memory: "1G"
     environment:
       - OPENSEARCH_INITIAL_ADMIN_PASSWORD=infini_rag_flow_OS_01
       - OPENSEARCH_PASSWORD=infini_rag_flow_OS_01
@@ -1100,9 +1079,7 @@ services:
             sv_SE: OpenSearch Datakatalog
             tr_TR: OpenSearch Veri Dizini
             zh_CN: OpenSearch数据目录
-    devices: []
-    cap_add: []
-    command: []
+
     networks:
       - ragflow
     privileged: false
@@ -1119,10 +1096,8 @@ services:
     container_name: ragflow-redis
     deploy:
       resources:
-        limits:
-          memory: 7656M
         reservations:
-          memory: "134217728"
+          memory: "1.5G"
     healthcheck:
       test:
         - CMD
@@ -1181,9 +1156,6 @@ services:
             sv_SE: Redis Datakatalog
             tr_TR: Redis Veri Dizini
             zh_CN: Redis数据目录
-    devices: []
-    cap_add: []
-    environment: []
     networks:
       - ragflow
     privileged: false
@@ -1192,10 +1164,8 @@ services:
     container_name: ragflow-sandbox-executor-manager
     deploy:
       resources:
-        limits:
-          memory: 7656M
         reservations:
-          memory: "536870912"
+          memory: "2G"
     environment:
       - SANDBOX_BASE_NODEJS_IMAGE=infiniflow/sandbox-base-nodejs:latest
       - SANDBOX_BASE_PYTHON_IMAGE=infiniflow/sandbox-base-python:latest
@@ -1366,9 +1336,6 @@ services:
             sv_SE: Docker Socket
             tr_TR: Docker Soketi
             zh_CN: Docker套接字
-    devices: []
-    cap_add: []
-    command: []
     networks:
       - ragflow
     cpu_shares: 90
@@ -1626,7 +1593,6 @@ x-casaos:
   index: /
   main: ragflow
   port_map: "30080"
-  scheme: ""
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/RagFlow/screenshot-1.png
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/RagFlow/screenshot-2.png
@@ -1647,7 +1613,7 @@ x-casaos:
     sv_SE: RagFlow är en öppen källkods RAG-motor baserad på djup dokumentförståelse.
     tr_TR: RagFlow, derin belge anlayışına dayalı açık kaynaklı bir RAG motorudur.
     zh_CN: RagFlow是一个基于深度文档理解的开源RAG引擎。
-  thumbnail: ""
+  thumbnail: "https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/RagFlow/thumbnail.png"
   title:
     de_DE: RagFlow
     el_GR: RagFlow
@@ -1664,5 +1630,3 @@ x-casaos:
     sv_SE: RagFlow
     tr_TR: RagFlow
     zh_CN: RagFlow
-    custom: ""
-  hostname: ""
