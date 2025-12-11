@@ -1,0 +1,796 @@
+name: mlflow
+
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: mlflow-postgres
+    environment:
+      POSTGRES_USER: mlflow
+      POSTGRES_PASSWORD: mlflow
+      POSTGRES_DB: mlflow
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/pgdata
+        target: /var/lib/postgresql/data
+    ports:
+      - target: 5432
+        published: "5432"
+        protocol: tcp
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mlflow"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - mlflow-network
+    x-casaos:
+      envs:
+        - container: POSTGRES_USER
+          description:
+            de_DE: PostgreSQL-Benutzername
+            el_GR: Όνομα χρήστη PostgreSQL
+            en_GB: PostgreSQL username
+            en_US: PostgreSQL username
+            fr_FR: Nom d'utilisateur PostgreSQL
+            hr_HR: PostgreSQL korisničko ime
+            it_IT: Nome utente PostgreSQL
+            ja_JP: PostgreSQLユーザー名
+            ko_KR: PostgreSQL 사용자 이름
+            nb_NO: PostgreSQL brukernavn
+            pt_PT: Nome de utilizador PostgreSQL
+            ru_RU: Имя пользователя PostgreSQL
+            sv_SE: PostgreSQL användarnamn
+            tr_TR: PostgreSQL kullanıcı adı
+            zh_CN: PostgreSQL用户名
+        - container: POSTGRES_PASSWORD
+          description:
+            de_DE: PostgreSQL-Passwort
+            el_GR: Κωδικός πρόσβασης PostgreSQL
+            en_GB: PostgreSQL password
+            en_US: PostgreSQL password
+            fr_FR: Mot de passe PostgreSQL
+            hr_HR: PostgreSQL lozinka
+            it_IT: Password PostgreSQL
+            ja_JP: PostgreSQLパスワード
+            ko_KR: PostgreSQL 비밀번호
+            nb_NO: PostgreSQL passord
+            pt_PT: Palavra-passe PostgreSQL
+            ru_RU: Пароль PostgreSQL
+            sv_SE: PostgreSQL lösenord
+            tr_TR: PostgreSQL şifresi
+            zh_CN: PostgreSQL密码
+        - container: POSTGRES_DB
+          description:
+            de_DE: PostgreSQL-Datenbankname
+            el_GR: Όνομα βάσης δεδομένων PostgreSQL
+            en_GB: PostgreSQL database name
+            en_US: PostgreSQL database name
+            fr_FR: Nom de la base de données PostgreSQL
+            hr_HR: PostgreSQL ime baze podataka
+            it_IT: Nome del database PostgreSQL
+            ja_JP: PostgreSQLデータベース名
+            ko_KR: PostgreSQL 데이터베이스 이름
+            nb_NO: PostgreSQL databasenavn
+            pt_PT: Nome da base de dados PostgreSQL
+            ru_RU: Имя базы данных PostgreSQL
+            sv_SE: PostgreSQL databasnamn
+            tr_TR: PostgreSQL veritabanı adı
+            zh_CN: PostgreSQL数据库名
+      ports:
+        - container: "5432"
+          description:
+            de_DE: PostgreSQL-Datenbankport
+            el_GR: Θύρα βάσης δεδομένων PostgreSQL
+            en_GB: PostgreSQL database port
+            en_US: PostgreSQL database port
+            fr_FR: Port de la base de données PostgreSQL
+            hr_HR: PostgreSQL baza podataka luka
+            it_IT: Porta del database PostgreSQL
+            ja_JP: PostgreSQLデータベースポート
+            ko_KR: PostgreSQL 데이터베이스 포트
+            nb_NO: PostgreSQL databaseport
+            pt_PT: Porta da base de dados PostgreSQL
+            ru_RU: Порт базы данных PostgreSQL
+            sv_SE: PostgreSQL databasport
+            tr_TR: PostgreSQL veritabanı portu
+            zh_CN: PostgreSQL数据库端口
+      volumes:
+        - container: /var/lib/postgresql/data
+          description:
+            de_DE: PostgreSQL-Datenverzeichnis
+            el_GR: Κατάλογος δεδομένων PostgreSQL
+            en_GB: PostgreSQL data directory
+            en_US: PostgreSQL data directory
+            fr_FR: Répertoire de données PostgreSQL
+            hr_HR: PostgreSQL direktorij podataka
+            it_IT: Directory dati PostgreSQL
+            ja_JP: PostgreSQLデータディレクトリ
+            ko_KR: PostgreSQL 데이터 디렉터리
+            nb_NO: PostgreSQL datamappe
+            pt_PT: Diretório de dados PostgreSQL
+            ru_RU: Каталог данных PostgreSQL
+            sv_SE: PostgreSQL datakatalog
+            tr_TR: PostgreSQL veri dizini
+            zh_CN: PostgreSQL数据目录
+
+  minio:
+    image: minio/minio:latest
+    container_name: mlflow-minio
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /data
+    command: [
+      "server",
+      "/data",
+      "--console-address",
+      ":9001"]
+    ports:
+      - target: 9000
+        published: "9000"
+        protocol: tcp
+      - target: 9001
+        published: "9001"
+        protocol: tcp
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks:
+      - mlflow-network
+    x-casaos:
+      envs:
+        - container: MINIO_ROOT_USER
+          description:
+            de_DE: MinIO Root-Benutzername
+            el_GR: Όνομα χρήστη MinIO Root
+            en_GB: MinIO root username
+            en_US: MinIO root username
+            fr_FR: Nom d'utilisateur root MinIO
+            hr_HR: MinIO root korisničko ime
+            it_IT: Nome utente root MinIO
+            ja_JP: MinIOルートユーザー名
+            ko_KR: MinIO 루트 사용자 이름
+            nb_NO: MinIO root brukernavn
+            pt_PT: Nome de utilizador root MinIO
+            ru_RU: Имя пользователя root MinIO
+            sv_SE: MinIO root användarnamn
+            tr_TR: MinIO root kullanıcı adı
+            zh_CN: MinIO根用户名
+        - container: MINIO_ROOT_PASSWORD
+          description:
+            de_DE: MinIO Root-Passwort
+            el_GR: Κωδικός πρόσβασης MinIO Root
+            en_GB: MinIO root password
+            en_US: MinIO root password
+            fr_FR: Mot de passe root MinIO
+            hr_HR: MinIO root lozinka
+            it_IT: Password root MinIO
+            ja_JP: MinIOルートパスワード
+            ko_KR: MinIO 루트 비밀번호
+            nb_NO: MinIO root passord
+            pt_PT: Palavra-passe root MinIO
+            ru_RU: Пароль root MinIO
+            sv_SE: MinIO root lösenord
+            tr_TR: MinIO root şifresi
+            zh_CN: MinIO根密码
+      ports:
+        - container: "9000"
+          description:
+            de_DE: MinIO API-Port
+            el_GR: Θύρα API MinIO
+            en_GB: MinIO API port
+            en_US: MinIO API port
+            fr_FR: Port API MinIO
+            hr_HR: MinIO API luka
+            it_IT: Porta API MinIO
+            ja_JP: MinIO APIポート
+            ko_KR: MinIO API 포트
+            nb_NO: MinIO API-port
+            pt_PT: Porta API MinIO
+            ru_RU: Порт API MinIO
+            sv_SE: MinIO API-port
+            tr_TR: MinIO API portu
+            zh_CN: MinIO API端口
+        - container: "9001"
+          description:
+            de_DE: MinIO Web-Konsole-Port
+            el_GR: Θύρα κονσόλας web MinIO
+            en_GB: MinIO web console port
+            en_US: MinIO web console port
+            fr_FR: Port de la console web MinIO
+            hr_HR: MinIO web konzola luka
+            it_IT: Porta console web MinIO
+            ja_JP: MinIO Webコンソールポート
+            ko_KR: MinIO 웹 콘솔 포트
+            nb_NO: MinIO web konsollport
+            pt_PT: Porta da consola web MinIO
+            ru_RU: Порт веб-консоли MinIO
+            sv_SE: MinIO web konsolport
+            tr_TR: MinIO web konsol portu
+            zh_CN: MinIO Web控制台端口
+      volumes:
+        - container: /data
+          description:
+            de_DE: MinIO-Speicherverzeichnis
+            el_GR: Κατάλογος αποθήκευσης MinIO
+            en_GB: MinIO storage directory
+            en_US: MinIO storage directory
+            fr_FR: Répertoire de stockage MinIO
+            hr_HR: MinIO direktorij pohrane
+            it_IT: Directory di archiviazione MinIO
+            ja_JP: MinIOストレージディレクトリ
+            ko_KR: MinIO 스토리지 디렉터리
+            nb_NO: MinIO lagringskatalog
+            pt_PT: Diretório de armazenamento MinIO
+            ru_RU: Каталог хранения MinIO
+            sv_SE: MinIO lagringskatalog
+            tr_TR: MinIO depolama dizini
+            zh_CN: MinIO存储目录
+
+  create-bucket:
+    image: minio/mc:latest
+    container_name: mlflow-create-bucket
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        mc alias set myminio "http://minio:9000" \
+          "minio" "minio123"
+        mc mb --ignore-existing "myminio/mlflow"
+    restart: "on-failure"
+    networks:
+      - mlflow-network
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    container_name: mlflow-server
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      create-bucket:
+        condition: service_completed_successfully
+    environment:
+      # Backend store URI built from vars
+      MLFLOW_BACKEND_STORE_URI: postgresql://mlflow:mlflow@postgres:5432/mlflow
+
+      # S3/MinIO settings
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      MLFLOW_ARTIFACTS_DESTINATION: s3://mlflow/
+      AWS_ACCESS_KEY_ID: minio
+      AWS_SECRET_ACCESS_KEY: minio123
+      AWS_DEFAULT_REGION: us-east-1
+      MLFLOW_S3_IGNORE_TLS: "true"
+
+      # Server host/port
+      MLFLOW_HOST: 0.0.0.0
+      MLFLOW_PORT: 5000
+
+    command:
+      - /bin/bash
+      - -c
+      - |
+        pip install --no-cache-dir psycopg2-binary boto3
+        mlflow server \
+          --backend-store-uri "postgresql://mlflow:mlflow@postgres:5432/mlflow" \
+          --artifacts-destination "s3://mlflow/" \
+          --host "0.0.0.0" \
+          --port "5000"
+    ports:
+      - target: 5000
+        published: "5000"
+        protocol: tcp
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+    networks:
+      - mlflow-network
+    x-casaos:
+      envs:
+        - container: MLFLOW_BACKEND_STORE_URI
+          description:
+            de_DE: MLflow Backend-Store-URI
+            el_GR: MLflow Backend Store URI
+            en_GB: MLflow backend store URI
+            en_US: MLflow backend store URI
+            fr_FR: URI du magasin backend MLflow
+            hr_HR: MLflow backend spremište URI
+            it_IT: URI del backend store MLflow
+            ja_JP: MLflowバックエンドストアURI
+            ko_KR: MLflow 백엔드 스토어 URI
+            nb_NO: MLflow backend store URI
+            pt_PT: URI do armazenamento backend MLflow
+            ru_RU: URI хранилища бэкенда MLflow
+            sv_SE: MLflow backend store URI
+            tr_TR: MLflow backend deposu URI
+            zh_CN: MLflow后端存储URI
+        - container: MLFLOW_S3_ENDPOINT_URL
+          description:
+            de_DE: MLflow S3-Endpunkt-URL
+            el_GR: MLflow S3 τελικό URL
+            en_GB: MLflow S3 endpoint URL
+            en_US: MLflow S3 endpoint URL
+            fr_FR: URL du point de terminaison S3 MLflow
+            hr_HR: MLflow S3 krajnja točka URL
+            it_IT: URL dell'endpoint S3 MLflow
+            ja_JP: MLflow S3エンドポイントURL
+            ko_KR: MLflow S3 엔드포인트 URL
+            nb_NO: MLflow S3 endepunkt URL
+            pt_PT: URL do endpoint S3 MLflow
+            ru_RU: URL конечной точки S3 MLflow
+            sv_SE: MLflow S3 slutpunkt URL
+            tr_TR: MLflow S3 uç noktası URL
+            zh_CN: MLflow S3端点URL
+        - container: MLFLOW_ARTIFACTS_DESTINATION
+          description:
+            de_DE: MLflow-Artefakt-Ziel
+            el_GR: MLflow προορισμός τεχνητών
+            en_GB: MLflow artifacts destination
+            en_US: MLflow artifacts destination
+            fr_FR: Destination des artefacts MLflow
+            hr_HR: MLflow odredište artefakata
+            it_IT: Destinazione degli artefatti MLflow
+            ja_JP: MLflowアーティファクト宛先
+            ko_KR: MLflow 아티팩트 대상
+            nb_NO: MLflow artefakt destinasjon
+            pt_PT: Destino dos artefactos MLflow
+            ru_RU: Назначение артефактов MLflow
+            sv_SE: MLflow artefakt destination
+            tr_TR: MLflow eser hedefi
+            zh_CN: MLflow工件目标位置
+        - container: AWS_ACCESS_KEY_ID
+          description:
+            de_DE: AWS-Zugriffsschlüssel-ID
+            el_GR: AWS αναγνωριστικό κλειδιού πρόσβασης
+            en_GB: AWS access key ID
+            en_US: AWS access key ID
+            fr_FR: ID de clé d'accès AWS
+            hr_HR: AWS ID pristupnog ključa
+            it_IT: ID chiave di accesso AWS
+            ja_JP: AWSアクセスキーID
+            ko_KR: AWS 액세스 키 ID
+            nb_NO: AWS tilgangsnøkkel ID
+            pt_PT: ID da chave de acesso AWS
+            ru_RU: ID ключа доступа AWS
+            sv_SE: AWS åtkomstnyckel ID
+            tr_TR: AWS erişim anahtarı kimliği
+            zh_CN: AWS访问密钥ID
+        - container: AWS_SECRET_ACCESS_KEY
+          description:
+            de_DE: AWS geheimer Zugriffsschlüssel
+            el_GR: AWS μυστικό κλειδί πρόσβασης
+            en_GB: AWS secret access key
+            en_US: AWS secret access key
+            fr_FR: Clé d'accès secrète AWS
+            hr_HR: AWS tajni pristupni ključ
+            it_IT: Chiave di accesso segreta AWS
+            ja_JP: AWSシークレットアクセスキー
+            ko_KR: AWS 비밀 액세스 키
+            nb_NO: AWS hemmelig tilgangsnøkkel
+            pt_PT: Chave de acesso secreta AWS
+            ru_RU: Секретный ключ доступа AWS
+            sv_SE: AWS hemlig åtkomstnyckel
+            tr_TR: AWS gizli erişim anahtarı
+            zh_CN: AWS秘密访问密钥
+        - container: AWS_DEFAULT_REGION
+          description:
+            de_DE: AWS-Standardregion
+            el_GR: Προεπιλεγμένη περιοχή AWS
+            en_GB: AWS default region
+            en_US: AWS default region
+            fr_FR: Région par défaut AWS
+            hr_HR: AWS zadana regija
+            it_IT: Regione predefinita AWS
+            ja_JP: AWSデフォルトリージョン
+            ko_KR: AWS 기본 리전
+            nb_NO: AWS standardregion
+            pt_PT: Região padrão AWS
+            ru_RU: Регион AWS по умолчанию
+            sv_SE: AWS standardregion
+            tr_TR: AWS varsayılan bölge
+            zh_CN: AWS默认区域
+        - container: MLFLOW_S3_IGNORE_TLS
+          description:
+            de_DE: MLflow S3 TLS ignorieren
+            el_GR: MLflow S3 παράβλεψη TLS
+            en_GB: MLflow S3 ignore TLS
+            en_US: MLflow S3 ignore TLS
+            fr_FR: MLflow ignorer TLS S3
+            hr_HR: MLflow ignoriraj TLS S3
+            it_IT: MLflow ignora TLS S3
+            ja_JP: MLflow S3 TLSを無視
+            ko_KR: MLflow S3 TLS 무시
+            nb_NO: MLflow S3 ignorer TLS
+            pt_PT: MLflow ignorar TLS S3
+            ru_RU: MLflow игнорировать TLS S3
+            sv_SE: MLflow ignorera TLS S3
+            tr_TR: MLflow S3 TLS'i yoksay
+            zh_CN: MLflow忽略S3 TLS
+        - container: MLFLOW_HOST
+          description:
+            de_DE: MLflow-Host
+            el_GR: MLflow Host
+            en_GB: MLflow host
+            en_US: MLflow host
+            fr_FR: Hôte MLflow
+            hr_HR: MLflow host
+            it_IT: Host MLflow
+            ja_JP: MLflowホスト
+            ko_KR: MLflow 호스트
+            nb_NO: MLflow vert
+            pt_PT: Host MLflow
+            ru_RU: Хост MLflow
+            sv_SE: MLflow värd
+            tr_TR: MLflow ana bilgisayar
+            zh_CN: MLflow主机
+        - container: MLFLOW_PORT
+          description:
+            de_DE: MLflow-Port
+            el_GR: Θύρα MLflow
+            en_GB: MLflow port
+            en_US: MLflow port
+            fr_FR: Port MLflow
+            hr_HR: MLflow luka
+            it_IT: Porta MLflow
+            ja_JP: MLflowポート
+            ko_KR: MLflow 포트
+            nb_NO: MLflow port
+            pt_PT: Porta MLflow
+            ru_RU: Порт MLflow
+            sv_SE: MLflow port
+            tr_TR: MLflow portu
+            zh_CN: MLflow端口
+      ports:
+        - container: "5000"
+          description:
+            de_DE: MLflow-Server-Port
+            el_GR: Θύρα διακομιστή MLflow
+            en_GB: MLflow server port
+            en_US: MLflow server port
+            fr_FR: Port du serveur MLflow
+            hr_HR: MLflow poslužitelj luka
+            it_IT: Porta del server MLflow
+            ja_JP: MLflowサーバーポート
+            ko_KR: MLflow 서버 포트
+            nb_NO: MLflow serverport
+            pt_PT: Porta do servidor MLflow
+            ru_RU: Порт сервера MLflow
+            sv_SE: MLflow serverport
+            tr_TR: MLflow sunucu portu
+            zh_CN: MLflow服务器端口
+
+networks:
+  mlflow-network:
+    driver: bridge
+
+x-casaos:
+  title:
+    de_DE: MLflow
+    el_GR: MLflow
+    en_GB: MLflow
+    en_US: MLflow
+    fr_FR: MLflow
+    hr_HR: MLflow
+    it_IT: MLflow
+    ja_JP: MLflow
+    ko_KR: MLflow
+    nb_NO: MLflow
+    pt_PT: MLflow
+    ru_RU: MLflow
+    sv_SE: MLflow
+    tr_TR: MLflow
+    zh_CN: MLflow
+  tagline:
+    de_DE: "Maschinelles Lernen-Experiment-Tracking-System"
+    el_GR: "Σύστημα παρακολούθησης πειραμάτων μηχανικής μάθησης"
+    en_GB: "Machine learning experiment tracking system"
+    en_US: "Machine learning experiment tracking system"
+    fr_FR: "Système de suivi d'expériences d'apprentissage automatique"
+    hr_HR: "Sustav praćenja eksperimenata strojnog učenja"
+    it_IT: "Sistema di tracciamento degli esperimenti di machine learning"
+    ja_JP: "機械学習実験追跡システム"
+    ko_KR: "머신러닝 실험 추적 시스템"
+    nb_NO: "Maskinlæring eksperiment sporingssystem"
+    pt_PT: "Sistema de rastreio de experiências de aprendizagem automática"
+    ru_RU: "Система отслеживания экспериментов машинного обучения"
+    sv_SE: "Maskininlärning experiment spårningssystem"
+    tr_TR: "Makine öğrenmesi deneme izleme sistemi"
+    zh_CN: "机器学习实验跟踪系统"
+  description:
+    de_DE: |
+      MLflow ist eine Open-Source-Plattform zur Verwaltung des gesamten Lebenszyklus von Machine-Learning-Modellen. Es bietet Tools zur Verfolgung von Experimenten, zur Verpackung von Code in reproduzierbare Läufe und zur gemeinsamen Nutzung und Bereitstellung von Modellen. Diese Installation umfasst MLflow Server mit PostgreSQL als Backend-Store und MinIO als Artefakt-Speicher.
+
+      **Hauptfunktionen:**
+      - Experiment-Tracking mit Metriken, Parametern und Artefakten
+      - Modell-Registrierung und Versionsverwaltung
+      - Modelle in verschiedenen Formaten und Frameworks verpacken
+      - Modelle für Batch-Inferenz oder als Echtzeit-API bereitstellen
+      - Integration mit gängigen ML-Bibliotheken und Frameworks
+      - Zentralisierte Benutzeroberfläche für alle ML-Artefakte
+      - PostgreSQL für zuverlässige Metadaten-Speicherung
+      - MinIO für skalierbare Artefakt-Speicherung
+
+      **Mehr Erfahren:**
+      - [MLflow Website](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Dokumentation](https://mlflow.org/docs/latest/index.html)
+
+    el_GR: |
+      Το MLflow είναι μια πλατφόρμα ανοιχτού κώδικα για τη διαχείριση ολόκληρου του κύκλου ζωής των μοντέλων μηχανικής μάθησης. Παρέχει εργαλεία για την παρακολούθηση πειραμάτων, τη συσκευασία κώδικα σε αναπαραγώγιμες εκτελέσεις και την κοινή χρήση και ανάπτυξη μοντέλων. Αυτή η εγκατάσταση περιλαμβάνει τον MLflow Server με PostgreSQL ως backend store και MinIO ως αποθήκη τεχνητών.
+
+      **Κύρια Χαρακτηριστικά:**
+      - Παρακολούθηση πειραμάτων με μετρήσεις, παραμέτρους και τεχνητά
+      - Καταχώρηση μοντέλων και διαχείριση εκδόσεων
+      - Συσκευασία μοντέλων σε διάφορες μορφές και frameworks
+      - Ανάπτυξη μοντέλων για batch inference ή ως πραγματικό χρόνο API
+      - Ενσωμάτωση με δημοφιλείς βιβλιοθήκες και frameworks ML
+      - Κεντρικοποιημένο περιβάλλον εργασίας για όλα τα ML τεχνητά
+      - PostgreSQL για αξιόπιστη αποθήκευση μεταδεδομένων
+      - MinIO για κλιμακούμενη αποθήκευση τεχνητών
+
+      **Μάθετε Περισσότερα:**
+      - [MLflow Website](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Τεκμηρίωση](https://mlflow.org/docs/latest/index.html)
+
+    en_GB: |
+      MLflow is an open-source platform for managing the entire lifecycle of machine learning models. It provides tools for tracking experiments, packaging code into reproducible runs, and sharing and deploying models. This installation includes MLflow Server with PostgreSQL as the backend store and MinIO as artifact storage.
+
+      **Key Features:**
+      - Experiment tracking with metrics, parameters, and artifacts
+      - Model registry and versioning
+      - Package models in various formats and frameworks
+      - Deploy models for batch inference or as real-time APIs
+      - Integration with popular ML libraries and frameworks
+      - Centralised interface for all ML artifacts
+      - PostgreSQL for reliable metadata storage
+      - MinIO for scalable artifact storage
+
+      **Learn More:**
+      - [MLflow Website](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Documentation](https://mlflow.org/docs/latest/index.html)
+
+    en_US: |
+      MLflow is an open-source platform for managing the entire lifecycle of machine learning models. It provides tools for tracking experiments, packaging code into reproducible runs, and sharing and deploying models. This installation includes MLflow Server with PostgreSQL as the backend store and MinIO as artifact storage.
+
+      **Key Features:**
+      - Experiment tracking with metrics, parameters, and artifacts
+      - Model registry and versioning
+      - Package models in various formats and frameworks
+      - Deploy models for batch inference or as real-time APIs
+      - Integration with popular ML libraries and frameworks
+      - Centralized interface for all ML artifacts
+      - PostgreSQL for reliable metadata storage
+      - MinIO for scalable artifact storage
+
+      **Learn More:**
+      - [MLflow Website](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Documentation](https://mlflow.org/docs/latest/index.html)
+
+    fr_FR: |
+      MLflow est une plateforme open source pour gérer l'ensemble du cycle de vie des modèles d'apprentissage automatique. Il fournit des outils pour suivre les expériences, empaqueter le code en exécutions reproductibles, et partager et déployer des modèles. Cette installation inclut MLflow Server avec PostgreSQL comme magasin de backend et MinIO comme stockage d'artefacts.
+
+      **Fonctionnalités Clés:**
+      - Suivi d'expériences avec métriques, paramètres et artefacts
+      - Registre de modèles et versionnage
+      - Empaqueter des modèles dans divers formats et frameworks
+      - Déployer des modèles pour inférence par lots ou comme API en temps réel
+      - Intégration avec les bibliothèques et frameworks ML populaires
+      - Interface centralisée pour tous les artefacts ML
+      - PostgreSQL pour un stockage de métadonnées fiable
+      - MinIO pour un stockage d'artefacts évolutif
+
+      **En Savoir Plus:**
+      - [Site Web MLflow](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Documentation](https://mlflow.org/docs/latest/index.html)
+
+    hr_HR: |
+      MLflow je open-source platforma za upravljanje cijelim životnim ciklusom modela strojnog učenja. Pruža alate za praćenje eksperimenata, pakiranje koda u reproducibilne izvođenja i dijeljenje i implementaciju modela. Ova instalacija uključuje MLflow Server s PostgreSQL kao backend store i MinIO kao pohranu artefakata.
+
+      **Ključne Značajke:**
+      - Praćenje eksperimenata s metrikama, parametrima i artefaktima
+      - Registracija i verzioniranje modela
+      - Pakiranje modela u različitim formatima i frameworkima
+      - Implementacija modela za batch inference ili kao stvarno-vrijeme API
+      - Integracija s popularnim ML bibliotekama i frameworkima
+      - Centralizirano sučelje za sve ML artefakte
+      - PostgreSQL za pouzdano pohranjivanje metapodataka
+      - MinIO za skalabilnu pohranu artefakata
+
+      **Saznajte Više:**
+      - [MLflow Website](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Dokumentacija](https://mlflow.org/docs/latest/index.html)
+
+    it_IT: |
+      MLflow è una piattaforma open source per gestire l'intero ciclo di vita dei modelli di machine learning. Fornisce strumenti per tracciare esperimenti, impacchettare codice in esecuzioni riproducibili e condividere e distribuire modelli. Questa installazione include MLflow Server con PostgreSQL come backend store e MinIO come archiviazione artefatti.
+
+      **Funzionalità Principali:**
+      - Tracciamento esperimenti con metriche, parametri e artefatti
+      - Registro modelli e versionamento
+      - Impacchettare modelli in vari formati e framework
+      - Distribuire modelli per inferenza batch o come API in tempo reale
+      - Integrazione con librerie e framework ML popolari
+      - Interfaccia centralizzata per tutti gli artefatti ML
+      - PostgreSQL per archiviazione metadati affidabile
+      - MinIO per archiviazione artefatti scalabile
+
+      **Scopri di Più:**
+      - [Sito Web MLflow](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Documentazione](https://mlflow.org/docs/latest/index.html)
+
+    ja_JP: |
+      MLflowは、機械学習モデルのライフサイクル全体を管理するためのオープンソースプラットフォームです。実験の追跡、コードを再現可能な実行にパッケージ化、モデルの共有と展開のためのツールを提供します。このインストールには、バックエンドストアとしてPostgreSQL、アーティファクトストレージとしてMinIOを使用したMLflow Serverが含まれています。
+
+      **主な機能：**
+      - メトリクス、パラメータ、アーティファクトによる実験追跡
+      - モデルレジストリとバージョン管理
+      - 様々な形式とフレームワークでモデルをパッケージ化
+      - バッチ推論またはリアルタイムAPIとしてモデルを展開
+      - 人気のあるMLライブラリとフレームワークとの統合
+      - すべてのMLアーティファクトの中央集権化されたインターフェース
+      - 信頼性の高いメタデータストレージのためのPostgreSQL
+      - スケーラブルなアーティファクトストレージのためのMinIO
+
+      **詳細情報：**
+      - [MLflowウェブサイト](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [ドキュメント](https://mlflow.org/docs/latest/index.html)
+
+    ko_KR: |
+      MLflow는 머신러닝 모델의 전체 수명 주기를 관리하기 위한 오픈 소스 플랫폼입니다. 실험 추적, 재현 가능한 실행으로 코드 패키징, 모델 공유 및 배포를 위한 도구를 제공합니다. 이 설치에는 백엔드 저장소로 PostgreSQL, 아티팩트 저장소로 MinIO를 사용하는 MLflow Server가 포함되어 있습니다.
+
+      **주요 기능:**
+      - 메트릭, 매개변수 및 아티팩트로 실험 추적
+      - 모델 레지스트리 및 버전 관리
+      - 다양한 형식과 프레임워크로 모델 패키징
+      - 배치 추론 또는 실시간 API로 모델 배포
+      - 인기 있는 ML 라이브러리 및 프레임워크와 통합
+      - 모든 ML 아티팩트에 대한 중앙 집중식 인터페이스
+      - 신뢰할 수 있는 메타데이터 저장을 위한 PostgreSQL
+      - 확장 가능한 아티팩트 저장을 위한 MinIO
+
+      **자세히 알아보기:**
+      - [MLflow 웹사이트](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [문서](https://mlflow.org/docs/latest/index.html)
+
+    nb_NO: |
+      MLflow er en åpen kildekode-plattform for å administrere hele livssyklusen til maskinlæringsmodeller. Den gir verktøy for å spore eksperimenter, pakke kode i reproducerbare kjøringer, og dele og distribuere modeller. Denne installasjonen inkluderer MLflow Server med PostgreSQL som backend store og MinIO som artefaktlagring.
+
+      **Nøkkelegenskaper:**
+      - Eksperiment sporing med metrikker, parametere og artefakter
+      - Modellregister og versjonering
+      - Pakke modeller i ulike formater og rammeverk
+      - Distribuere modeller for batch-inferens eller som sanntids-APIer
+      - Integrasjon med populære ML-biblioteker og rammeverk
+      - Sentralisert grensesnitt for alle ML-artefakter
+      - PostgreSQL for pålitelig metadatalagring
+      - MinIO for skalerbar artefaktlagring
+
+      **Lær Mer:**
+      - [MLflow Nettside](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Dokumentasjon](https://mlflow.org/docs/latest/index.html)
+
+    pt_PT: |
+      MLflow é uma plataforma de código aberto para gerir todo o ciclo de vida dos modelos de aprendizagem automática. Fornece ferramentas para rastrear experiências, empacotar código em execuções reproduzíveis e partilhar e implementar modelos. Esta instalação inclui MLflow Server com PostgreSQL como backend store e MinIO como armazenamento de artefactos.
+
+      **Funcionalidades Principais:**
+      - Rastreamento de experiências com métricas, parâmetros e artefactos
+      - Registo de modelos e versionamento
+      - Empacotar modelos em vários formatos e frameworks
+      - Implementar modelos para inferência em lote ou como APIs em tempo real
+      - Integração com bibliotecas e frameworks ML populares
+      - Interface centralizada para todos os artefactos ML
+      - PostgreSQL para armazenamento de metadados fiável
+      - MinIO para armazenamento de artefactos escalável
+
+      **Saiba Mais:**
+      - [Website MLflow](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Documentação](https://mlflow.org/docs/latest/index.html)
+
+    ru_RU: |
+      MLflow - это платформа с открытым исходным кодом для управления всем жизненным циклом моделей машинного обучения. Она предоставляет инструменты для отслеживания экспериментов, упаковки кода в воспроизводимые запуски и совместного использования и развертывания моделей. Эта установка включает MLflow Server с PostgreSQL в качестве хранилища бэкенда и MinIO в качестве хранилища артефактов.
+
+      **Ключевые Особенности:**
+      - Отслеживание экспериментов с метриками, параметрами и артефактами
+      - Реестр моделей и версионирование
+      - Упаковка моделей в различных форматах и фреймворках
+      - Развертывание моделей для пакетного вывода или в качестве API в реальном времени
+      - Интеграция с популярными библиотеками и фреймворками ML
+      - Централизованный интерфейс для всех артефактов ML
+      - PostgreSQL для надежного хранения метаданных
+      - MinIO для масштабируемого хранения артефактов
+
+      **Узнать Больше:**
+      - [Веб-сайт MLflow](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Документация](https://mlflow.org/docs/latest/index.html)
+
+    sv_SE: |
+      MLflow är en öppen källkodsplattform för att hantera hela livscykeln för maskininlärningsmodeller. Den erbjuder verktyg för att spåra experiment, paketera kod i reproducerbara körningar och dela och distribuera modeller. Denna installation inkluderar MLflow Server med PostgreSQL som backend store och MinIO som artefaktlagring.
+
+      **Nyckelfunktioner:**
+      - Experiment spårning med mätvärden, parametrar och artefakter
+      - Modellregister och versionshantering
+      - Paketera modeller i olika format och ramverk
+      - Distribuera modeller för batch-inferens eller som realtids-API:er
+      - Integration med populära ML-bibliotek och ramverk
+      - Centraliserat gränssnitt för alla ML-artefakter
+      - PostgreSQL för pålitlig metadatalagring
+      - MinIO för skalbar artefaktlagring
+
+      **Läs Mer:**
+      - [MLflow Webbplats](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Dokumentation](https://mlflow.org/docs/latest/index.html)
+
+    tr_TR: |
+      MLflow, makine öğrenmesi modellerinin tüm yaşam döngüsünü yönetmek için açık kaynaklı bir platformdur. Deneyimleri izlemek, kodu yeniden üretilebilir çalışmalara paketlemek ve modelleri paylaşmak ve dağıtmak için araçlar sağlar. Bu kurulum, arka uç deposu olarak PostgreSQL ve eser deposu olarak MinIO ile MLflow Server'ı içerir.
+
+      **Temel Özellikler:**
+      - Metrikler, parametreler ve eserlerle deneyim izleme
+      - Model kayıt defteri ve sürümleme
+      - Modelleri çeşitli formatlarda ve çerçevelerde paketleme
+      - Modelleri çıkarım için veya gerçek zamanlı API olarak dağıtma
+      - Popüler ML kütüphaneleri ve çerçeveleriyle entegrasyon
+      - Tüm ML eserleri için merkezi arayüz
+      - Güvenilir meta veri depolama için PostgreSQL
+      - Ölçeklenebilir eser depolama için MinIO
+
+      **Daha Fazla Bilgi:**
+      - [MLflow Web Sitesi](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [Belgeler](https://mlflow.org/docs/latest/index.html)
+
+    zh_CN: |
+      MLflow是一个用于管理机器学习模型整个生命周期的开源平台。它提供了跟踪实验、将代码打包成可重现运行以及共享和部署模型的工具。此安装包括MLflow Server，使用PostgreSQL作为后端存储，MinIO作为工件存储。
+
+      **主要功能：**
+      - 使用指标、参数和工件进行实验跟踪
+      - 模型注册和版本控制
+      - 将模型打包成各种格式和框架
+      - 将模型部署用于批量推理或作为实时API
+      - 与流行的ML库和框架集成
+      - 所有ML工件的集中化界面
+      - 用于可靠元数据存储的PostgreSQL
+      - 用于可扩展工件存储的MinIO
+
+      **了解更多：**
+      - [MLflow网站](https://mlflow.org)
+      - [MLflow GitHub](https://github.com/mlflow/mlflow)
+      - [文档](https://mlflow.org/docs/latest/index.html)
+
+  category: Development
+  author: MLflow
+  main: mlflow
+  port_map: "5000"
+  architectures:
+    - amd64
+    - arm64
+  index: /
+  scheme: http
