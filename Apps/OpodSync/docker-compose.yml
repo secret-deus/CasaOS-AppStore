@@ -2,7 +2,7 @@ name: opodsync
 
 services:
   gpodder:
-    image: fromxiaobai/opodsync:1.0
+    image: ganeshlab/opodsync:latest
     container_name: opodsync
     hostname: opodsync.localhost
     ports:
@@ -294,11 +294,15 @@ x-casaos:
 
       **了解更多：**
       - [github](https://github.com/kd2org/opodsync)
-
+  developer: ganeshlab
   category: Utilities
-  author: fromxiaobai
+  author: ganeshlab
   main: gpodder
   port_map: "8086"
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/OpodSync/icon.png
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/OpodSync/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/OpodSync/screenshot-2.png
   architectures:
     - amd64
     - arm64
