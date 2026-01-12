@@ -1,0 +1,474 @@
+services:
+  nocodb:
+    image: nocodb/nocodb:latest
+    container_name: nocodb
+    ports:
+    - target: 8080
+      published: '880'
+      protocol: tcp
+    environment:
+      NC_DB: pg://db:5432?u=nocodb&p=password&d=nocodb
+      NC_PG_HOST: db
+      NC_PG_PORT: 5432
+      NC_PG_USER: nocodb
+      NC_PG_PASSWORD: password
+      NC_PG_DATABASE: nocodb
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID/data
+      target: /usr/app/data
+    depends_on:
+    - db
+    restart: unless-stopped
+    x-casaos:
+      envs:
+      - container: NC_DB
+        description:
+          de_DE: Database connection URL for NocoDB
+          el_GR: Database connection URL for NocoDB
+          en_GB: Database connection URL for NocoDB
+          en_US: Database connection URL for NocoDB
+          fr_FR: Database connection URL for NocoDB
+          hr_HR: Database connection URL for NocoDB
+          it_IT: Database connection URL for NocoDB
+          ja_JP: Database connection URL for NocoDB
+          ko_KR: Database connection URL for NocoDB
+          nb_NO: Database connection URL for NocoDB
+          pt_PT: Database connection URL for NocoDB
+          ru_RU: Database connection URL for NocoDB
+          sv_SE: Database connection URL for NocoDB
+          tr_TR: Database connection URL for NocoDB
+          zh_CN: Database connection URL for NocoDB
+      - container: NC_PG_HOST
+        description:
+          de_DE: PostgreSQL database host
+          el_GR: PostgreSQL database host
+          en_GB: PostgreSQL database host
+          en_US: PostgreSQL database host
+          fr_FR: PostgreSQL database host
+          hr_HR: PostgreSQL database host
+          it_IT: PostgreSQL database host
+          ja_JP: PostgreSQL database host
+          ko_KR: PostgreSQL database host
+          nb_NO: PostgreSQL database host
+          pt_PT: PostgreSQL database host
+          ru_RU: PostgreSQL database host
+          sv_SE: PostgreSQL database host
+          tr_TR: PostgreSQL database host
+          zh_CN: PostgreSQL database host
+      - container: NC_PG_PORT
+        description:
+          de_DE: PostgreSQL database port
+          el_GR: PostgreSQL database port
+          en_GB: PostgreSQL database port
+          en_US: PostgreSQL database port
+          fr_FR: PostgreSQL database port
+          hr_HR: PostgreSQL database port
+          it_IT: PostgreSQL database port
+          ja_JP: PostgreSQL database port
+          ko_KR: PostgreSQL database port
+          nb_NO: PostgreSQL database port
+          pt_PT: PostgreSQL database port
+          ru_RU: PostgreSQL database port
+          sv_SE: PostgreSQL database port
+          tr_TR: PostgreSQL database port
+          zh_CN: PostgreSQL database port
+      - container: NC_PG_USER
+        description:
+          de_DE: PostgreSQL database username
+          el_GR: PostgreSQL database username
+          en_GB: PostgreSQL database username
+          en_US: PostgreSQL database username
+          fr_FR: PostgreSQL database username
+          hr_HR: PostgreSQL database username
+          it_IT: PostgreSQL database username
+          ja_JP: PostgreSQL database username
+          ko_KR: PostgreSQL database username
+          nb_NO: PostgreSQL database username
+          pt_PT: PostgreSQL database username
+          ru_RU: PostgreSQL database username
+          sv_SE: PostgreSQL database username
+          tr_TR: PostgreSQL database username
+          zh_CN: PostgreSQL database username
+      - container: NC_PG_PASSWORD
+        description:
+          de_DE: PostgreSQL database password
+          el_GR: PostgreSQL database password
+          en_GB: PostgreSQL database password
+          en_US: PostgreSQL database password
+          fr_FR: PostgreSQL database password
+          hr_HR: PostgreSQL database password
+          it_IT: PostgreSQL database password
+          ja_JP: PostgreSQL database password
+          ko_KR: PostgreSQL database password
+          nb_NO: PostgreSQL database password
+          pt_PT: PostgreSQL database password
+          ru_RU: PostgreSQL database password
+          sv_SE: PostgreSQL database password
+          tr_TR: PostgreSQL database password
+          zh_CN: PostgreSQL database password
+      - container: NC_PG_DATABASE
+        description:
+          de_DE: PostgreSQL database name
+          el_GR: PostgreSQL database name
+          en_GB: PostgreSQL database name
+          en_US: PostgreSQL database name
+          fr_FR: PostgreSQL database name
+          hr_HR: PostgreSQL database name
+          it_IT: PostgreSQL database name
+          ja_JP: PostgreSQL database name
+          ko_KR: PostgreSQL database name
+          nb_NO: PostgreSQL database name
+          pt_PT: PostgreSQL database name
+          ru_RU: PostgreSQL database name
+          sv_SE: PostgreSQL database name
+          tr_TR: PostgreSQL database name
+          zh_CN: PostgreSQL database name
+      ports:
+      - container: '8080'
+        description:
+          de_DE: Main NocoDB web interface port
+          el_GR: Main NocoDB web interface port
+          en_GB: Main NocoDB web interface port
+          en_US: Main NocoDB web interface port
+          fr_FR: Main NocoDB web interface port
+          hr_HR: Main NocoDB web interface port
+          it_IT: Main NocoDB web interface port
+          ja_JP: Main NocoDB web interface port
+          ko_KR: Main NocoDB web interface port
+          nb_NO: Main NocoDB web interface port
+          pt_PT: Main NocoDB web interface port
+          ru_RU: Main NocoDB web interface port
+          sv_SE: Main NocoDB web interface port
+          tr_TR: Main NocoDB web interface port
+          zh_CN: Main NocoDB web interface port
+      volumes:
+      - container: /usr/app/data
+        description:
+          de_DE: NocoDB application data and configuration
+          el_GR: NocoDB application data and configuration
+          en_GB: NocoDB application data and configuration
+          en_US: NocoDB application data and configuration
+          fr_FR: NocoDB application data and configuration
+          hr_HR: NocoDB application data and configuration
+          it_IT: NocoDB application data and configuration
+          ja_JP: NocoDB application data and configuration
+          ko_KR: NocoDB application data and configuration
+          nb_NO: NocoDB application data and configuration
+          pt_PT: NocoDB application data and configuration
+          ru_RU: NocoDB application data and configuration
+          sv_SE: NocoDB application data and configuration
+          tr_TR: NocoDB application data and configuration
+          zh_CN: NocoDB application data and configuration
+  db:
+    image: postgres:16.6
+    container_name: nocodb_db
+    environment:
+      POSTGRES_USER: nocodb
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: nocodb
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID/db-data
+      target: /var/lib/postgresql/data
+    restart: unless-stopped
+    x-casaos:
+      envs:
+      - container: POSTGRES_USER
+        description:
+          de_DE: PostgreSQL superuser username
+          el_GR: PostgreSQL superuser username
+          en_GB: PostgreSQL superuser username
+          en_US: PostgreSQL superuser username
+          fr_FR: PostgreSQL superuser username
+          hr_HR: PostgreSQL superuser username
+          it_IT: PostgreSQL superuser username
+          ja_JP: PostgreSQL superuser username
+          ko_KR: PostgreSQL superuser username
+          nb_NO: PostgreSQL superuser username
+          pt_PT: PostgreSQL superuser username
+          ru_RU: PostgreSQL superuser username
+          sv_SE: PostgreSQL superuser username
+          tr_TR: PostgreSQL superuser username
+          zh_CN: PostgreSQL superuser username
+      - container: POSTGRES_PASSWORD
+        description:
+          de_DE: PostgreSQL superuser password
+          el_GR: PostgreSQL superuser password
+          en_GB: PostgreSQL superuser password
+          en_US: PostgreSQL superuser password
+          fr_FR: PostgreSQL superuser password
+          hr_HR: PostgreSQL superuser password
+          it_IT: PostgreSQL superuser password
+          ja_JP: PostgreSQL superuser password
+          ko_KR: PostgreSQL superuser password
+          nb_NO: PostgreSQL superuser password
+          pt_PT: PostgreSQL superuser password
+          ru_RU: PostgreSQL superuser password
+          sv_SE: PostgreSQL superuser password
+          tr_TR: PostgreSQL superuser password
+          zh_CN: PostgreSQL superuser password
+      - container: POSTGRES_DB
+        description:
+          de_DE: PostgreSQL default database name
+          el_GR: PostgreSQL default database name
+          en_GB: PostgreSQL default database name
+          en_US: PostgreSQL default database name
+          fr_FR: PostgreSQL default database name
+          hr_HR: PostgreSQL default database name
+          it_IT: PostgreSQL default database name
+          ja_JP: PostgreSQL default database name
+          ko_KR: PostgreSQL default database name
+          nb_NO: PostgreSQL default database name
+          pt_PT: PostgreSQL default database name
+          ru_RU: PostgreSQL default database name
+          sv_SE: PostgreSQL default database name
+          tr_TR: PostgreSQL default database name
+          zh_CN: PostgreSQL default database name
+      ports: []
+      volumes:
+      - container: /var/lib/postgresql/data
+        description:
+          de_DE: PostgreSQL database data storage
+          el_GR: PostgreSQL database data storage
+          en_GB: PostgreSQL database data storage
+          en_US: PostgreSQL database data storage
+          fr_FR: PostgreSQL database data storage
+          hr_HR: PostgreSQL database data storage
+          it_IT: PostgreSQL database data storage
+          ja_JP: PostgreSQL database data storage
+          ko_KR: PostgreSQL database data storage
+          nb_NO: PostgreSQL database data storage
+          pt_PT: PostgreSQL database data storage
+          ru_RU: PostgreSQL database data storage
+          sv_SE: PostgreSQL database data storage
+          tr_TR: PostgreSQL database data storage
+          zh_CN: PostgreSQL database data storage
+x-casaos:
+  title:
+    de_DE: nocodb
+    el_GR: nocodb
+    en_GB: nocodb
+    en_US: nocodb
+    fr_FR: nocodb
+    hr_HR: nocodb
+    it_IT: nocodb
+    ja_JP: nocodb
+    ko_KR: nocodb
+    nb_NO: nocodb
+    pt_PT: nocodb
+    ru_RU: nocodb
+    sv_SE: nocodb
+    tr_TR: nocodb
+    zh_CN: nocodb
+  tagline:
+    de_DE: nocodb on CasaOS
+    el_GR: nocodb on CasaOS
+    en_GB: nocodb on CasaOS
+    en_US: nocodb on CasaOS
+    fr_FR: nocodb on CasaOS
+    hr_HR: nocodb on CasaOS
+    it_IT: nocodb on CasaOS
+    ja_JP: nocodb on CasaOS
+    ko_KR: nocodb on CasaOS
+    nb_NO: nocodb on CasaOS
+    pt_PT: nocodb on CasaOS
+    ru_RU: nocodb on CasaOS
+    sv_SE: nocodb on CasaOS
+    tr_TR: nocodb on CasaOS
+    zh_CN: nocodb on CasaOS
+  description:
+    de_DE: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    el_GR: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    en_GB: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    en_US: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    fr_FR: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    hr_HR: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    it_IT: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    ja_JP: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    ko_KR: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    nb_NO: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    pt_PT: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    ru_RU: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    sv_SE: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    tr_TR: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+    zh_CN: 'nocodb is a self-hosted application stack deployed via Docker Compose.
+
+
+      Key Features:
+
+      - Runs multiple services as a single stack.
+
+      - Supports persistent storage and environment configuration.
+
+      - Ready to be imported and managed in CasaOS.
+
+      '
+  category: Utilities
+  author: nocodb
+  developer: nocodb
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Nocodb/icon.png
+  screenshot_link:
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Nocodb/screenshot-1.png
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Nocodb/screenshot-2.png
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Nocodb/screenshot-3.png
+  main: nocodb
+  port_map: '880'
+  architectures:
+  - amd64
+  index: /
+  scheme: http
