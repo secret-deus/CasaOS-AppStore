@@ -3,9 +3,9 @@ services:
     image: teableio/teable:latest
     container_name: teable
     restart: always
-    deploy:
-      reservations:
-        resources:
+    deploy:     
+      resources:
+        reservations:
           memory: 512M
     ports:
     - target: 3000
@@ -192,8 +192,8 @@ services:
     restart: always
     container_name: teable-db
     deploy:
-      reservations:
-        resources:
+      resources:
+        reservations:
           memory: 256M
     ports:
     - target: 5432
@@ -328,8 +328,8 @@ services:
     restart: always
     container_name: teable-cache
     deploy:
-      reservations:
-        resources:
+      resources:
+        reservations:
           memory: 256M
     expose:
     - '6379'
