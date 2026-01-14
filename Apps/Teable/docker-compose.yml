@@ -1,4 +1,3 @@
-name: Teable
 services:
   teable:
     image: teableio/teable:latest
@@ -9,23 +8,23 @@ services:
         reservations:
           memory: 512M
     ports:
-    - target: 3000
-      published: '3200'
-      protocol: tcp
+      - target: 3000
+        published: '3200'
+        protocol: tcp
     volumes:
-    - type: bind
-      source: /DATA/AppData/$AppID/assets
-      target: /app/.assets
+      - type: bind
+        source: /DATA/AppData/$AppID/assets
+        target: /app/.assets
     environment:
-    - TZ=UTC
-    - NEXT_ENV_IMAGES_ALL_REMOTE=true
-    - PUBLIC_ORIGIN=http://127.0.0.1:3000
-    - PRISMA_DATABASE_URL=postgresql://example:example@teable-db:5432/teable-db
-    - PUBLIC_DATABASE_PROXY=127.0.0.1:42345
-    - BACKEND_CACHE_PROVIDER=redis
-    - BACKEND_CACHE_REDIS_URI=redis://default:password@teable-cache:6379/0
+      - TZ=$TZ
+      - NEXT_ENV_IMAGES_ALL_REMOTE=true
+      - PUBLIC_ORIGIN=http://127.0.0.1:3000
+      - PRISMA_DATABASE_URL=postgresql://example:example@teable-db:5432/teable-db
+      - PUBLIC_DATABASE_PROXY=127.0.0.1:42345
+      - BACKEND_CACHE_PROVIDER=redis
+      - BACKEND_CACHE_REDIS_URI=redis://default:password@teable-cache:6379/0
     networks:
-    - teable-standalone
+      - teable-standalone
     depends_on:
       teable-db:
         condition: service_healthy
@@ -196,21 +195,25 @@ services:
       resources:
         reservations:
           memory: 256M
+    ports:
+      - target: 5432
+        published: '42345'
+        protocol: tcp
     volumes:
-    - type: bind
-      source: /DATA/AppData/$AppID/data
-      target: /var/lib/postgresql/data
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /var/lib/postgresql/data
     environment:
-    - TZ=UTC
-    - POSTGRES_DB=teable-db
-    - POSTGRES_USER=example
-    - POSTGRES_PASSWORD=example
+      - TZ=$TZ
+      - POSTGRES_DB=teable-db
+      - POSTGRES_USER=example
+      - POSTGRES_PASSWORD=example
     networks:
-    - teable-standalone
+      - teable-standalone
     healthcheck:
       test:
-      - CMD-SHELL
-      - sh -c 'pg_isready -U example -d teable-db'
+        - CMD-SHELL
+        - sh -c 'pg_isready -U example -d teable-db'
       interval: 10s
       timeout: 3s
       retries: 3
@@ -284,6 +287,24 @@ services:
             sv_SE: PostgreSQL password
             tr_TR: PostgreSQL password
             zh_CN: PostgreSQL password
+      ports:
+        - container: '5432'
+          description:
+            de_DE: PostgreSQL database port
+            el_GR: PostgreSQL database port
+            en_GB: PostgreSQL database port
+            en_US: PostgreSQL database port
+            fr_FR: PostgreSQL database port
+            hr_HR: PostgreSQL database port
+            it_IT: PostgreSQL database port
+            ja_JP: PostgreSQL database port
+            ko_KR: PostgreSQL database port
+            nb_NO: PostgreSQL database port
+            pt_PT: PostgreSQL database port
+            ru_RU: PostgreSQL database port
+            sv_SE: PostgreSQL database port
+            tr_TR: PostgreSQL database port
+            zh_CN: PostgreSQL database port
       volumes:
         - container: /var/lib/postgresql/data
           description:
@@ -310,22 +331,24 @@ services:
       resources:
         reservations:
           memory: 256M
+    expose:
+      - '6379'
     volumes:
-    - type: bind
-      source: /DATA/AppData/$AppID/teable-cache-data
-      target: /data
+      - type: bind
+        source: /DATA/AppData/$AppID/teable-cache-data
+        target: /data
     networks:
-    - teable-standalone
+      - teable-standalone
     command: 
       - redis-server 
       - --requirepass password
     healthcheck:
       test:
-      - CMD
-      - redis-cli
-      - --raw
-      - incr
-      - ping
+        - CMD
+        - redis-cli
+        - --raw
+        - incr
+        - ping
       interval: 10s
       timeout: 3s
       retries: 3
