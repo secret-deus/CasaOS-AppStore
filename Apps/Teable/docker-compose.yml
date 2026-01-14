@@ -201,9 +201,9 @@ services:
     networks:
       - teable-standalone
     command:
-      - "redis-server"
-      - "--requirepass"
-      - "password"
+      - redis-server
+      - --requirepass
+      - password
     healthcheck:
       test:
         - CMD
@@ -234,7 +234,6 @@ services:
 
 networks:
   teable-standalone:
-    name: teable-standalone-network
     driver: bridge
 
 x-casaos:
