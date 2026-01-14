@@ -24,7 +24,7 @@ services:
       - BACKEND_CACHE_PROVIDER=redis
       - BACKEND_CACHE_REDIS_URI=redis://default:password@teable-cache:6379/0
     networks:
-      - teable-standalone
+      - teable-network
     depends_on:
       teable-db:
         condition: service_healthy
@@ -205,7 +205,7 @@ services:
       - POSTGRES_USER=example
       - POSTGRES_PASSWORD=example
     networks:
-      - teable-standalone
+      - teable-network
     healthcheck:
       test:
         - CMD-SHELL
@@ -316,7 +316,7 @@ services:
         source: /DATA/AppData/$AppID/teable-cache-data
         target: /data
     networks:
-      - teable-standalone
+      - teable-network
     command: 
       - redis-server 
       - --requirepass password
@@ -350,8 +350,8 @@ services:
             tr_TR: Redis cache data storage
             zh_CN: Redis cache data storage
 networks:
-  teable-standalone:
-    name: teable-standalone-network
+  teable-network:
+    name: teable-network
     driver: bridge
 x-casaos:
   title:
@@ -388,215 +388,216 @@ x-casaos:
     zh_CN: Teable采用简洁的电子表格式界面，却能创建功能强大的数据库应用程序
   description:
     de_DE: |
-      ## Einführung
-      Teable ist eine Open-Source-Datenbankplattform der nächsten Generation. Sie bietet ein intuitives Tabellenkalkulationserlebnis, wird aber von einer leistungsstarken Postgres-Datenbank angetrieben und vereint so einfache Bedienung mit enormer Datenverarbeitungskapazität.
+      Teable ist eine neue Generation einer Open-Source-Datenbankplattform. Sie bietet eine intuitive, tabellenähnliche Benutzererfahrung, wird jedoch im Hintergrund von einer leistungsstarken Postgres-Datenbank angetrieben und vereint Benutzerfreundlichkeit mit leistungsstarker Datenverarbeitung.
 
-      ## Funktionen
-      -   **Hohe Leistung**: Basiert auf dem Postgres-Kernel und verarbeitet mühelos Millionen von Datensätzen mit extrem schneller Reaktionszeit.
-      -   **Moderne Benutzeroberfläche**: Unterstützt verschiedene Ansichten wie Raster (Grid), Kanban, Galerie und Formular mit einer benutzerfreundlichen Oberfläche.
-      -   **Echtzeit-Zusammenarbeit**: Ermöglicht mehreren Benutzern die gleichzeitige Online-Bearbeitung mit synchroner Datenaktualisierung.
-      -   **Automatisierung & API**: Leistungsstarke RESTful und GraphQL APIs für flexible Integrationen und Automatisierungen.
-      -   **Airtable-Kompatibilität**: Einfacher Import Ihrer Daten aus Airtable.
-      -   **Kostenlos & Open Source**: Volle Kontrolle über Ihre Daten ohne Vendor-Lock-in.
+      **Hauptfunktionen:**
+      - **Hohe Leistung**: Basierend auf dem Postgres-Kern verarbeitet es mühelos Daten im Millionenbereich mit extrem schnellen Reaktionszeiten.
+      - **Moderne Oberfläche**: Bietet mehrere Ansichten wie Raster, Kanban, Galerie und Formulare mit einer klaren und benutzerfreundlichen Oberfläche.
+      - **Echtzeit-Zusammenarbeit**: Unterstützt die gleichzeitige Online-Zusammenarbeit mehrerer Benutzer mit Echtzeit-Datensynchronisation.
+      - **Automatisierung & API**: Bietet leistungsstarke RESTful-APIs für flexible Integration und Automatisierung.
 
-      ## Dokumentation
-      [Besuchen Sie die Dokumentation](https://teable.io/docs)
+      **Mehr erfahren:**
+      - [Teable Offizielle Website](https://teable.ai)
+      - [Teable GitHub Repository](https://github.com/teableio/teable)
+      - [Hilfedokumentation](https://help.teable.ai)
+      
     el_GR: |
-      ## Εισαγωγή
-      Το Teable είναι μια πλατφόρμα βάσης δεδομένων ανοιχτού κώδικα της επόμενης γενιάς. Παρέχει μια διαισθητική εμπειρία υπολογιστικού φύλλου, αλλά τροφοδοτείται από μια ισχυρή βάση δεδομένων Postgres, συνδυάζοντας την ευκολία χρήσης με τεράστια ισχύ επεξεργασίας δεδομένων.
+      Το Teable είναι μια νέα γενιά πλατφόρμας βάσης δεδομένων ανοιχτού κώδικα. Προσφέρει μια διαισθητική εμπειρία παρόμοια με υπολογιστικό φύλλο, ενώ στο παρασκήνιο υποστηρίζεται από μια υψηλής απόδοσης βάση δεδομένων Postgres, συνδυάζοντας ευχρηστία και ισχυρή επεξεργασία δεδομένων.
 
-      ## Λειτουργίες
-      -   **Υψηλή Απόδοση**: Βασισμένο στον πυρήνα Postgres, διαχειρίζεται εύκολα εκατομμύρια δεδομένα με εξαιρετικά γρήγορο χρόνο απόκρισης.
-      -   **Μοντέρνο Περιβάλλον**: Υποστηρίζει διάφορες προβολές όπως Πλέγμα, Kanban, Συλλογή και Φόρμα με φιλικό περιβάλλον χρήστη.
-      -   **Συνεργασία σε Πραγματικό Χρόνο**: Επιτρέπει σε πολλαπλούς χρήστες να επεξεργάζονται ταυτόχρονα με συγχρονισμένη ενημέρωση δεδομένων.
-      -   **Αυτοματισμός & API**: Ισχυρά RESTful και GraphQL APIs για ευέλικτες ενσωματώσεις και αυτοματισμούς.
-      -   **Συμβατότητα με Airtable**: Εύκολη εισαγωγή των δεδομένων σας από το Airtable.
-      -   **Δωρεάν & Open Source**: Πλήρης έλεγχος των δεδομένων σας χωρίς περιορισμούς προμηθευτή.
+      **Κύρια χαρακτηριστικά:**
+      - **Υψηλή απόδοση**: Βασισμένο στον πυρήνα Postgres, διαχειρίζεται εύκολα δεδομένα εκατομμυρίων εγγραφών με εξαιρετικά γρήγορη απόκριση.
+      - **Σύγχρονο περιβάλλον**: Παρέχει πολλαπλές προβολές όπως πλέγμα, kanban, γκαλερί και φόρμες, με καθαρό και εύχρηστο σχεδιασμό.
+      - **Συνεργασία σε πραγματικό χρόνο**: Υποστηρίζει ταυτόχρονη διαδικτυακή συνεργασία πολλών χρηστών με άμεσο συγχρονισμό δεδομένων.
+      - **Αυτοματισμοί & API**: Παρέχει ισχυρά RESTful API για ευέλικτη ενσωμάτωση και αυτοματοποίηση.
 
-      ## Τεκμηρίωση
-      [Επισκεφθείτε την τεκμηρίωση](https://teable.io/docs)
+      **Μάθετε περισσότερα:**
+      - [Επίσημη ιστοσελίδα Teable](https://teable.ai)
+      - [Αποθετήριο Teable στο GitHub](https://github.com/teableio/teable)
+      - [Τεκμηρίωση βοήθειας](https://help.teable.ai)
+      
     en_GB: |
-      ## Introduction
-      Teable is a next-generation open-source database platform. It provides an intuitive spreadsheet experience but is powered by a high-performance Postgres database, combining ease of use with powerful data processing capabilities.
+      Teable is a new generation open-source database platform. It provides an intuitive spreadsheet-like experience, while being powered by a high-performance Postgres database underneath, combining ease of use with powerful data processing capabilities.
 
-      ## Features
-      -   **High Performance**: Built on Postgres kernel, it effortlessly handles millions of rows of data with extremely fast response times.
-      -   **Modern Interface**: Supports various views including Grid, Kanban, Gallery, and Form with a user-friendly interface.
-      -   **Real-time Collaboration**: Allows multiple users to edit online simultaneously with synchronous data updates.
-      -   **Automation & API**: Powerful RESTful and GraphQL APIs for flexible integrations and automations.
-      -   **Airtable Compatibility**: Easily import your data from Airtable.
-      -   **Free & Open Source**: Full control over your data without vendor lock-in.
+      **Key Features:**
+      - **High Performance**: Built on the Postgres core, it effortlessly handles millions of records with extremely fast response times.
+      - **Modern Interface**: Offers multiple views including grid, kanban, gallery, and forms, with a clean and user-friendly design.
+      - **Real-time Collaboration**: Supports multi-user online collaboration with real-time data synchronisation.
+      - **Automation & API**: Provides powerful RESTful APIs to enable flexible integration and automation.
 
-      ## Documentation
-      [Visit the documentation](https://teable.io/docs)
+      **Learn More:**
+      - [Teable Official Website](https://teable.ai)
+      - [Teable GitHub Repository](https://github.com/teableio/teable)
+      - [Help Documentation](https://help.teable.ai)
+      
     en_US: |
-      ## Introduction
-      Teable is a next-generation open-source database platform. It provides an intuitive spreadsheet experience but is powered by a high-performance Postgres database, combining ease of use with powerful data processing capabilities.
+      Teable is a new generation open-source database platform. It provides an intuitive spreadsheet-like experience, while being powered by a high-performance Postgres database underneath, combining ease of use with powerful data processing capabilities.
 
-      ## Features
-      -   **High Performance**: Built on Postgres kernel, it effortlessly handles millions of rows of data with extremely fast response times.
-      -   **Modern Interface**: Supports various views including Grid, Kanban, Gallery, and Form with a user-friendly interface.
-      -   **Real-time Collaboration**: Allows multiple users to edit online simultaneously with synchronous data updates.
-      -   **Automation & API**: Powerful RESTful and GraphQL APIs for flexible integrations and automations.
-      -   **Airtable Compatibility**: Easily import your data from Airtable.
-      -   **Free & Open Source**: Full control over your data without vendor lock-in.
+      **Key Features:**
+      - **High Performance**: Built on the Postgres core, it effortlessly handles millions of records with extremely fast response times.
+      - **Modern Interface**: Offers multiple views including grid, kanban, gallery, and forms, with a clean and user-friendly design.
+      - **Real-time Collaboration**: Supports multi-user online collaboration with real-time data synchronisation.
+      - **Automation & API**: Provides powerful RESTful APIs to enable flexible integration and automation.
 
-      ## Documentation
-      [Visit the documentation](https://teable.io/docs)
+      **Learn More:**
+      - [Teable Official Website](https://teable.ai)
+      - [Teable GitHub Repository](https://github.com/teableio/teable)
+      - [Help Documentation](https://help.teable.ai)
+    
     fr_FR: |
-      ## Introduction
-      Teable est une plateforme de base de données nouvelle génération et open source. Elle offre une expérience intuitive de tableur, mais est propulsée par une base de données Postgres hautes performances, combinant facilité d'utilisation et puissance de traitement des données.
+      Teable est une plateforme de base de données open source de nouvelle génération. Elle offre une expérience intuitive de type tableur, tout en étant propulsée en arrière-plan par une base de données Postgres haute performance, combinant simplicité d’utilisation et puissantes capacités de traitement des données.
 
-      ## Fonctionnalités
-      -   **Haute performance** : Basé sur le noyau Postgres, il gère sans effort des millions de lignes de données avec des temps de réponse extrêmement rapides.
-      -   **Interface moderne** : Prend en charge diverses vues, notamment Grille, Kanban, Galerie et Formulaire, avec une interface conviviale.
-      -   **Collaboration en temps réel** : Permet à plusieurs utilisateurs de modifier en ligne simultanément avec des mises à jour synchronisées des données.
-      -   **Automatisation et API** : API RESTful et GraphQL puissantes pour des intégrations et des automatisations flexibles.
-      -   **Compatibilité Airtable** : Importez facilement vos données depuis Airtable.
-      -   **Gratuit et Open Source** : Contrôle total de vos données sans dépendance vis-à-vis d'un fournisseur.
+      **Fonctionnalités principales :**
+      - **Haute performance** : Basée sur le cœur Postgres, elle gère facilement des millions de lignes avec des temps de réponse extrêmement rapides.
+      - **Interface moderne** : Propose plusieurs vues telles que grille, kanban, galerie et formulaires, avec une interface claire et conviviale.
+      - **Collaboration en temps réel** : Prend en charge la collaboration en ligne multi-utilisateurs avec synchronisation des données en temps réel.
+      - **Automatisation & API** : Fournit de puissantes API RESTful pour une intégration et une automatisation flexibles.
 
-      ## Documentation
-      [Visitez la documentation](https://teable.io/docs)
+      **En savoir plus :**
+      - [Site officiel de Teable](https://teable.ai)
+      - [Dépôt GitHub de Teable](https://github.com/teableio/teable)
+      - [Documentation d’aide](https://help.teable.ai)
+    
     hr_HR: |
-      ## Uvod
-      Teable je platforma baze podataka nove generacije otvorenog koda. Pruža intuitivno iskustvo proračunske tablice, ali napaja ju baza podataka visoke učinkovitosti Postgres, kombinirajući lakoću korištenja s moćnim mogućnostima obrade podataka.
+      Teable je nova generacija open-source platforme baza podataka. Pruža intuitivno iskustvo slično proračunskim tablicama, dok je u pozadini pokreće visokoučinkovita Postgres baza podataka, kombinirajući jednostavnost korištenja i snažnu obradu podataka.
 
-      ## Značajke
-      -   **Visoka učinkovitost**: Izgrađena na jezgri Postgres, bez napora rukuje milijunima redaka podataka s izuzetno brzim vremenima odgovora.
-      -   **Moderno sučelje**: Podržava različite prikaze uključujući Mrežu, Kanban, Galeriju i Obrazac s korisničkim sučeljem.
-      -   **Suradnja u stvarnom vremenu**: Omogućuje više korisnika da istovremeno uređuju na mreži s sinkroniziranim ažuriranjem podataka.
-      -   **Automatizacija i API**: Moćni RESTful i GraphQL API-ji za fleksibilne integracije i automatizacije.
-      -   **Kompatibilnost s Airtableom:** Jednostavno uvezite svoje podatke iz Airtablea.
-      -   **Besplatno i Open Source**: Potpuna kontrola nad vašim podacima bez ovisnosti o dobavljaču.
+      **Glavne značajke:**
+      - **Visoke performanse**: Temeljena na Postgres jezgri, bez poteškoća obrađuje milijune zapisa uz iznimno brzo vrijeme odziva.
+      - **Moderno sučelje**: Nudi više prikaza poput mreže, kanbana, galerije i obrazaca, s čistim i jednostavnim dizajnom.
+      - **Suradnja u stvarnom vremenu**: Podržava istovremenu online suradnju više korisnika uz sinkronizaciju podataka u stvarnom vremenu.
+      - **Automatizacija i API**: Omogućuje snažne RESTful API-je za fleksibilnu integraciju i automatizaciju.
 
-      ## Dokumentacija
-      [Posjetite dokumentaciju](https://teable.io/docs)
-    it_IT: |
-      ## Introduzione
-      Teable è una piattaforma di database open source di nuova generazione. Offre un'esperienza intuitiva di foglio di calcolo, ma è alimentata da un database Postgres ad alte prestazioni, combinando facilità d'uso e potenti capacità di elaborazione dei dati.
+      **Saznajte više:**
+      - [Službena web-stranica Teable](https://teable.ai)
+      - [Teable GitHub repozitorij](https://github.com/teableio/teable)
+      - [Dokumentacija pomoći](https://help.teable.ai)
+    
+    it_IT: | 
+      Teable è una piattaforma di database open source di nuova generazione. Offre un’esperienza intuitiva simile a un foglio di calcolo, ma è alimentata internamente da un database Postgres ad alte prestazioni, combinando facilità d’uso e potenti capacità di elaborazione dei dati.
 
-      ## Funzionalità
-      -   **Alte prestazioni**: Basato sul kernel Postgres, gestisce senza problemi milioni di righe di dati con tempi di risposta estremamente rapidi.
-      -   **Interfaccia moderna**: Supporta varie viste tra cui Griglia, Kanban, Galleria e Modulo con un'interfaccia utente intuitiva.
-      -   **Collaborazione in tempo reale**: Consente a più utenti di modificare online simultaneamente con aggiornamenti dati sincronizzati.
-      -   **Automazione e API**: Potenti API RESTful e GraphQL per integrazioni flessibili e automazioni.
-      -   **Compatibilità Airtable**: Importa facilmente i tuoi dati da Airtable.
-      -   **Gratuito e Open Source**: Controllo completo dei tuoi dati senza vincoli fornitore.
+      **Funzionalità principali:**
+      - **Alte prestazioni**: Basata sul core Postgres, gestisce facilmente milioni di record con tempi di risposta estremamente rapidi.
+      - **Interfaccia moderna**: Offre diverse viste come griglia, kanban, galleria e moduli, con un’interfaccia pulita e facile da usare.
+      - **Collaborazione in tempo reale**: Supporta la collaborazione online multiutente con sincronizzazione dei dati in tempo reale.
+      - **Automazione e API**: Fornisce potenti API RESTful per integrazioni e automazioni flessibili.
 
-      ## Documentazione
-      [Visita la documentazione](https://teable.io/docs)
+      **Scopri di più:**
+      - [Sito ufficiale di Teable](https://teable.ai)
+      - [Repository GitHub di Teable](https://github.com/teableio/teable)
+      - [Documentazione di supporto](https://help.teable.ai)
+  
     ja_JP: |
-      ## 紹介
-      Teableは次世代のオープンソースデータベースプラットフォームです。直感的なスプレッドシート体験を提供しながら、高性能なPostgresデータベースによって駆動されており、使いやすさと強力なデータ処理能力を兼ね備えています。
+      Teable は新世代のオープンソースデータベースプラットフォームです。スプレッドシートのような直感的な操作体験を提供しつつ、背後では高性能な Postgres データベースによって駆動され、使いやすさと強力なデータ処理能力を兼ね備えています。
 
-      ## 機能
-      -   **高パフォーマンス**: Postgresカーネルに基づいており、数百万行のデータを極めて高速な応答時間で処理できます。
-      -   **モダンなインターフェース**: ユーザーフレンドリーなインターフェースで、グリッド、かんばん、ギャラリー、フォームなどの多様なビューをサポートします。
-      -   **リアルタイムコラボレーション**: 複数のユーザーがオンラインで同時に編集でき、データを同期して更新できます。
-      -   **自動化とAPI**: 柔軟な統合と自動化のための強力なRESTfulおよびGraphQL API。
-      -   **Airtable互換**: Airtableからデータを簡単にインポートできます。
-      -   **無料でオープンソース**: ベンダーロックインなしでデータを完全にコントロールできます。
+      **主な機能:**
+      - **高性能**：Postgres コアを基盤とし、数百万件規模のデータを高速に処理します。
+      - **モダンなインターフェース**：グリッド、カンバン、ギャラリー、フォームなど複数のビューを提供し、シンプルで使いやすい UI を実現しています。
+      - **リアルタイムコラボレーション**：複数ユーザーによるオンライン同時編集とリアルタイム同期に対応しています。
+      - **自動化と API**：柔軟な連携と自動化を可能にする強力な RESTful API を提供します。
 
-      ## ドキュメント
-      [ドキュメントを見る](https://teable.io/docs)
+      **詳細はこちら:**
+      - [Teable 公式サイト](https://teable.ai)
+      - [Teable GitHub リポジトリ](https://github.com/teableio/teable)
+      - [ヘルプドキュメント](https://help.teable.ai)
+      
     ko_KR: |
-      ## 소개
-      Teable은 차세대 오픈 소스 데이터베이스 플랫폼입니다. 직관적인 스프레드시트 환경을 제공하지만, 고성능 Postgres 데이터베이스로 구동되어 사용 편의성과 강력한 데이터 처리 능력을 결합했습니다.
+      Teable은 차세대 오픈 소스 데이터베이스 플랫폼입니다. 스프레드시트와 유사한 직관적인 사용 경험을 제공하면서, 내부적으로는 고성능 Postgres 데이터베이스를 기반으로 하여 사용 편의성과 강력한 데이터 처리 기능을 모두 갖추고 있습니다.
 
-      ## 기능
-      -   **고성능**: Postgres 커널 기반으로 수백만 행의 데이터를 극도로 빠른 응답 시간으로 처리합니다.
-      -   **현대적 인터페이스**: 사용자 친화적인 인터페이스로 그리드, 칸반, 갤러리, 양식 등 다양한 보기를 지원합니다.
-      -   **실시간 협업**: 여러 사용자가 온라인에서 동시에 편집하고 데이터를 동기식으로 업데이트할 수 있습니다.
-      -   **자동화 및 API**: 유연한 통합 및 자동화를 위한 강력한 RESTful 및 GraphQL API.
-      -   **Airtable 호환성:** Airtable에서 데이터를 쉽게 가져올 수 있습니다.
-      -   **무료 및 오픈 소스**: 공급업체 종속성 없이 데이터를 완전히 제어할 수 있습니다.
+      **주요 기능:**
+      - **고성능**: Postgres 코어를 기반으로 수백만 건의 데이터를 손쉽게 처리하며 매우 빠른 응답 속도를 제공합니다.
+      - **현대적인 인터페이스**: 그리드, 칸반, 갤러리, 폼 등 다양한 뷰를 제공하며 깔끔하고 사용하기 쉬운 UI를 갖추고 있습니다.
+      - **실시간 협업**: 여러 사용자가 동시에 온라인으로 협업하며 데이터가 실시간으로 동기화됩니다.
+      - **자동화 및 API**: 유연한 통합과 자동화를 지원하는 강력한 RESTful API를 제공합니다.
 
-      ## 문서
-      [문서 보기](https://teable.io/docs)
+      **자세히 알아보기:**
+      - [Teable 공식 웹사이트](https://teable.ai)
+      - [Teable GitHub 저장소](https://github.com/teableio/teable)
+      - [도움말 문서](https://help.teable.ai)
+    
     nb_NO: |
-      ## Introduksjon
-      Teable er en åpen kilde databaseplattform i neste generasjon. Den tilbyr en intuitiv regnearkopplevelse, men drives av en høytytelses Postgres-database, og kombinerer brukervennlighet med kraftfulle databehandlingsmuligheter.
+      Teable er en ny generasjon åpen kildekode-databaseplattform. Den tilbyr en intuitiv regneark-lignende opplevelse, samtidig som den drives av en høyytelses Postgres-database i bakgrunnen, og kombinerer brukervennlighet med kraftig databehandling.
 
-      ## Funksjoner
-      -   **Høy ytelse:** Bygget på Postgres-kjernen, håndterer den uten problemer millioner av datarader med ekstremt raske svartider.
-      -   **Moderne grensesnitt:** Støtter ulike visninger, inkludert Rutenett, Kanban, Galleri og Skjema, med et brukervennlig grensesnitt.
-      -   **Sanntidssamarbeid:** Tillater flere brukere å redigere online samtidig med synkroniserte dataoppdateringer.
-      -   **Automatisering og API:** Kraftige RESTful og GraphQL API-er for fleksible integrasjoner og automatiseringer.
-      -   **Airtable-kompatibilitet:** Importer dataene dine enkelt fra Airtable.
-      -   **Gratis og Open Source:** Full kontroll over dataene dine uten leverandørlåsing.
+      **Hovedfunksjoner:**
+      - **Høy ytelse**: Bygget på Postgres-kjernen, håndterer den enkelt millioner av rader med ekstremt raske responstider.
+      - **Moderne grensesnitt**: Tilbyr flere visninger som rutenett, kanban, galleri og skjemaer, med et rent og brukervennlig design.
+      - **Sanntidssamarbeid**: Støtter samarbeid mellom flere brukere på nett med sanntidssynkronisering av data.
+      - **Automatisering og API**: Tilbyr kraftige RESTful API-er for fleksibel integrasjon og automatisering.
 
-      ## Dokumentasjon
-      [Besøk dokumentasjonen](https://teable.io/docs)
+
+      **Les mer:**
+      - [Teable offisielle nettsted](https://teable.ai)
+      - [Teable GitHub-repositorium](https://github.com/teableio/teable)
+      - [Hjelpedokumentasjon](https://help.teable.ai)
+      
     pt_PT: |
-      ## Introdução
-      O Teable é uma plataforma de banco de dados de código aberto de última geração. Ele fornece uma experiência intuitiva de planilha, mas é alimentado por um banco de dados Postgres de alto desempenho, combinando facilidade de uso com poderosos recursos de processamento de dados.
+      Teable é uma plataforma de base de dados open source de nova geração. Oferece uma experiência intuitiva semelhante a uma folha de cálculo, sendo suportada por uma base de dados Postgres de alto desempenho, combinando facilidade de utilização com um poderoso processamento de dados.
 
-      ## Recursos
-      -   **Alto Desempenho**: Construído com o kernel Postgres, ele lida sem esforço com milhões de linhas de dados com tempos de resposta extremamente rápidos.
-      -   **Interface Moderna**: Suporta várias visualizações, incluindo Grade, Kanban, Galeria e Formulário, com uma interface amigável.
-      -   **Colaboração em Tempo Real**: Permite que múltiplos usuários editem online simultaneamente com atualizações de dados síncronas.
-      -   **Automação e API**: APIs RESTful e GraphQL poderosas para integrações e automações flexíveis.
-      -   **Compatibilidade com Airtable**: Importe facilmente seus dados do Airtable.
-      -   **Gratuito e Open Source**: Controle total sobre seus dados sem bloqueio de fornecedor.
+      **Principais funcionalidades:**
+      - **Alto desempenho**: Baseada no núcleo Postgres, lida facilmente com milhões de registos com tempos de resposta extremamente rápidos.
+      - **Interface moderna**: Disponibiliza várias vistas como grelha, kanban, galeria e formulários, com um design limpo e intuitivo.
+      - **Colaboração em tempo real**: Suporta colaboração online entre vários utilizadores com sincronização de dados em tempo real.
+      - **Automação e API**: Fornece APIs RESTful poderosas para integração e automação flexíveis.
 
-      ## Documentação
-      [Visite a documentação](https://teable.io/docs)
+      **Saber mais:**
+      - [Website oficial do Teable](https://teable.ai)
+      - [Repositório GitHub do Teable](https://github.com/teableio/teable)
+      - [Documentação de ajuda](https://help.teable.ai)
+      
     ru_RU: |
-      ## Введение
-      Teable — это платформа баз данных нового поколения с открытым исходным кодом. Она обеспечивает интуитивно понятный интерфейс электронных таблиц, но работает на базе высокопроизводительной базы данных Postgres, объединяя простоту использования с мощными возможностями обработки данных.
+      Teable — это новое поколение платформы баз данных с открытым исходным кодом. Она предоставляет интуитивно понятный интерфейс, похожий на электронные таблицы, при этом работает на базе высокопроизводительной базы данных Postgres, сочетая простоту использования и мощную обработку данных.
 
-      ## Функции
-      -   **Высокая производительность**: Основана на ядре Postgres, с легкостью обрабатывает миллионы строк данных с экстремально быстрым временем отклика.
-      -   **Современный интерфейс**: Поддерживает различные представления, включая Сетку, Канбан, Галерею и Форму, с удобным пользовательским интерфейсом.
-      -   **Совместная работа в реальном времени**: Позволяет нескольким пользователям редактировать онлайн одновременно с синхронизированным обновлением данных.
-      -   **Автоматизация и API**: Мощные RESTful и GraphQL API для гибкой интеграции и автоматизации.
-      -   **Совместимость с Airtable**: Легкий импорт данных из Airtable.
-      -   **Бесплатно и Open Source**: Полный контроль над вашими данными без привязки к поставщику.
+      **Основные возможности:**
+      - **Высокая производительность**: Основана на ядре Postgres и легко обрабатывает миллионы записей с чрезвычайно высокой скоростью отклика.
+      - **Современный интерфейс**: Предлагает различные представления, включая таблицу, канбан, галерею и формы, с чистым и удобным дизайном.
+      - **Совместная работа в реальном времени**: Поддерживает одновременную онлайн-работу нескольких пользователей с мгновенной синхронизацией данных.
+      - **Автоматизация и API**: Предоставляет мощные RESTful API для гибкой интеграции и автоматизации.
 
-      ## Документация
-      [Посетите документацию](https://teable.io/docs)
+      **Узнать больше:**
+      - [Официальный сайт Teable](https://teable.ai)
+      - [Репозиторий Teable на GitHub](https://github.com/teableio/teable)
+      - [Документация помощи](https://help.teable.ai)
+      
     sv_SE: |
-      ## Introduktion
-      Teable är en öppen källkods-databasplattform i nästa generation. Den erbjuder en intuitiv kalkylbladsupplevelse men drivs av en högpresterande Postgres-databas, vilket kombinerar användarvänlighet med kraftfulla databehandlingsmöjligheter.
+      Teable är en ny generation av databassplattform med öppen källkod. Den erbjuder en intuitiv kalkylblads-liknande upplevelse, samtidigt som den drivs av en högpresterande Postgres-databas i bakgrunden, och kombinerar användarvänlighet med kraftfull databehandling.
 
-      ## Funktioner
-      -   **Hög prestanda:** Byggd på Postgres-kärnan, hanterar den utan ansträngning miljontals datarader med extremt snabba svarstider.
-      -   **Modernt gränssnitt:** Stöder olika vyer inklusive Rutnät, Kanban, Galleri och Formulär med ett användarvänligt gränssnitt.
-      -   **Realtidssamarbete:** Tillåter flera användare att redigera online samtidigt med synkroniserade datauppdateringar.
-      -   **Automatisering och API:** Kraftfulla RESTful och GraphQL API:er för flexibla integrationer och automatiseringar.
-      -   **Airtable-kompatibilitet:** Importera enkelt dina data från Airtable.
-      -   **Gratis och Open Source:** Full kontroll över dina data utan leverantörslåsning.
+      **Huvudfunktioner:**
+      - **Hög prestanda**: Byggd på Postgres-kärnan och hanterar enkelt miljontals rader med extremt snabba svarstider.
+      - **Modernt gränssnitt**: Erbjuder flera vyer såsom rutnät, kanban, galleri och formulär, med en ren och lättanvänd design.
+      - **Samarbete i realtid**: Stöder samarbete mellan flera användare online med datasynkronisering i realtid.
+      - **Automatisering och API**: Tillhandahåller kraftfulla RESTful API:er för flexibel integration och automatisering.
 
-      ## Dokumentation
-      [Besök dokumentationen](https://teable.io/docs)
+      **Läs mer:**
+      - [Teable officiella webbplats](https://teable.ai)
+      - [Teable GitHub-repository](https://github.com/teableio/teable)
+      - [Hjälpdokumentation](https://help.teable.ai)
+      
     tr_TR: |
-      ## Giriş
-      Teable, yeni nesil açık kaynaklı bir veritabanı platformudur. Sezgisel bir elektronik tablo deneyimi sunar ancak yüksek performanslı bir Postgres veritabanı tarafından desteklenir; kullanım kolaylığını güçlü veri işleme yetenekleriyle birleştirir.
+      Teable, yeni nesil bir açık kaynak veritabanı platformudur. Elektronik tabloya benzer sezgisel bir kullanım deneyimi sunarken, arka planda yüksek performanslı bir Postgres veritabanı tarafından desteklenir ve kullanım kolaylığını güçlü veri işleme yetenekleriyle birleştirir.
 
-      ## Özellikler
-      -   **Yüksek Performans**: Postgres çekirdeği üzerine inşa edilmiştir, milyonlarca satır veriyi son derecede hızlı yanıt süreleriyle zahmetsizce işleyebilir.
-      -   **Modern Arayüz**: Kullanıcı dostu bir arayüzle Izgara, Kanban, Galeri ve Form gibi çeşitli görünümleri destekler.
-      -   **Gerçek Zamanlı İşbirliği**: Çoklu kullanıcının eşzamanlı olarak çevrimiçi düzenlemesine ve verilerin senkronize güncellenmesine izin verir.
-      -   **Otomasyon ve API**: Esnek entegrasyonlar ve otomasyonlar için güçlü RESTful ve GraphQL API'leri.
-      -   **Airtable Uyumluluğu:** Verilerinizi Airtable'dan kolayca içe aktarın.
-      -   **Ücretsiz ve Açık Kaynak**: Tedarikçi kilidi olmadan verilerinizin tam kontrolüne sahip olun.
+      **Temel özellikler:**
+      - **Yüksek performans**: Postgres çekirdeği üzerine inşa edilmiştir ve milyonlarca kaydı son derece hızlı yanıt süreleriyle kolayca işler.
+      - **Modern arayüz**: Izgara, kanban, galeri ve formlar gibi birden fazla görünüm sunar; sade ve kullanıcı dostu bir tasarıma sahiptir.
+      - **Gerçek zamanlı iş birliği**: Birden fazla kullanıcının çevrim içi olarak aynı anda çalışmasını ve verilerin gerçek zamanlı senkronizasyonunu destekler.
+      - **Otomasyon ve API**: Esnek entegrasyon ve otomasyon için güçlü RESTful API’ler sunar.
 
-      ## Dokümantasyon
-      [Dokümantasyonu ziyaret edin](https://teable.io/docs)
+      **Daha fazla bilgi:**
+      - [Teable Resmî Web Sitesi](https://teable.ai)
+      - [Teable GitHub Deposu](https://github.com/teableio/teable)
+      - [Yardım Dokümantasyonu](https://help.teable.ai)
+      
     zh_CN: |
-      ## 简介
       Teable 是新一代的开源数据库平台。它提供了类似电子表格的直观操作体验，但背后由高性能的 Postgres 数据库驱动，兼具了易用性与强大的数据处理能力。
 
-      ## 功能
-      -   **高性能**：基于 Postgres 内核，轻松处理百万级数据，响应速度极快。
-      -   **现代界面**：提供网格、看板、图库、表单等多种视图，界面简洁易用。
-      -   **实时协作**：支持多人在线协同编辑，数据实时同步更新。
-      -   **自动化与 API**：提供强大的 RESTful 和 GraphQL API，支持灵活的集成与自动化。
-      -   **Airtable 兼容**：支持从 Airtable 一键导入数据。
-      -   **免费开源**：完全掌控您的数据，无供应商锁定。
+      **主要功能:**
+      - **高性能**：基于 Postgres 内核，轻松处理百万级数据，响应速度极快。
+      - **现代界面**：提供网格、看板、图库、表单等多种视图，界面简洁易用。
+      - **实时协作**：支持多人在线协同编辑，数据实时同步更新。
+      - **自动化与 API**：提供强大的 RESTful API，支持灵活的集成与自动化。
 
-      ## 文档
-      [查看文档](https://teable.io/docs)
+      **了解更多:**
+      - [Teable 官方网站](https://teable.ai)
+      - [Teable GitHub 仓库](https://github.com/teableio/teable)
+      - [帮助文档](https://help.teable.ai)
+
   category: Utilities
   author: teableio
   developer: teableio
@@ -609,5 +610,6 @@ x-casaos:
   port_map: '3200'
   architectures:
     - amd64
+    - arm64
   index: /
   scheme: http
