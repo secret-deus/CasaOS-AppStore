@@ -1,3 +1,4 @@
+name: Teable
 services:
   teable:
     image: teableio/teable:latest
