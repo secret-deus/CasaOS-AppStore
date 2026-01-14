@@ -1,30 +1,30 @@
+name: Teable
 services:
   teable:
     image: teableio/teable:latest
     container_name: teable
-    restart: always
+    restart: unless-stopped
     deploy:     
       resources:
         reservations:
           memory: 512M
     ports:
-    - target: 3000
-      published: '3200'
-      protocol: tcp
+      - target: 3000
+        published: 3200
+        protocol: tcp
     volumes:
-    - type: bind
-      source: /DATA/AppData/$AppID/assets
-      target: /app/.assets
+      - type: bind
+        source: /DATA/AppData/$AppID/assets
+        target: /app/.assets
     environment:
-    - TZ=UTC
-    - NEXT_ENV_IMAGES_ALL_REMOTE=true
-    - PUBLIC_ORIGIN=http://127.0.0.1:3000
-    - PRISMA_DATABASE_URL=postgresql://example:example@teable-db:5432/teable-db
-    - PUBLIC_DATABASE_PROXY=127.0.0.1:42345
-    - BACKEND_CACHE_PROVIDER=redis
-    - BACKEND_CACHE_REDIS_URI=redis://default:password@teable-cache:6379/0
+      - TZ=$TZ
+      - NEXT_ENV_IMAGES_ALL_REMOTE=true
+      - PUBLIC_ORIGIN=http://127.0.0.1:3200 
+      - PRISMA_DATABASE_URL=postgresql://example:example@teable-db:5432/teable-db
+      - BACKEND_CACHE_PROVIDER=redis
+      - BACKEND_CACHE_REDIS_URI=redis://default:password@teable-cache:6379/0
     networks:
-    - teable-standalone
+      - teable-standalone
     depends_on:
       teable-db:
         condition: service_healthy
@@ -32,576 +32,460 @@ services:
         condition: service_healthy
     x-casaos:
       envs:
-      - container: TZ
-        description:
-          de_DE: Timezone for the application
-          el_GR: Timezone for the application
-          en_GB: Timezone for the application
-          en_US: Timezone for the application
-          fr_FR: Timezone for the application
-          hr_HR: Timezone for the application
-          it_IT: Timezone for the application
-          ja_JP: Timezone for the application
-          ko_KR: Timezone for the application
-          nb_NO: Timezone for the application
-          pt_PT: Timezone for the application
-          ru_RU: Timezone for the application
-          sv_SE: Timezone for the application
-          tr_TR: Timezone for the application
-          zh_CN: Timezone for the application
-      - container: NEXT_ENV_IMAGES_ALL_REMOTE
-        description:
-          de_DE: Next.js image optimization configuration
-          el_GR: Next.js image optimization configuration
-          en_GB: Next.js image optimization configuration
-          en_US: Next.js image optimization configuration
-          fr_FR: Next.js image optimization configuration
-          hr_HR: Next.js image optimization configuration
-          it_IT: Next.js image optimization configuration
-          ja_JP: Next.js image optimization configuration
-          ko_KR: Next.js image optimization configuration
-          nb_NO: Next.js image optimization configuration
-          pt_PT: Next.js image optimization configuration
-          ru_RU: Next.js image optimization configuration
-          sv_SE: Next.js image optimization configuration
-          tr_TR: Next.js image optimization configuration
-          zh_CN: Next.js image optimization configuration
-      - container: PUBLIC_ORIGIN
-        description:
-          de_DE: Public URL origin for the application
-          el_GR: Public URL origin for the application
-          en_GB: Public URL origin for the application
-          en_US: Public URL origin for the application
-          fr_FR: Public URL origin for the application
-          hr_HR: Public URL origin for the application
-          it_IT: Public URL origin for the application
-          ja_JP: Public URL origin for the application
-          ko_KR: Public URL origin for the application
-          nb_NO: Public URL origin for the application
-          pt_PT: Public URL origin for the application
-          ru_RU: Public URL origin for the application
-          sv_SE: Public URL origin for the application
-          tr_TR: Public URL origin for the application
-          zh_CN: Public URL origin for the application
-      - container: PRISMA_DATABASE_URL
-        description:
-          de_DE: Database connection string for Prisma ORM
-          el_GR: Database connection string for Prisma ORM
-          en_GB: Database connection string for Prisma ORM
-          en_US: Database connection string for Prisma ORM
-          fr_FR: Database connection string for Prisma ORM
-          hr_HR: Database connection string for Prisma ORM
-          it_IT: Database connection string for Prisma ORM
-          ja_JP: Database connection string for Prisma ORM
-          ko_KR: Database connection string for Prisma ORM
-          nb_NO: Database connection string for Prisma ORM
-          pt_PT: Database connection string for Prisma ORM
-          ru_RU: Database connection string for Prisma ORM
-          sv_SE: Database connection string for Prisma ORM
-          tr_TR: Database connection string for Prisma ORM
-          zh_CN: Database connection string for Prisma ORM
-      - container: PUBLIC_DATABASE_PROXY
-        description:
-          de_DE: Database proxy configuration
-          el_GR: Database proxy configuration
-          en_GB: Database proxy configuration
-          en_US: Database proxy configuration
-          fr_FR: Database proxy configuration
-          hr_HR: Database proxy configuration
-          it_IT: Database proxy configuration
-          ja_JP: Database proxy configuration
-          ko_KR: Database proxy configuration
-          nb_NO: Database proxy configuration
-          pt_PT: Database proxy configuration
-          ru_RU: Database proxy configuration
-          sv_SE: Database proxy configuration
-          tr_TR: Database proxy configuration
-          zh_CN: Database proxy configuration
-      - container: BACKEND_CACHE_PROVIDER
-        description:
-          de_DE: Cache provider for the backend service
-          el_GR: Cache provider for the backend service
-          en_GB: Cache provider for the backend service
-          en_US: Cache provider for the backend service
-          fr_FR: Cache provider for the backend service
-          hr_HR: Cache provider for the backend service
-          it_IT: Cache provider for the backend service
-          ja_JP: Cache provider for the backend service
-          ko_KR: Cache provider for the backend service
-          nb_NO: Cache provider for the backend service
-          pt_PT: Cache provider for the backend service
-          ru_RU: Cache provider for the backend service
-          sv_SE: Cache provider for the backend service
-          tr_TR: Cache provider for the backend service
-          zh_CN: Cache provider for the backend service
-      - container: BACKEND_CACHE_REDIS_URI
-        description:
-          de_DE: Redis connection URI for caching
-          el_GR: Redis connection URI for caching
-          en_GB: Redis connection URI for caching
-          en_US: Redis connection URI for caching
-          fr_FR: Redis connection URI for caching
-          hr_HR: Redis connection URI for caching
-          it_IT: Redis connection URI for caching
-          ja_JP: Redis connection URI for caching
-          ko_KR: Redis connection URI for caching
-          nb_NO: Redis connection URI for caching
-          pt_PT: Redis connection URI for caching
-          ru_RU: Redis connection URI for caching
-          sv_SE: Redis connection URI for caching
-          tr_TR: Redis connection URI for caching
-          zh_CN: Redis connection URI for caching
+        - container: TZ
+          description:
+            de_DE: Timezone for the application
+            el_GR: Timezone for the application
+            en_GB: Timezone for the application
+            en_US: Timezone for the application
+            fr_FR: Timezone for the application
+            hr_HR: Timezone for the application
+            it_IT: Timezone for the application
+            ja_JP: Timezone for the application
+            ko_KR: Timezone for the application
+            nb_NO: Timezone for the application
+            pt_PT: Timezone for the application
+            ru_RU: Timezone for the application
+            sv_SE: Timezone for the application
+            tr_TR: Timezone for the application
+            zh_CN: 应用程序的时区
+        - container: PRISMA_DATABASE_URL
+          description:
+            de_DE: Database connection string for Prisma ORM
+            el_GR: Database connection string for Prisma ORM
+            en_GB: Database connection string for Prisma ORM
+            en_US: Database connection string for Prisma ORM
+            fr_FR: Database connection string for Prisma ORM
+            hr_HR: Database connection string for Prisma ORM
+            it_IT: Database connection string for Prisma ORM
+            ja_JP: Database connection string for Prisma ORM
+            ko_KR: Database connection string for Prisma ORM
+            nb_NO: Database connection string for Prisma ORM
+            pt_PT: Database connection string for Prisma ORM
+            ru_RU: Database connection string for Prisma ORM
+            sv_SE: Database connection string for Prisma ORM
+            tr_TR: Database connection string for Prisma ORM
+            zh_CN: Prisma ORM 的数据库连接字符串
+        - container: BACKEND_CACHE_REDIS_URI
+          description:
+            de_DE: Redis connection URI for caching
+            el_GR: Redis connection URI for caching
+            en_GB: Redis connection URI for caching
+            en_US: Redis connection URI for caching
+            fr_FR: Redis connection URI for caching
+            hr_HR: Redis connection URI for caching
+            it_IT: Redis connection URI for caching
+            ja_JP: Redis connection URI for caching
+            ko_KR: Redis connection URI for caching
+            nb_NO: Redis connection URI for caching
+            pt_PT: Redis connection URI for caching
+            ru_RU: Redis connection URI for caching
+            sv_SE: Redis connection URI for caching
+            tr_TR: Redis connection URI for caching
+            zh_CN: 用于缓存的 Redis 连接 URI
       ports:
-      - container: '3000'
-        description:
-          de_DE: Haupt-Weboberflächen-Port
-          el_GR: Main web interface port
-          en_GB: Main web interface port
-          en_US: Main web interface port
-          fr_FR: Main web interface port
-          hr_HR: Main web interface port
-          it_IT: Main web interface port
-          ja_JP: Main web interface port
-          ko_KR: Main web interface port
-          nb_NO: Main web interface port
-          pt_PT: Main web interface port
-          ru_RU: Main web interface port
-          sv_SE: Main web interface port
-          tr_TR: Main web interface port
-          zh_CN: 主 Web 界面端口
+        - container: "3000"
+          description:
+            de_DE: Main web interface port
+            el_GR: Main web interface port
+            en_GB: Main web interface port
+            en_US: Main web interface port
+            fr_FR: Main web interface port
+            hr_HR: Main web interface port
+            it_IT: Main web interface port
+            ja_JP: Main web interface port
+            ko_KR: Main web interface port
+            nb_NO: Main web interface port
+            pt_PT: Main web interface port
+            ru_RU: Main web interface port
+            sv_SE: Main web interface port
+            tr_TR: Main web interface port
+            zh_CN: 主 Web 界面端口
       volumes:
-      - container: /app/.assets
-        description:
-          de_DE: Application assets and static files
-          el_GR: Application assets and static files
-          en_GB: Application assets and static files
-          en_US: Application assets and static files
-          fr_FR: Application assets and static files
-          hr_HR: Application assets and static files
-          it_IT: Application assets and static files
-          ja_JP: Application assets and static files
-          ko_KR: Application assets and static files
-          nb_NO: Application assets and static files
-          pt_PT: Application assets and static files
-          ru_RU: Application assets and static files
-          sv_SE: Application assets and static files
-          tr_TR: Application assets and static files
-          zh_CN: Application assets and static files
+        - container: /app/.assets
+          description:
+            de_DE: Application assets and static files
+            el_GR: Application assets and static files
+            en_GB: Application assets and static files
+            en_US: Application assets and static files
+            fr_FR: Application assets and static files
+            hr_HR: Application assets and static files
+            it_IT: Application assets and static files
+            ja_JP: Application assets and static files
+            ko_KR: Application assets and static files
+            nb_NO: Application assets and static files
+            pt_PT: Application assets and static files
+            ru_RU: Application assets and static files
+            sv_SE: Application assets and static files
+            tr_TR: Application assets and static files
+            zh_CN: 应用资源文件和静态文件
+
   teable-db:
     image: postgres:15
-    restart: always
+    restart: unless-stopped
     container_name: teable-db
     deploy:
       resources:
         reservations:
           memory: 256M
-    ports:
-    - target: 5432
-      published: '42345'
-      protocol: tcp
     volumes:
-    - type: bind
-      source: /DATA/AppData/$AppID/data
-      target: /var/lib/postgresql/data
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /var/lib/postgresql/data
     environment:
-    - TZ=UTC
-    - POSTGRES_DB=teable-db
-    - POSTGRES_USER=example
-    - POSTGRES_PASSWORD=example
+      - TZ=UTC
+      - POSTGRES_DB=teable-db
+      - POSTGRES_USER=example
+      - POSTGRES_PASSWORD=example
     networks:
-    - teable-standalone
+      - teable-standalone
     healthcheck:
       test:
-      - CMD-SHELL
-      - sh -c 'pg_isready -U example -d teable-db'
+        - CMD-SHELL
+        - sh -c 'pg_isready -U example -d teable-db'
       interval: 10s
       timeout: 3s
       retries: 3
     x-casaos:
       envs:
-      - container: TZ
-        description:
-          de_DE: Timezone for the database
-          el_GR: Timezone for the database
-          en_GB: Timezone for the database
-          en_US: Timezone for the database
-          fr_FR: Timezone for the database
-          hr_HR: Timezone for the database
-          it_IT: Timezone for the database
-          ja_JP: Timezone for the database
-          ko_KR: Timezone for the database
-          nb_NO: Timezone for the database
-          pt_PT: Timezone for the database
-          ru_RU: Timezone for the database
-          sv_SE: Timezone for the database
-          tr_TR: Timezone for the database
-          zh_CN: Timezone for the database
-      - container: POSTGRES_DB
-        description:
-          de_DE: PostgreSQL database name
-          el_GR: PostgreSQL database name
-          en_GB: PostgreSQL database name
-          en_US: PostgreSQL database name
-          fr_FR: PostgreSQL database name
-          hr_HR: PostgreSQL database name
-          it_IT: PostgreSQL database name
-          ja_JP: PostgreSQL database name
-          ko_KR: PostgreSQL database name
-          nb_NO: PostgreSQL database name
-          pt_PT: PostgreSQL database name
-          ru_RU: PostgreSQL database name
-          sv_SE: PostgreSQL database name
-          tr_TR: PostgreSQL database name
-          zh_CN: PostgreSQL database name
-      - container: POSTGRES_USER
-        description:
-          de_DE: PostgreSQL username
-          el_GR: PostgreSQL username
-          en_GB: PostgreSQL username
-          en_US: PostgreSQL username
-          fr_FR: PostgreSQL username
-          hr_HR: PostgreSQL username
-          it_IT: PostgreSQL username
-          ja_JP: PostgreSQL username
-          ko_KR: PostgreSQL username
-          nb_NO: PostgreSQL username
-          pt_PT: PostgreSQL username
-          ru_RU: PostgreSQL username
-          sv_SE: PostgreSQL username
-          tr_TR: PostgreSQL username
-          zh_CN: PostgreSQL username
-      - container: POSTGRES_PASSWORD
-        description:
-          de_DE: PostgreSQL password
-          el_GR: PostgreSQL password
-          en_GB: PostgreSQL password
-          en_US: PostgreSQL password
-          fr_FR: PostgreSQL password
-          hr_HR: PostgreSQL password
-          it_IT: PostgreSQL password
-          ja_JP: PostgreSQL password
-          ko_KR: PostgreSQL password
-          nb_NO: PostgreSQL password
-          pt_PT: PostgreSQL password
-          ru_RU: PostgreSQL password
-          sv_SE: PostgreSQL password
-          tr_TR: PostgreSQL password
-          zh_CN: PostgreSQL password
-      ports:
-      - container: '5432'
-        description:
-          de_DE: PostgreSQL database port
-          el_GR: PostgreSQL database port
-          en_GB: PostgreSQL database port
-          en_US: PostgreSQL database port
-          fr_FR: PostgreSQL database port
-          hr_HR: PostgreSQL database port
-          it_IT: PostgreSQL database port
-          ja_JP: PostgreSQL database port
-          ko_KR: PostgreSQL database port
-          nb_NO: PostgreSQL database port
-          pt_PT: PostgreSQL database port
-          ru_RU: PostgreSQL database port
-          sv_SE: PostgreSQL database port
-          tr_TR: PostgreSQL database port
-          zh_CN: PostgreSQL database port
+        - container: POSTGRES_PASSWORD
+          description:
+            de_DE: PostgreSQL password
+            el_GR: PostgreSQL password
+            en_GB: PostgreSQL password
+            en_US: PostgreSQL password
+            fr_FR: PostgreSQL password
+            hr_HR: PostgreSQL password
+            it_IT: PostgreSQL password
+            ja_JP: PostgreSQL password
+            ko_KR: PostgreSQL password
+            nb_NO: PostgreSQL password
+            pt_PT: PostgreSQL password
+            ru_RU: PostgreSQL password
+            sv_SE: PostgreSQL password
+            tr_TR: PostgreSQL password
+            zh_CN: PostgreSQL 密码
       volumes:
-      - container: /var/lib/postgresql/data
-        description:
-          de_DE: PostgreSQL data storage
-          el_GR: PostgreSQL data storage
-          en_GB: PostgreSQL data storage
-          en_US: PostgreSQL data storage
-          fr_FR: PostgreSQL data storage
-          hr_HR: PostgreSQL data storage
-          it_IT: PostgreSQL data storage
-          ja_JP: PostgreSQL data storage
-          ko_KR: PostgreSQL data storage
-          nb_NO: PostgreSQL data storage
-          pt_PT: PostgreSQL data storage
-          ru_RU: PostgreSQL data storage
-          sv_SE: PostgreSQL data storage
-          tr_TR: PostgreSQL data storage
-          zh_CN: PostgreSQL data storage
+        - container: /var/lib/postgresql/data
+          description:
+            de_DE: PostgreSQL data storage
+            el_GR: PostgreSQL data storage
+            en_GB: PostgreSQL data storage
+            en_US: PostgreSQL data storage
+            fr_FR: PostgreSQL data storage
+            hr_HR: PostgreSQL data storage
+            it_IT: PostgreSQL data storage
+            ja_JP: PostgreSQL data storage
+            ko_KR: PostgreSQL data storage
+            nb_NO: PostgreSQL data storage
+            pt_PT: PostgreSQL data storage
+            ru_RU: PostgreSQL data storage
+            sv_SE: PostgreSQL data storage
+            tr_TR: PostgreSQL data storage
+            zh_CN: PostgreSQL 数据存储
+
   teable-cache:
     image: redis:7.2.4
-    restart: always
+    restart: unless-stopped
     container_name: teable-cache
     deploy:
       resources:
         reservations:
           memory: 256M
-    expose:
-    - '6379'
     volumes:
-    - type: bind
-      source: /DATA/AppData/$AppID/teable-cache-data
-      target: /data
+      - type: bind
+        source: /DATA/AppData/$AppID/teable-cache-data
+        target: /data
     networks:
-    - teable-standalone
-    command: 
-      - redis-server 
-      - --requirepass password
+      - teable-standalone
+    command: redis-server --requirepass password
     healthcheck:
       test:
-      - CMD
-      - redis-cli
-      - --raw
-      - incr
-      - ping
+        - CMD
+        - redis-cli
+        - ping
       interval: 10s
       timeout: 3s
       retries: 3
     x-casaos:
-      envs: []
-      ports: []
       volumes:
-      - container: /data
-        description:
-          de_DE: Redis cache data storage
-          el_GR: Redis cache data storage
-          en_GB: Redis cache data storage
-          en_US: Redis cache data storage
-          fr_FR: Redis cache data storage
-          hr_HR: Redis cache data storage
-          it_IT: Redis cache data storage
-          ja_JP: Redis cache data storage
-          ko_KR: Redis cache data storage
-          nb_NO: Redis cache data storage
-          pt_PT: Redis cache data storage
-          ru_RU: Redis cache data storage
-          sv_SE: Redis cache data storage
-          tr_TR: Redis cache data storage
-          zh_CN: Redis cache data storage
+        - container: /data
+          description:
+            de_DE: Redis cache data storage
+            el_GR: Redis cache data storage
+            en_GB: Redis cache data storage
+            en_US: Redis cache data storage
+            fr_FR: Redis cache data storage
+            hr_HR: Redis cache data storage
+            it_IT: Redis cache data storage
+            ja_JP: Redis cache data storage
+            ko_KR: Redis cache data storage
+            nb_NO: Redis cache data storage
+            pt_PT: Redis cache data storage
+            ru_RU: Redis cache data storage
+            sv_SE: Redis cache data storage
+            tr_TR: Redis cache data storage
+            zh_CN: Redis 缓存数据存储
+
 networks:
   teable-standalone:
-    name: teable-standalone-network
     driver: bridge
+
 x-casaos:
   title:
-    de_DE: teable
-    el_GR: teable
-    en_GB: teable
-    en_US: teable
-    fr_FR: teable
-    hr_HR: teable
-    it_IT: teable
-    ja_JP: teable
-    ko_KR: teable
-    nb_NO: teable
-    pt_PT: teable
-    ru_RU: teable
-    sv_SE: teable
-    tr_TR: teable
-    zh_CN: teable
+    de_DE: Teable
+    el_GR: Teable
+    en_GB: Teable
+    en_US: Teable
+    fr_FR: Teable
+    hr_HR: Teable
+    it_IT: Teable
+    ja_JP: Teable
+    ko_KR: Teable
+    nb_NO: Teable
+    pt_PT: Teable
+    ru_RU: Teable
+    sv_SE: Teable
+    tr_TR: Teable
+    zh_CN: Teable
   tagline:
-    de_DE: teable on CasaOS
-    el_GR: teable on CasaOS
-    en_GB: teable on CasaOS
-    en_US: teable on CasaOS
-    fr_FR: teable on CasaOS
-    hr_HR: teable on CasaOS
-    it_IT: teable on CasaOS
-    ja_JP: teable on CasaOS
-    ko_KR: teable on CasaOS
-    nb_NO: teable on CasaOS
-    pt_PT: teable on CasaOS
-    ru_RU: teable on CasaOS
-    sv_SE: teable on CasaOS
-    tr_TR: teable on CasaOS
-    zh_CN: teable on CasaOS
+    de_DE: Teable verwendet eine prägnante Tabellenkalkulationsoberfläche, erstellt aber leistungsstarke Datenbankanwendungen
+    el_GR: Το Teable υιοθετεί μια συνοπτική διεπαφή υπολογιστικού φύλλου, δημιουργεί όμως ισχυρές εφαρμογές βάσεων δεδομένων
+    en_GB: Teable adopts a concise spreadsheet interface, yet creates powerful database applications
+    en_US: Teable adopts a concise spreadsheet interface, yet creates powerful database applications
+    fr_FR: Teable adopte une interface de tableur concise, mais crée des applications de base de données puissantes
+    hr_HR: Teable koristi sažeto sučelje proračunske tablice, no stvara moćne aplikacije baze podataka
+    it_IT: Teable adotta un'interfaccia foglio di calcolo concisa, ma crea potenti applicazioni di database
+    ja_JP: Teableはシンプルなスプレッドシート形式のインターフェースを採用しながら、強力なデータベースアプリケーションを作成できます
+    ko_KR: Teable은 간결한 스프레드시트 스타일 인터페이스를 채택하지만 강력한 데이터베이스 애플리케이션을 만들 수 있습니다
+    nb_NO: Teable benytter et konsist regnearkgrensesnitt, men skaper kraftfulle databaseapplikasjoner
+    pt_PT: O Teable adota uma interface de planilha concisa, mas cria aplicativos de banco de dados poderosos
+    ru_RU: Teable использует лаконичный интерфейс электронных таблиц, однако создает мощные приложения баз данных
+    sv_SE: Teable använder ett koncisst kalkylbladgränssnitt, men skapar kraftfulla databasapplikationer
+    tr_TR: Teable sade ve basit bir elektronik tablo arayüzü kullanır, ancak güçlü veritabanı uygulamaları oluşturur
+    zh_CN: Teable采用简洁的电子表格式界面，却能创建功能强大的数据库应用程序
   description:
-    de_DE: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    el_GR: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    en_GB: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    en_US: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    fr_FR: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    hr_HR: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    it_IT: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    ja_JP: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    ko_KR: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    nb_NO: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    pt_PT: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    ru_RU: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    sv_SE: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    tr_TR: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
-    zh_CN: 'teable is a self-hosted application stack deployed via Docker Compose.
-
-
-      Key Features:
-
-      - Runs multiple services as a single stack.
-
-      - Supports persistent storage and environment configuration.
-
-      - Ready to be imported and managed in CasaOS.
-
-      '
+    de_DE: |
+      ## Einführung
+      Teable ist eine Open-Source-Datenbankplattform der nächsten Generation. Sie bietet ein intuitives Tabellenkalkulationserlebnis, wird aber von einer leistungsstarken Postgres-Datenbank angetrieben und vereint so einfache Bedienung mit enormer Datenverarbeitungskapazität.
+
+      ## Funktionen
+      -   **Hohe Leistung**: Basiert auf dem Postgres-Kernel und verarbeitet mühelos Millionen von Datensätzen mit extrem schneller Reaktionszeit.
+      -   **Moderne Benutzeroberfläche**: Unterstützt verschiedene Ansichten wie Raster (Grid), Kanban, Galerie und Formular mit einer benutzerfreundlichen Oberfläche.
+      -   **Echtzeit-Zusammenarbeit**: Ermöglicht mehreren Benutzern die gleichzeitige Online-Bearbeitung mit synchroner Datenaktualisierung.
+      -   **Automatisierung & API**: Leistungsstarke RESTful und GraphQL APIs für flexible Integrationen und Automatisierungen.
+      -   **Airtable-Kompatibilität**: Einfacher Import Ihrer Daten aus Airtable.
+      -   **Kostenlos & Open Source**: Volle Kontrolle über Ihre Daten ohne Vendor-Lock-in.
+
+      ## Dokumentation
+      [Besuchen Sie die Dokumentation](https://teable.io/docs)
+    el_GR: |
+      ## Εισαγωγή
+      Το Teable είναι μια πλατφόρμα βάσης δεδομένων ανοιχτού κώδικα της επόμενης γενιάς. Παρέχει μια διαισθητική εμπειρία υπολογιστικού φύλλου, αλλά τροφοδοτείται από μια ισχυρή βάση δεδομένων Postgres, συνδυάζοντας την ευκολία χρήσης με τεράστια ισχύ επεξεργασίας δεδομένων.
+
+      ## Λειτουργίες
+      -   **Υψηλή Απόδοση**: Βασισμένο στον πυρήνα Postgres, διαχειρίζεται εύκολα εκατομμύρια δεδομένα με εξαιρετικά γρήγορο χρόνο απόκρισης.
+      -   **Μοντέρνο Περιβάλλον**: Υποστηρίζει διάφορες προβολές όπως Πλέγμα, Kanban, Συλλογή και Φόρμα με φιλικό περιβάλλον χρήστη.
+      -   **Συνεργασία σε Πραγματικό Χρόνο**: Επιτρέπει σε πολλαπλούς χρήστες να επεξεργάζονται ταυτόχρονα με συγχρονισμένη ενημέρωση δεδομένων.
+      -   **Αυτοματισμός & API**: Ισχυρά RESTful και GraphQL APIs για ευέλικτες ενσωματώσεις και αυτοματισμούς.
+      -   **Συμβατότητα με Airtable**: Εύκολη εισαγωγή των δεδομένων σας από το Airtable.
+      -   **Δωρεάν & Open Source**: Πλήρης έλεγχος των δεδομένων σας χωρίς περιορισμούς προμηθευτή.
+
+      ## Τεκμηρίωση
+      [Επισκεφθείτε την τεκμηρίωση](https://teable.io/docs)
+    en_GB: |
+      ## Introduction
+      Teable is a next-generation open-source database platform. It provides an intuitive spreadsheet experience but is powered by a high-performance Postgres database, combining ease of use with powerful data processing capabilities.
+
+      ## Features
+      -   **High Performance**: Built on Postgres kernel, it effortlessly handles millions of rows of data with extremely fast response times.
+      -   **Modern Interface**: Supports various views including Grid, Kanban, Gallery, and Form with a user-friendly interface.
+      -   **Real-time Collaboration**: Allows multiple users to edit online simultaneously with synchronous data updates.
+      -   **Automation & API**: Powerful RESTful and GraphQL APIs for flexible integrations and automations.
+      -   **Airtable Compatibility**: Easily import your data from Airtable.
+      -   **Free & Open Source**: Full control over your data without vendor lock-in.
+
+      ## Documentation
+      [Visit the documentation](https://teable.io/docs)
+    en_US: |
+      ## Introduction
+      Teable is a next-generation open-source database platform. It provides an intuitive spreadsheet experience but is powered by a high-performance Postgres database, combining ease of use with powerful data processing capabilities.
+
+      ## Features
+      -   **High Performance**: Built on Postgres kernel, it effortlessly handles millions of rows of data with extremely fast response times.
+      -   **Modern Interface**: Supports various views including Grid, Kanban, Gallery, and Form with a user-friendly interface.
+      -   **Real-time Collaboration**: Allows multiple users to edit online simultaneously with synchronous data updates.
+      -   **Automation & API**: Powerful RESTful and GraphQL APIs for flexible integrations and automations.
+      -   **Airtable Compatibility**: Easily import your data from Airtable.
+      -   **Free & Open Source**: Full control over your data without vendor lock-in.
+
+      ## Documentation
+      [Visit the documentation](https://teable.io/docs)
+    fr_FR: |
+      ## Introduction
+      Teable est une plateforme de base de données nouvelle génération et open source. Elle offre une expérience intuitive de tableur, mais est propulsée par une base de données Postgres hautes performances, combinant facilité d'utilisation et puissance de traitement des données.
+
+      ## Fonctionnalités
+      -   **Haute performance** : Basé sur le noyau Postgres, il gère sans effort des millions de lignes de données avec des temps de réponse extrêmement rapides.
+      -   **Interface moderne** : Prend en charge diverses vues, notamment Grille, Kanban, Galerie et Formulaire, avec une interface conviviale.
+      -   **Collaboration en temps réel** : Permet à plusieurs utilisateurs de modifier en ligne simultanément avec des mises à jour synchronisées des données.
+      -   **Automatisation et API** : API RESTful et GraphQL puissantes pour des intégrations et des automatisations flexibles.
+      -   **Compatibilité Airtable** : Importez facilement vos données depuis Airtable.
+      -   **Gratuit et Open Source** : Contrôle total de vos données sans dépendance vis-à-vis d'un fournisseur.
+
+      ## Documentation
+      [Visitez la documentation](https://teable.io/docs)
+    hr_HR: |
+      ## Uvod
+      Teable je platforma baze podataka nove generacije otvorenog koda. Pruža intuitivno iskustvo proračunske tablice, ali napaja ju baza podataka visoke učinkovitosti Postgres, kombinirajući lakoću korištenja s moćnim mogućnostima obrade podataka.
+
+      ## Značajke
+      -   **Visoka učinkovitost**: Izgrađena na jezgri Postgres, bez napora rukuje milijunima redaka podataka s izuzetno brzim vremenima odgovora.
+      -   **Moderno sučelje**: Podržava različite prikaze uključujući Mrežu, Kanban, Galeriju i Obrazac s korisničkim sučeljem.
+      -   **Suradnja u stvarnom vremenu**: Omogućuje više korisnika da istovremeno uređuju na mreži s sinkroniziranim ažuriranjem podataka.
+      -   **Automatizacija i API**: Moćni RESTful i GraphQL API-ji za fleksibilne integracije i automatizacije.
+      -   **Kompatibilnost s Airtableom:** Jednostavno uvezite svoje podatke iz Airtablea.
+      -   **Besplatno i Open Source**: Potpuna kontrola nad vašim podacima bez ovisnosti o dobavljaču.
+
+      ## Dokumentacija
+      [Posjetite dokumentaciju](https://teable.io/docs)
+    it_IT: |
+      ## Introduzione
+      Teable è una piattaforma di database open source di nuova generazione. Offre un'esperienza intuitiva di foglio di calcolo, ma è alimentata da un database Postgres ad alte prestazioni, combinando facilità d'uso e potenti capacità di elaborazione dei dati.
+
+      ## Funzionalità
+      -   **Alte prestazioni**: Basato sul kernel Postgres, gestisce senza problemi milioni di righe di dati con tempi di risposta estremamente rapidi.
+      -   **Interfaccia moderna**: Supporta varie viste tra cui Griglia, Kanban, Galleria e Modulo con un'interfaccia utente intuitiva.
+      -   **Collaborazione in tempo reale**: Consente a più utenti di modificare online simultaneamente con aggiornamenti dati sincronizzati.
+      -   **Automazione e API**: Potenti API RESTful e GraphQL per integrazioni flessibili e automazioni.
+      -   **Compatibilità Airtable**: Importa facilmente i tuoi dati da Airtable.
+      -   **Gratuito e Open Source**: Controllo completo dei tuoi dati senza vincoli fornitore.
+
+      ## Documentazione
+      [Visita la documentazione](https://teable.io/docs)
+    ja_JP: |
+      ## 紹介
+      Teableは次世代のオープンソースデータベースプラットフォームです。直感的なスプレッドシート体験を提供しながら、高性能なPostgresデータベースによって駆動されており、使いやすさと強力なデータ処理能力を兼ね備えています。
+
+      ## 機能
+      -   **高パフォーマンス**: Postgresカーネルに基づいており、数百万行のデータを極めて高速な応答時間で処理できます。
+      -   **モダンなインターフェース**: ユーザーフレンドリーなインターフェースで、グリッド、かんばん、ギャラリー、フォームなどの多様なビューをサポートします。
+      -   **リアルタイムコラボレーション**: 複数のユーザーがオンラインで同時に編集でき、データを同期して更新できます。
+      -   **自動化とAPI**: 柔軟な統合と自動化のための強力なRESTfulおよびGraphQL API。
+      -   **Airtable互換**: Airtableからデータを簡単にインポートできます。
+      -   **無料でオープンソース**: ベンダーロックインなしでデータを完全にコントロールできます。
+
+      ## ドキュメント
+      [ドキュメントを見る](https://teable.io/docs)
+    ko_KR: |
+      ## 소개
+      Teable은 차세대 오픈 소스 데이터베이스 플랫폼입니다. 직관적인 스프레드시트 환경을 제공하지만, 고성능 Postgres 데이터베이스로 구동되어 사용 편의성과 강력한 데이터 처리 능력을 결합했습니다.
+
+      ## 기능
+      -   **고성능**: Postgres 커널 기반으로 수백만 행의 데이터를 극도로 빠른 응답 시간으로 처리합니다.
+      -   **현대적 인터페이스**: 사용자 친화적인 인터페이스로 그리드, 칸반, 갤러리, 양식 등 다양한 보기를 지원합니다.
+      -   **실시간 협업**: 여러 사용자가 온라인에서 동시에 편집하고 데이터를 동기식으로 업데이트할 수 있습니다.
+      -   **자동화 및 API**: 유연한 통합 및 자동화를 위한 강력한 RESTful 및 GraphQL API.
+      -   **Airtable 호환성:** Airtable에서 데이터를 쉽게 가져올 수 있습니다.
+      -   **무료 및 오픈 소스**: 공급업체 종속성 없이 데이터를 완전히 제어할 수 있습니다.
+
+      ## 문서
+      [문서 보기](https://teable.io/docs)
+    nb_NO: |
+      ## Introduksjon
+      Teable er en åpen kilde databaseplattform i neste generasjon. Den tilbyr en intuitiv regnearkopplevelse, men drives av en høytytelses Postgres-database, og kombinerer brukervennlighet med kraftfulle databehandlingsmuligheter.
+
+      ## Funksjoner
+      -   **Høy ytelse:** Bygget på Postgres-kjernen, håndterer den uten problemer millioner av datarader med ekstremt raske svartider.
+      -   **Moderne grensesnitt:** Støtter ulike visninger, inkludert Rutenett, Kanban, Galleri og Skjema, med et brukervennlig grensesnitt.
+      -   **Sanntidssamarbeid:** Tillater flere brukere å redigere online samtidig med synkroniserte dataoppdateringer.
+      -   **Automatisering og API:** Kraftige RESTful og GraphQL API-er for fleksible integrasjoner og automatiseringer.
+      -   **Airtable-kompatibilitet:** Importer dataene dine enkelt fra Airtable.
+      -   **Gratis og Open Source:** Full kontroll over dataene dine uten leverandørlåsing.
+
+      ## Dokumentasjon
+      [Besøk dokumentasjonen](https://teable.io/docs)
+    pt_PT: |
+      ## Introdução
+      O Teable é uma plataforma de banco de dados de código aberto de última geração. Ele fornece uma experiência intuitiva de planilha, mas é alimentado por um banco de dados Postgres de alto desempenho, combinando facilidade de uso com poderosos recursos de processamento de dados.
+
+      ## Recursos
+      -   **Alto Desempenho**: Construído com o kernel Postgres, ele lida sem esforço com milhões de linhas de dados com tempos de resposta extremamente rápidos.
+      -   **Interface Moderna**: Suporta várias visualizações, incluindo Grade, Kanban, Galeria e Formulário, com uma interface amigável.
+      -   **Colaboração em Tempo Real**: Permite que múltiplos usuários editem online simultaneamente com atualizações de dados síncronas.
+      -   **Automação e API**: APIs RESTful e GraphQL poderosas para integrações e automações flexíveis.
+      -   **Compatibilidade com Airtable**: Importe facilmente seus dados do Airtable.
+      -   **Gratuito e Open Source**: Controle total sobre seus dados sem bloqueio de fornecedor.
+
+      ## Documentação
+      [Visite a documentação](https://teable.io/docs)
+    ru_RU: |
+      ## Введение
+      Teable — это платформа баз данных нового поколения с открытым исходным кодом. Она обеспечивает интуитивно понятный интерфейс электронных таблиц, но работает на базе высокопроизводительной базы данных Postgres, объединяя простоту использования с мощными возможностями обработки данных.
+
+      ## Функции
+      -   **Высокая производительность**: Основана на ядре Postgres, с легкостью обрабатывает миллионы строк данных с экстремально быстрым временем отклика.
+      -   **Современный интерфейс**: Поддерживает различные представления, включая Сетку, Канбан, Галерею и Форму, с удобным пользовательским интерфейсом.
+      -   **Совместная работа в реальном времени**: Позволяет нескольким пользователям редактировать онлайн одновременно с синхронизированным обновлением данных.
+      -   **Автоматизация и API**: Мощные RESTful и GraphQL API для гибкой интеграции и автоматизации.
+      -   **Совместимость с Airtable**: Легкий импорт данных из Airtable.
+      -   **Бесплатно и Open Source**: Полный контроль над вашими данными без привязки к поставщику.
+
+      ## Документация
+      [Посетите документацию](https://teable.io/docs)
+    sv_SE: |
+      ## Introduktion
+      Teable är en öppen källkods-databasplattform i nästa generation. Den erbjuder en intuitiv kalkylbladsupplevelse men drivs av en högpresterande Postgres-databas, vilket kombinerar användarvänlighet med kraftfulla databehandlingsmöjligheter.
+
+      ## Funktioner
+      -   **Hög prestanda:** Byggd på Postgres-kärnan, hanterar den utan ansträngning miljontals datarader med extremt snabba svarstider.
+      -   **Modernt gränssnitt:** Stöder olika vyer inklusive Rutnät, Kanban, Galleri och Formulär med ett användarvänligt gränssnitt.
+      -   **Realtidssamarbete:** Tillåter flera användare att redigera online samtidigt med synkroniserade datauppdateringar.
+      -   **Automatisering och API:** Kraftfulla RESTful och GraphQL API:er för flexibla integrationer och automatiseringar.
+      -   **Airtable-kompatibilitet:** Importera enkelt dina data från Airtable.
+      -   **Gratis och Open Source:** Full kontroll över dina data utan leverantörslåsning.
+
+      ## Dokumentation
+      [Besök dokumentationen](https://teable.io/docs)
+    tr_TR: |
+      ## Giriş
+      Teable, yeni nesil açık kaynaklı bir veritabanı platformudur. Sezgisel bir elektronik tablo deneyimi sunar ancak yüksek performanslı bir Postgres veritabanı tarafından desteklenir; kullanım kolaylığını güçlü veri işleme yetenekleriyle birleştirir.
+
+      ## Özellikler
+      -   **Yüksek Performans**: Postgres çekirdeği üzerine inşa edilmiştir, milyonlarca satır veriyi son derecede hızlı yanıt süreleriyle zahmetsizce işleyebilir.
+      -   **Modern Arayüz**: Kullanıcı dostu bir arayüzle Izgara, Kanban, Galeri ve Form gibi çeşitli görünümleri destekler.
+      -   **Gerçek Zamanlı İşbirliği**: Çoklu kullanıcının eşzamanlı olarak çevrimiçi düzenlemesine ve verilerin senkronize güncellenmesine izin verir.
+      -   **Otomasyon ve API**: Esnek entegrasyonlar ve otomasyonlar için güçlü RESTful ve GraphQL API'leri.
+      -   **Airtable Uyumluluğu:** Verilerinizi Airtable'dan kolayca içe aktarın.
+      -   **Ücretsiz ve Açık Kaynak**: Tedarikçi kilidi olmadan verilerinizin tam kontrolüne sahip olun.
+
+      ## Dokümantasyon
+      [Dokümantasyonu ziyaret edin](https://teable.io/docs)
+    zh_CN: |
+      ## 简介
+      Teable 是新一代的开源数据库平台。它提供了类似电子表格的直观操作体验，但背后由高性能的 Postgres 数据库驱动，兼具了易用性与强大的数据处理能力。
+
+      ## 功能
+      -   **高性能**：基于 Postgres 内核，轻松处理百万级数据，响应速度极快。
+      -   **现代界面**：提供网格、看板、图库、表单等多种视图，界面简洁易用。
+      -   **实时协作**：支持多人在线协同编辑，数据实时同步更新。
+      -   **自动化与 API**：提供强大的 RESTful 和 GraphQL API，支持灵活的集成与自动化。
+      -   **Airtable 兼容**：支持从 Airtable 一键导入数据。
+      -   **免费开源**：完全掌控您的数据，无供应商锁定。
+
+      ## 文档
+      [查看文档](https://teable.io/docs)
   category: Utilities
   author: teableio
   developer: teableio
   icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Teable/icon.png
   screenshot_link:
-  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Teable/screenshot-1.png
-  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Teable/screenshot-2.png
-  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Teable/screenshot-3.png
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Teable/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Teable/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Teable/screenshot-3.png
   main: teable
-  port_map: '3200'
+  port_map: 3200
   architectures:
-  - amd64
+    - amd64
   index: /
   scheme: http
