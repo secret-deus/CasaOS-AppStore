@@ -198,10 +198,7 @@ services:
         target: /data
     networks:
       - teable-standalone
-    command:
-      - redis-server
-      - --requirepass
-      - password
+    command: redis-server --requirepass password
     healthcheck:
       test:
         - CMD
