@@ -1,8 +1,9 @@
+name: Teable
 services:
   teable:
     image: teableio/teable:latest
     container_name: teable
-    restart: always
+    restart: unless-stopped
     deploy:     
       resources:
         reservations:
@@ -32,173 +33,169 @@ services:
         condition: service_healthy
     x-casaos:
       envs:
-      - container: TZ
-        description:
-          de_DE: Timezone for the application
-          el_GR: Timezone for the application
-          en_GB: Timezone for the application
-          en_US: Timezone for the application
-          fr_FR: Timezone for the application
-          hr_HR: Timezone for the application
-          it_IT: Timezone for the application
-          ja_JP: Timezone for the application
-          ko_KR: Timezone for the application
-          nb_NO: Timezone for the application
-          pt_PT: Timezone for the application
-          ru_RU: Timezone for the application
-          sv_SE: Timezone for the application
-          tr_TR: Timezone for the application
-          zh_CN: Timezone for the application
-      - container: NEXT_ENV_IMAGES_ALL_REMOTE
-        description:
-          de_DE: Next.js image optimization configuration
-          el_GR: Next.js image optimization configuration
-          en_GB: Next.js image optimization configuration
-          en_US: Next.js image optimization configuration
-          fr_FR: Next.js image optimization configuration
-          hr_HR: Next.js image optimization configuration
-          it_IT: Next.js image optimization configuration
-          ja_JP: Next.js image optimization configuration
-          ko_KR: Next.js image optimization configuration
-          nb_NO: Next.js image optimization configuration
-          pt_PT: Next.js image optimization configuration
-          ru_RU: Next.js image optimization configuration
-          sv_SE: Next.js image optimization configuration
-          tr_TR: Next.js image optimization configuration
-          zh_CN: Next.js image optimization configuration
-      - container: PUBLIC_ORIGIN
-        description:
-          de_DE: Public URL origin for the application
-          el_GR: Public URL origin for the application
-          en_GB: Public URL origin for the application
-          en_US: Public URL origin for the application
-          fr_FR: Public URL origin for the application
-          hr_HR: Public URL origin for the application
-          it_IT: Public URL origin for the application
-          ja_JP: Public URL origin for the application
-          ko_KR: Public URL origin for the application
-          nb_NO: Public URL origin for the application
-          pt_PT: Public URL origin for the application
-          ru_RU: Public URL origin for the application
-          sv_SE: Public URL origin for the application
-          tr_TR: Public URL origin for the application
-          zh_CN: Public URL origin for the application
-      - container: PRISMA_DATABASE_URL
-        description:
-          de_DE: Database connection string for Prisma ORM
-          el_GR: Database connection string for Prisma ORM
-          en_GB: Database connection string for Prisma ORM
-          en_US: Database connection string for Prisma ORM
-          fr_FR: Database connection string for Prisma ORM
-          hr_HR: Database connection string for Prisma ORM
-          it_IT: Database connection string for Prisma ORM
-          ja_JP: Database connection string for Prisma ORM
-          ko_KR: Database connection string for Prisma ORM
-          nb_NO: Database connection string for Prisma ORM
-          pt_PT: Database connection string for Prisma ORM
-          ru_RU: Database connection string for Prisma ORM
-          sv_SE: Database connection string for Prisma ORM
-          tr_TR: Database connection string for Prisma ORM
-          zh_CN: Database connection string for Prisma ORM
-      - container: PUBLIC_DATABASE_PROXY
-        description:
-          de_DE: Database proxy configuration
-          el_GR: Database proxy configuration
-          en_GB: Database proxy configuration
-          en_US: Database proxy configuration
-          fr_FR: Database proxy configuration
-          hr_HR: Database proxy configuration
-          it_IT: Database proxy configuration
-          ja_JP: Database proxy configuration
-          ko_KR: Database proxy configuration
-          nb_NO: Database proxy configuration
-          pt_PT: Database proxy configuration
-          ru_RU: Database proxy configuration
-          sv_SE: Database proxy configuration
-          tr_TR: Database proxy configuration
-          zh_CN: Database proxy configuration
-      - container: BACKEND_CACHE_PROVIDER
-        description:
-          de_DE: Cache provider for the backend service
-          el_GR: Cache provider for the backend service
-          en_GB: Cache provider for the backend service
-          en_US: Cache provider for the backend service
-          fr_FR: Cache provider for the backend service
-          hr_HR: Cache provider for the backend service
-          it_IT: Cache provider for the backend service
-          ja_JP: Cache provider for the backend service
-          ko_KR: Cache provider for the backend service
-          nb_NO: Cache provider for the backend service
-          pt_PT: Cache provider for the backend service
-          ru_RU: Cache provider for the backend service
-          sv_SE: Cache provider for the backend service
-          tr_TR: Cache provider for the backend service
-          zh_CN: Cache provider for the backend service
-      - container: BACKEND_CACHE_REDIS_URI
-        description:
-          de_DE: Redis connection URI for caching
-          el_GR: Redis connection URI for caching
-          en_GB: Redis connection URI for caching
-          en_US: Redis connection URI for caching
-          fr_FR: Redis connection URI for caching
-          hr_HR: Redis connection URI for caching
-          it_IT: Redis connection URI for caching
-          ja_JP: Redis connection URI for caching
-          ko_KR: Redis connection URI for caching
-          nb_NO: Redis connection URI for caching
-          pt_PT: Redis connection URI for caching
-          ru_RU: Redis connection URI for caching
-          sv_SE: Redis connection URI for caching
-          tr_TR: Redis connection URI for caching
-          zh_CN: Redis connection URI for caching
+        - container: TZ
+          description:
+            de_DE: Timezone for the application
+            el_GR: Timezone for the application
+            en_GB: Timezone for the application
+            en_US: Timezone for the application
+            fr_FR: Timezone for the application
+            hr_HR: Timezone for the application
+            it_IT: Timezone for the application
+            ja_JP: Timezone for the application
+            ko_KR: Timezone for the application
+            nb_NO: Timezone for the application
+            pt_PT: Timezone for the application
+            ru_RU: Timezone for the application
+            sv_SE: Timezone for the application
+            tr_TR: Timezone for the application
+            zh_CN: Timezone for the application
+        - container: NEXT_ENV_IMAGES_ALL_REMOTE
+          description:
+            de_DE: Next.js image optimization configuration
+            el_GR: Next.js image optimization configuration
+            en_GB: Next.js image optimization configuration
+            en_US: Next.js image optimization configuration
+            fr_FR: Next.js image optimization configuration
+            hr_HR: Next.js image optimization configuration
+            it_IT: Next.js image optimization configuration
+            ja_JP: Next.js image optimization configuration
+            ko_KR: Next.js image optimization configuration
+            nb_NO: Next.js image optimization configuration
+            pt_PT: Next.js image optimization configuration
+            ru_RU: Next.js image optimization configuration
+            sv_SE: Next.js image optimization configuration
+            tr_TR: Next.js image optimization configuration
+            zh_CN: Next.js image optimization configuration
+        - container: PUBLIC_ORIGIN
+          description:
+            de_DE: Public URL origin for the application
+            el_GR: Public URL origin for the application
+            en_GB: Public URL origin for the application
+            en_US: Public URL origin for the application
+            fr_FR: Public URL origin for the application
+            hr_HR: Public URL origin for the application
+            it_IT: Public URL origin for the application
+            ja_JP: Public URL origin for the application
+            ko_KR: Public URL origin for the application
+            nb_NO: Public URL origin for the application
+            pt_PT: Public URL origin for the application
+            ru_RU: Public URL origin for the application
+            sv_SE: Public URL origin for the application
+            tr_TR: Public URL origin for the application
+            zh_CN: Public URL origin for the application
+        - container: PRISMA_DATABASE_URL
+          description:
+            de_DE: Database connection string for Prisma ORM
+            el_GR: Database connection string for Prisma ORM
+            en_GB: Database connection string for Prisma ORM
+            en_US: Database connection string for Prisma ORM
+            fr_FR: Database connection string for Prisma ORM
+            hr_HR: Database connection string for Prisma ORM
+            it_IT: Database connection string for Prisma ORM
+            ja_JP: Database connection string for Prisma ORM
+            ko_KR: Database connection string for Prisma ORM
+            nb_NO: Database connection string for Prisma ORM
+            pt_PT: Database connection string for Prisma ORM
+            ru_RU: Database connection string for Prisma ORM
+            sv_SE: Database connection string for Prisma ORM
+            tr_TR: Database connection string for Prisma ORM
+            zh_CN: Database connection string for Prisma ORM
+        - container: PUBLIC_DATABASE_PROXY
+          description:
+            de_DE: Database proxy configuration
+            el_GR: Database proxy configuration
+            en_GB: Database proxy configuration
+            en_US: Database proxy configuration
+            fr_FR: Database proxy configuration
+            hr_HR: Database proxy configuration
+            it_IT: Database proxy configuration
+            ja_JP: Database proxy configuration
+            ko_KR: Database proxy configuration
+            nb_NO: Database proxy configuration
+            pt_PT: Database proxy configuration
+            ru_RU: Database proxy configuration
+            sv_SE: Database proxy configuration
+            tr_TR: Database proxy configuration
+            zh_CN: Database proxy configuration
+        - container: BACKEND_CACHE_PROVIDER
+          description:
+            de_DE: Cache provider for the backend service
+            el_GR: Cache provider for the backend service
+            en_GB: Cache provider for the backend service
+            en_US: Cache provider for the backend service
+            fr_FR: Cache provider for the backend service
+            hr_HR: Cache provider for the backend service
+            it_IT: Cache provider for the backend service
+            ja_JP: Cache provider for the backend service
+            ko_KR: Cache provider for the backend service
+            nb_NO: Cache provider for the backend service
+            pt_PT: Cache provider for the backend service
+            ru_RU: Cache provider for the backend service
+            sv_SE: Cache provider for the backend service
+            tr_TR: Cache provider for the backend service
+            zh_CN: Cache provider for the backend service
+        - container: BACKEND_CACHE_REDIS_URI
+          description:
+            de_DE: Redis connection URI for caching
+            el_GR: Redis connection URI for caching
+            en_GB: Redis connection URI for caching
+            en_US: Redis connection URI for caching
+            fr_FR: Redis connection URI for caching
+            hr_HR: Redis connection URI for caching
+            it_IT: Redis connection URI for caching
+            ja_JP: Redis connection URI for caching
+            ko_KR: Redis connection URI for caching
+            nb_NO: Redis connection URI for caching
+            pt_PT: Redis connection URI for caching
+            ru_RU: Redis connection URI for caching
+            sv_SE: Redis connection URI for caching
+            tr_TR: Redis connection URI for caching
+            zh_CN: Redis connection URI for caching
       ports:
-      - container: '3000'
-        description:
-          de_DE: Haupt-Weboberflächen-Port
-          el_GR: Main web interface port
-          en_GB: Main web interface port
-          en_US: Main web interface port
-          fr_FR: Main web interface port
-          hr_HR: Main web interface port
-          it_IT: Main web interface port
-          ja_JP: Main web interface port
-          ko_KR: Main web interface port
-          nb_NO: Main web interface port
-          pt_PT: Main web interface port
-          ru_RU: Main web interface port
-          sv_SE: Main web interface port
-          tr_TR: Main web interface port
-          zh_CN: 主 Web 界面端口
+        - container: '3000'
+          description:
+            de_DE: Haupt-Weboberflächen-Port
+            el_GR: Main web interface port
+            en_GB: Main web interface port
+            en_US: Main web interface port
+            fr_FR: Main web interface port
+            hr_HR: Main web interface port
+            it_IT: Main web interface port
+            ja_JP: Main web interface port
+            ko_KR: Main web interface port
+            nb_NO: Main web interface port
+            pt_PT: Main web interface port
+            ru_RU: Main web interface port
+            sv_SE: Main web interface port
+            tr_TR: Main web interface port
+            zh_CN: 主 Web 界面端口
       volumes:
-      - container: /app/.assets
-        description:
-          de_DE: Application assets and static files
-          el_GR: Application assets and static files
-          en_GB: Application assets and static files
-          en_US: Application assets and static files
-          fr_FR: Application assets and static files
-          hr_HR: Application assets and static files
-          it_IT: Application assets and static files
-          ja_JP: Application assets and static files
-          ko_KR: Application assets and static files
-          nb_NO: Application assets and static files
-          pt_PT: Application assets and static files
-          ru_RU: Application assets and static files
-          sv_SE: Application assets and static files
-          tr_TR: Application assets and static files
-          zh_CN: Application assets and static files
+        - container: /app/.assets
+          description:
+            de_DE: Application assets and static files
+            el_GR: Application assets and static files
+            en_GB: Application assets and static files
+            en_US: Application assets and static files
+            fr_FR: Application assets and static files
+            hr_HR: Application assets and static files
+            it_IT: Application assets and static files
+            ja_JP: Application assets and static files
+            ko_KR: Application assets and static files
+            nb_NO: Application assets and static files
+            pt_PT: Application assets and static files
+            ru_RU: Application assets and static files
+            sv_SE: Application assets and static files
+            tr_TR: Application assets and static files
+            zh_CN: Application assets and static files
   teable-db:
     image: postgres:15
-    restart: always
+    restart: unless-stopped
     container_name: teable-db
     deploy:
       resources:
         reservations:
           memory: 256M
-    ports:
-    - target: 5432
-      published: '42345'
-      protocol: tcp
     volumes:
     - type: bind
       source: /DATA/AppData/$AppID/data
@@ -219,120 +216,100 @@ services:
       retries: 3
     x-casaos:
       envs:
-      - container: TZ
-        description:
-          de_DE: Timezone for the database
-          el_GR: Timezone for the database
-          en_GB: Timezone for the database
-          en_US: Timezone for the database
-          fr_FR: Timezone for the database
-          hr_HR: Timezone for the database
-          it_IT: Timezone for the database
-          ja_JP: Timezone for the database
-          ko_KR: Timezone for the database
-          nb_NO: Timezone for the database
-          pt_PT: Timezone for the database
-          ru_RU: Timezone for the database
-          sv_SE: Timezone for the database
-          tr_TR: Timezone for the database
-          zh_CN: Timezone for the database
-      - container: POSTGRES_DB
-        description:
-          de_DE: PostgreSQL database name
-          el_GR: PostgreSQL database name
-          en_GB: PostgreSQL database name
-          en_US: PostgreSQL database name
-          fr_FR: PostgreSQL database name
-          hr_HR: PostgreSQL database name
-          it_IT: PostgreSQL database name
-          ja_JP: PostgreSQL database name
-          ko_KR: PostgreSQL database name
-          nb_NO: PostgreSQL database name
-          pt_PT: PostgreSQL database name
-          ru_RU: PostgreSQL database name
-          sv_SE: PostgreSQL database name
-          tr_TR: PostgreSQL database name
-          zh_CN: PostgreSQL database name
-      - container: POSTGRES_USER
-        description:
-          de_DE: PostgreSQL username
-          el_GR: PostgreSQL username
-          en_GB: PostgreSQL username
-          en_US: PostgreSQL username
-          fr_FR: PostgreSQL username
-          hr_HR: PostgreSQL username
-          it_IT: PostgreSQL username
-          ja_JP: PostgreSQL username
-          ko_KR: PostgreSQL username
-          nb_NO: PostgreSQL username
-          pt_PT: PostgreSQL username
-          ru_RU: PostgreSQL username
-          sv_SE: PostgreSQL username
-          tr_TR: PostgreSQL username
-          zh_CN: PostgreSQL username
-      - container: POSTGRES_PASSWORD
-        description:
-          de_DE: PostgreSQL password
-          el_GR: PostgreSQL password
-          en_GB: PostgreSQL password
-          en_US: PostgreSQL password
-          fr_FR: PostgreSQL password
-          hr_HR: PostgreSQL password
-          it_IT: PostgreSQL password
-          ja_JP: PostgreSQL password
-          ko_KR: PostgreSQL password
-          nb_NO: PostgreSQL password
-          pt_PT: PostgreSQL password
-          ru_RU: PostgreSQL password
-          sv_SE: PostgreSQL password
-          tr_TR: PostgreSQL password
-          zh_CN: PostgreSQL password
-      ports:
-      - container: '5432'
-        description:
-          de_DE: PostgreSQL database port
-          el_GR: PostgreSQL database port
-          en_GB: PostgreSQL database port
-          en_US: PostgreSQL database port
-          fr_FR: PostgreSQL database port
-          hr_HR: PostgreSQL database port
-          it_IT: PostgreSQL database port
-          ja_JP: PostgreSQL database port
-          ko_KR: PostgreSQL database port
-          nb_NO: PostgreSQL database port
-          pt_PT: PostgreSQL database port
-          ru_RU: PostgreSQL database port
-          sv_SE: PostgreSQL database port
-          tr_TR: PostgreSQL database port
-          zh_CN: PostgreSQL database port
+        - container: TZ
+          description:
+            de_DE: Timezone for the database
+            el_GR: Timezone for the database
+            en_GB: Timezone for the database
+            en_US: Timezone for the database
+            fr_FR: Timezone for the database
+            hr_HR: Timezone for the database
+            it_IT: Timezone for the database
+            ja_JP: Timezone for the database
+            ko_KR: Timezone for the database
+            nb_NO: Timezone for the database
+            pt_PT: Timezone for the database
+            ru_RU: Timezone for the database
+            sv_SE: Timezone for the database
+            tr_TR: Timezone for the database
+            zh_CN: Timezone for the database
+        - container: POSTGRES_DB
+          description:
+            de_DE: PostgreSQL database name
+            el_GR: PostgreSQL database name
+            en_GB: PostgreSQL database name
+            en_US: PostgreSQL database name
+            fr_FR: PostgreSQL database name
+            hr_HR: PostgreSQL database name
+            it_IT: PostgreSQL database name
+            ja_JP: PostgreSQL database name
+            ko_KR: PostgreSQL database name
+            nb_NO: PostgreSQL database name
+            pt_PT: PostgreSQL database name
+            ru_RU: PostgreSQL database name
+            sv_SE: PostgreSQL database name
+            tr_TR: PostgreSQL database name
+            zh_CN: PostgreSQL database name
+        - container: POSTGRES_USER
+          description:
+            de_DE: PostgreSQL username
+            el_GR: PostgreSQL username
+            en_GB: PostgreSQL username
+            en_US: PostgreSQL username
+            fr_FR: PostgreSQL username
+            hr_HR: PostgreSQL username
+            it_IT: PostgreSQL username
+            ja_JP: PostgreSQL username
+            ko_KR: PostgreSQL username
+            nb_NO: PostgreSQL username
+            pt_PT: PostgreSQL username
+            ru_RU: PostgreSQL username
+            sv_SE: PostgreSQL username
+            tr_TR: PostgreSQL username
+            zh_CN: PostgreSQL username
+        - container: POSTGRES_PASSWORD
+          description:
+            de_DE: PostgreSQL password
+            el_GR: PostgreSQL password
+            en_GB: PostgreSQL password
+            en_US: PostgreSQL password
+            fr_FR: PostgreSQL password
+            hr_HR: PostgreSQL password
+            it_IT: PostgreSQL password
+            ja_JP: PostgreSQL password
+            ko_KR: PostgreSQL password
+            nb_NO: PostgreSQL password
+            pt_PT: PostgreSQL password
+            ru_RU: PostgreSQL password
+            sv_SE: PostgreSQL password
+            tr_TR: PostgreSQL password
+            zh_CN: PostgreSQL password
       volumes:
-      - container: /var/lib/postgresql/data
-        description:
-          de_DE: PostgreSQL data storage
-          el_GR: PostgreSQL data storage
-          en_GB: PostgreSQL data storage
-          en_US: PostgreSQL data storage
-          fr_FR: PostgreSQL data storage
-          hr_HR: PostgreSQL data storage
-          it_IT: PostgreSQL data storage
-          ja_JP: PostgreSQL data storage
-          ko_KR: PostgreSQL data storage
-          nb_NO: PostgreSQL data storage
-          pt_PT: PostgreSQL data storage
-          ru_RU: PostgreSQL data storage
-          sv_SE: PostgreSQL data storage
-          tr_TR: PostgreSQL data storage
-          zh_CN: PostgreSQL data storage
+        - container: /var/lib/postgresql/data
+          description:
+            de_DE: PostgreSQL data storage
+            el_GR: PostgreSQL data storage
+            en_GB: PostgreSQL data storage
+            en_US: PostgreSQL data storage
+            fr_FR: PostgreSQL data storage
+            hr_HR: PostgreSQL data storage
+            it_IT: PostgreSQL data storage
+            ja_JP: PostgreSQL data storage
+            ko_KR: PostgreSQL data storage
+            nb_NO: PostgreSQL data storage
+            pt_PT: PostgreSQL data storage
+            ru_RU: PostgreSQL data storage
+            sv_SE: PostgreSQL data storage
+            tr_TR: PostgreSQL data storage
+            zh_CN: PostgreSQL data storage
   teable-cache:
     image: redis:7.2.4
-    restart: always
+    restart: unless-stopped
     container_name: teable-cache
     deploy:
       resources:
         reservations:
           memory: 256M
-    expose:
-    - '6379'
     volumes:
     - type: bind
       source: /DATA/AppData/$AppID/teable-cache-data
@@ -353,26 +330,24 @@ services:
       timeout: 3s
       retries: 3
     x-casaos:
-      envs: []
-      ports: []
       volumes:
-      - container: /data
-        description:
-          de_DE: Redis cache data storage
-          el_GR: Redis cache data storage
-          en_GB: Redis cache data storage
-          en_US: Redis cache data storage
-          fr_FR: Redis cache data storage
-          hr_HR: Redis cache data storage
-          it_IT: Redis cache data storage
-          ja_JP: Redis cache data storage
-          ko_KR: Redis cache data storage
-          nb_NO: Redis cache data storage
-          pt_PT: Redis cache data storage
-          ru_RU: Redis cache data storage
-          sv_SE: Redis cache data storage
-          tr_TR: Redis cache data storage
-          zh_CN: Redis cache data storage
+        - container: /data
+          description:
+            de_DE: Redis cache data storage
+            el_GR: Redis cache data storage
+            en_GB: Redis cache data storage
+            en_US: Redis cache data storage
+            fr_FR: Redis cache data storage
+            hr_HR: Redis cache data storage
+            it_IT: Redis cache data storage
+            ja_JP: Redis cache data storage
+            ko_KR: Redis cache data storage
+            nb_NO: Redis cache data storage
+            pt_PT: Redis cache data storage
+            ru_RU: Redis cache data storage
+            sv_SE: Redis cache data storage
+            tr_TR: Redis cache data storage
+            zh_CN: Redis cache data storage
 networks:
   teable-standalone:
     name: teable-standalone-network
