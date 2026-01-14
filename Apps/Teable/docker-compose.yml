@@ -1,7 +1,7 @@
 name: teable
 services:
   teable:
-    image: teableio/teable:0.5.0-alpha-1.10.0-build.759-amd64
+    image: teableio/teable:0.5.0-alpha-1.10.0-build.760-amd64
     container_name: teable
     restart: unless-stopped
     deploy:     
