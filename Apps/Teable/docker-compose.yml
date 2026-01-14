@@ -133,7 +133,7 @@ services:
         source: /DATA/AppData/$AppID/data
         target: /var/lib/postgresql/data
     environment:
-      - TZ=UTC
+      - TZ=$TZ
       - POSTGRES_DB=teable-db
       - POSTGRES_USER=example
       - POSTGRES_PASSWORD=example
@@ -148,23 +148,74 @@ services:
       retries: 3
     x-casaos:
       envs:
-        - container: POSTGRES_PASSWORD
-          description:
-            de_DE: PostgreSQL password
-            el_GR: PostgreSQL password
-            en_GB: PostgreSQL password
-            en_US: PostgreSQL password
-            fr_FR: PostgreSQL password
-            hr_HR: PostgreSQL password
-            it_IT: PostgreSQL password
-            ja_JP: PostgreSQL password
-            ko_KR: PostgreSQL password
-            nb_NO: PostgreSQL password
-            pt_PT: PostgreSQL password
-            ru_RU: PostgreSQL password
-            sv_SE: PostgreSQL password
-            tr_TR: PostgreSQL password
-            zh_CN: PostgreSQL 密码
+      - container: TZ
+        description:
+          de_DE: Timezone for the database
+          el_GR: Timezone for the database
+          en_GB: Timezone for the database
+          en_US: Timezone for the database
+          fr_FR: Timezone for the database
+          hr_HR: Timezone for the database
+          it_IT: Timezone for the database
+          ja_JP: Timezone for the database
+          ko_KR: Timezone for the database
+          nb_NO: Timezone for the database
+          pt_PT: Timezone for the database
+          ru_RU: Timezone for the database
+          sv_SE: Timezone for the database
+          tr_TR: Timezone for the database
+          zh_CN: Timezone for the database
+      - container: POSTGRES_DB
+        description:
+          de_DE: PostgreSQL database name
+          el_GR: PostgreSQL database name
+          en_GB: PostgreSQL database name
+          en_US: PostgreSQL database name
+          fr_FR: PostgreSQL database name
+          hr_HR: PostgreSQL database name
+          it_IT: PostgreSQL database name
+          ja_JP: PostgreSQL database name
+          ko_KR: PostgreSQL database name
+          nb_NO: PostgreSQL database name
+          pt_PT: PostgreSQL database name
+          ru_RU: PostgreSQL database name
+          sv_SE: PostgreSQL database name
+          tr_TR: PostgreSQL database name
+          zh_CN: PostgreSQL database name
+      - container: POSTGRES_USER
+        description:
+          de_DE: PostgreSQL username
+          el_GR: PostgreSQL username
+          en_GB: PostgreSQL username
+          en_US: PostgreSQL username
+          fr_FR: PostgreSQL username
+          hr_HR: PostgreSQL username
+          it_IT: PostgreSQL username
+          ja_JP: PostgreSQL username
+          ko_KR: PostgreSQL username
+          nb_NO: PostgreSQL username
+          pt_PT: PostgreSQL username
+          ru_RU: PostgreSQL username
+          sv_SE: PostgreSQL username
+          tr_TR: PostgreSQL username
+          zh_CN: PostgreSQL username
+      - container: POSTGRES_PASSWORD
+        description:
+          de_DE: PostgreSQL password
+          el_GR: PostgreSQL password
+          en_GB: PostgreSQL password
+          en_US: PostgreSQL password
+          fr_FR: PostgreSQL password
+          hr_HR: PostgreSQL password
+          it_IT: PostgreSQL password
+          ja_JP: PostgreSQL password
+          ko_KR: PostgreSQL password
+          nb_NO: PostgreSQL password
+          pt_PT: PostgreSQL password
+          ru_RU: PostgreSQL password
+          sv_SE: PostgreSQL password
+          tr_TR: PostgreSQL password
+          zh_CN: PostgreSQL password
       volumes:
         - container: /var/lib/postgresql/data
           description:
