@@ -10,7 +10,7 @@ services:
           memory: 512M
     ports:
       - target: 3000
-        published: '3200'
+        published: "3200"
         protocol: tcp
     volumes:
       - type: bind
@@ -19,9 +19,8 @@ services:
     environment:
       - TZ=$TZ
       - NEXT_ENV_IMAGES_ALL_REMOTE=true
-      - PUBLIC_ORIGIN=http://127.0.0.1:3000
+      - PUBLIC_ORIGIN=http://127.0.0.1:3200 
       - PRISMA_DATABASE_URL=postgresql://example:example@teable-db:5432/teable-db
-      - PUBLIC_DATABASE_PROXY=127.0.0.1:42345
       - BACKEND_CACHE_PROVIDER=redis
       - BACKEND_CACHE_REDIS_URI=redis://default:password@teable-cache:6379/0
     networks:
@@ -49,41 +48,7 @@ services:
             ru_RU: Timezone for the application
             sv_SE: Timezone for the application
             tr_TR: Timezone for the application
-            zh_CN: Timezone for the application
-        - container: NEXT_ENV_IMAGES_ALL_REMOTE
-          description:
-            de_DE: Next.js image optimization configuration
-            el_GR: Next.js image optimization configuration
-            en_GB: Next.js image optimization configuration
-            en_US: Next.js image optimization configuration
-            fr_FR: Next.js image optimization configuration
-            hr_HR: Next.js image optimization configuration
-            it_IT: Next.js image optimization configuration
-            ja_JP: Next.js image optimization configuration
-            ko_KR: Next.js image optimization configuration
-            nb_NO: Next.js image optimization configuration
-            pt_PT: Next.js image optimization configuration
-            ru_RU: Next.js image optimization configuration
-            sv_SE: Next.js image optimization configuration
-            tr_TR: Next.js image optimization configuration
-            zh_CN: Next.js image optimization configuration
-        - container: PUBLIC_ORIGIN
-          description:
-            de_DE: Public URL origin for the application
-            el_GR: Public URL origin for the application
-            en_GB: Public URL origin for the application
-            en_US: Public URL origin for the application
-            fr_FR: Public URL origin for the application
-            hr_HR: Public URL origin for the application
-            it_IT: Public URL origin for the application
-            ja_JP: Public URL origin for the application
-            ko_KR: Public URL origin for the application
-            nb_NO: Public URL origin for the application
-            pt_PT: Public URL origin for the application
-            ru_RU: Public URL origin for the application
-            sv_SE: Public URL origin for the application
-            tr_TR: Public URL origin for the application
-            zh_CN: Public URL origin for the application
+            zh_CN: 应用程序的时区
         - container: PRISMA_DATABASE_URL
           description:
             de_DE: Database connection string for Prisma ORM
@@ -100,41 +65,7 @@ services:
             ru_RU: Database connection string for Prisma ORM
             sv_SE: Database connection string for Prisma ORM
             tr_TR: Database connection string for Prisma ORM
-            zh_CN: Database connection string for Prisma ORM
-        - container: PUBLIC_DATABASE_PROXY
-          description:
-            de_DE: Database proxy configuration
-            el_GR: Database proxy configuration
-            en_GB: Database proxy configuration
-            en_US: Database proxy configuration
-            fr_FR: Database proxy configuration
-            hr_HR: Database proxy configuration
-            it_IT: Database proxy configuration
-            ja_JP: Database proxy configuration
-            ko_KR: Database proxy configuration
-            nb_NO: Database proxy configuration
-            pt_PT: Database proxy configuration
-            ru_RU: Database proxy configuration
-            sv_SE: Database proxy configuration
-            tr_TR: Database proxy configuration
-            zh_CN: Database proxy configuration
-        - container: BACKEND_CACHE_PROVIDER
-          description:
-            de_DE: Cache provider for the backend service
-            el_GR: Cache provider for the backend service
-            en_GB: Cache provider for the backend service
-            en_US: Cache provider for the backend service
-            fr_FR: Cache provider for the backend service
-            hr_HR: Cache provider for the backend service
-            it_IT: Cache provider for the backend service
-            ja_JP: Cache provider for the backend service
-            ko_KR: Cache provider for the backend service
-            nb_NO: Cache provider for the backend service
-            pt_PT: Cache provider for the backend service
-            ru_RU: Cache provider for the backend service
-            sv_SE: Cache provider for the backend service
-            tr_TR: Cache provider for the backend service
-            zh_CN: Cache provider for the backend service
+            zh_CN: Prisma ORM 的数据库连接字符串
         - container: BACKEND_CACHE_REDIS_URI
           description:
             de_DE: Redis connection URI for caching
@@ -151,11 +82,11 @@ services:
             ru_RU: Redis connection URI for caching
             sv_SE: Redis connection URI for caching
             tr_TR: Redis connection URI for caching
-            zh_CN: Redis connection URI for caching
+            zh_CN: 用于缓存的 Redis 连接 URI
       ports:
-        - container: '3000'
+        - container: "3000"
           description:
-            de_DE: Haupt-Weboberflächen-Port
+            de_DE: Main web interface port
             el_GR: Main web interface port
             en_GB: Main web interface port
             en_US: Main web interface port
@@ -187,7 +118,8 @@ services:
             ru_RU: Application assets and static files
             sv_SE: Application assets and static files
             tr_TR: Application assets and static files
-            zh_CN: Application assets and static files
+            zh_CN: 应用资源文件和静态文件
+
   teable-db:
     image: postgres:15
     restart: unless-stopped
@@ -196,10 +128,7 @@ services:
       resources:
         reservations:
           memory: 256M
-    ports:
-      - target: 5432
-        published: '42345'
-        protocol: tcp
+    # 移除了 ports 映射，增强安全性，仅在内部网络通信
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/data
@@ -208,6 +137,7 @@ services:
       - TZ=UTC
       - POSTGRES_DB=teable-db
       - POSTGRES_USER=example
+      # 请在部署后立即修改密码
       - POSTGRES_PASSWORD=example
     networks:
       - teable-standalone
@@ -220,57 +150,6 @@ services:
       retries: 3
     x-casaos:
       envs:
-        - container: TZ
-          description:
-            de_DE: Timezone for the database
-            el_GR: Timezone for the database
-            en_GB: Timezone for the database
-            en_US: Timezone for the database
-            fr_FR: Timezone for the database
-            hr_HR: Timezone for the database
-            it_IT: Timezone for the database
-            ja_JP: Timezone for the database
-            ko_KR: Timezone for the database
-            nb_NO: Timezone for the database
-            pt_PT: Timezone for the database
-            ru_RU: Timezone for the database
-            sv_SE: Timezone for the database
-            tr_TR: Timezone for the database
-            zh_CN: Timezone for the database
-        - container: POSTGRES_DB
-          description:
-            de_DE: PostgreSQL database name
-            el_GR: PostgreSQL database name
-            en_GB: PostgreSQL database name
-            en_US: PostgreSQL database name
-            fr_FR: PostgreSQL database name
-            hr_HR: PostgreSQL database name
-            it_IT: PostgreSQL database name
-            ja_JP: PostgreSQL database name
-            ko_KR: PostgreSQL database name
-            nb_NO: PostgreSQL database name
-            pt_PT: PostgreSQL database name
-            ru_RU: PostgreSQL database name
-            sv_SE: PostgreSQL database name
-            tr_TR: PostgreSQL database name
-            zh_CN: PostgreSQL database name
-        - container: POSTGRES_USER
-          description:
-            de_DE: PostgreSQL username
-            el_GR: PostgreSQL username
-            en_GB: PostgreSQL username
-            en_US: PostgreSQL username
-            fr_FR: PostgreSQL username
-            hr_HR: PostgreSQL username
-            it_IT: PostgreSQL username
-            ja_JP: PostgreSQL username
-            ko_KR: PostgreSQL username
-            nb_NO: PostgreSQL username
-            pt_PT: PostgreSQL username
-            ru_RU: PostgreSQL username
-            sv_SE: PostgreSQL username
-            tr_TR: PostgreSQL username
-            zh_CN: PostgreSQL username
         - container: POSTGRES_PASSWORD
           description:
             de_DE: PostgreSQL password
@@ -287,25 +166,7 @@ services:
             ru_RU: PostgreSQL password
             sv_SE: PostgreSQL password
             tr_TR: PostgreSQL password
-            zh_CN: PostgreSQL password
-      ports:
-        - container: '5432'
-          description:
-            de_DE: PostgreSQL database port
-            el_GR: PostgreSQL database port
-            en_GB: PostgreSQL database port
-            en_US: PostgreSQL database port
-            fr_FR: PostgreSQL database port
-            hr_HR: PostgreSQL database port
-            it_IT: PostgreSQL database port
-            ja_JP: PostgreSQL database port
-            ko_KR: PostgreSQL database port
-            nb_NO: PostgreSQL database port
-            pt_PT: PostgreSQL database port
-            ru_RU: PostgreSQL database port
-            sv_SE: PostgreSQL database port
-            tr_TR: PostgreSQL database port
-            zh_CN: PostgreSQL database port
+            zh_CN: PostgreSQL 密码
       volumes:
         - container: /var/lib/postgresql/data
           description:
@@ -323,7 +184,8 @@ services:
             ru_RU: PostgreSQL data storage
             sv_SE: PostgreSQL data storage
             tr_TR: PostgreSQL data storage
-            zh_CN: PostgreSQL data storage
+            zh_CN: PostgreSQL 数据存储
+
   teable-cache:
     image: redis:7.2.4
     restart: unless-stopped
@@ -332,23 +194,20 @@ services:
       resources:
         reservations:
           memory: 256M
-    expose:
-      - '6379'
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/teable-cache-data
         target: /data
     networks:
       - teable-standalone
-    command: 
-      - redis-server 
-      - --requirepass password
+    command:
+      - "redis-server"
+      - "--requirepass"
+      - "password"
     healthcheck:
       test:
         - CMD
         - redis-cli
-        - --raw
-        - incr
         - ping
       interval: 10s
       timeout: 3s
@@ -371,11 +230,13 @@ services:
             ru_RU: Redis cache data storage
             sv_SE: Redis cache data storage
             tr_TR: Redis cache data storage
-            zh_CN: Redis cache data storage
+            zh_CN: Redis 缓存数据存储
+
 networks:
   teable-standalone:
     name: teable-standalone-network
     driver: bridge
+
 x-casaos:
   title:
     de_DE: teable
@@ -629,7 +490,7 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Teable/screenshot-2.png
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Teable/screenshot-3.png
   main: teable
-  port_map: '3200'
+  port_map: "3200"
   architectures:
     - amd64
   index: /
