@@ -128,7 +128,6 @@ services:
       resources:
         reservations:
           memory: 256M
-    # 移除了 ports 映射，增强安全性，仅在内部网络通信
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/data
@@ -137,7 +136,6 @@ services:
       - TZ=UTC
       - POSTGRES_DB=teable-db
       - POSTGRES_USER=example
-      # 请在部署后立即修改密码
       - POSTGRES_PASSWORD=example
     networks:
       - teable-standalone
