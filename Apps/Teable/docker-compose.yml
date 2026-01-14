@@ -236,21 +236,21 @@ networks:
 
 x-casaos:
   title:
-    de_DE: teable
-    el_GR: teable
-    en_GB: teable
-    en_US: teable
-    fr_FR: teable
-    hr_HR: teable
-    it_IT: teable
-    ja_JP: teable
-    ko_KR: teable
-    nb_NO: teable
-    pt_PT: teable
-    ru_RU: teable
-    sv_SE: teable
-    tr_TR: teable
-    zh_CN: teable
+    de_DE: Teable
+    el_GR: Teable
+    en_GB: Teable
+    en_US: Teable
+    fr_FR: Teable
+    hr_HR: Teable
+    it_IT: Teable
+    ja_JP: Teable
+    ko_KR: Teable
+    nb_NO: Teable
+    pt_PT: Teable
+    ru_RU: Teable
+    sv_SE: Teable
+    tr_TR: Teable
+    zh_CN: Teable
   tagline:
     de_DE: Teable verwendet eine prägnante Tabellenkalkulationsoberfläche, erstellt aber leistungsstarke Datenbankanwendungen
     el_GR: Το Teable υιοθετεί μια συνοπτική διεπαφή υπολογιστικού φύλλου, δημιουργεί όμως ισχυρές εφαρμογές βάσεων δεδομένων
