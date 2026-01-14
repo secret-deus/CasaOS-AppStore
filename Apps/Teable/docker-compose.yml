@@ -1,6 +1,7 @@
+name: teable
 services:
   teable:
-    image: teableio/teable:latest
+    image: teableio/teable:0.5.0-alpha-1.10.0-build.759-amd64
     container_name: teable
     restart: unless-stopped
     deploy:     
@@ -9,7 +10,7 @@ services:
           memory: 512M
     ports:
       - target: 3000
-        published: '3200'
+        published: "3200"
         protocol: tcp
     volumes:
       - type: bind
@@ -20,7 +21,6 @@ services:
       - NEXT_ENV_IMAGES_ALL_REMOTE=true
       - PUBLIC_ORIGIN=http://127.0.0.1:3000
       - PRISMA_DATABASE_URL=postgresql://example:example@teable-db:5432/teable-db
-      - PUBLIC_DATABASE_PROXY=127.0.0.1:42345
       - BACKEND_CACHE_PROVIDER=redis
       - BACKEND_CACHE_REDIS_URI=redis://default:password@teable-cache:6379/0
     networks:
@@ -195,10 +195,6 @@ services:
       resources:
         reservations:
           memory: 256M
-    ports:
-      - target: 5432
-        published: '42345'
-        protocol: tcp
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/data
@@ -287,24 +283,6 @@ services:
             sv_SE: PostgreSQL password
             tr_TR: PostgreSQL password
             zh_CN: PostgreSQL password
-      ports:
-        - container: '5432'
-          description:
-            de_DE: PostgreSQL database port
-            el_GR: PostgreSQL database port
-            en_GB: PostgreSQL database port
-            en_US: PostgreSQL database port
-            fr_FR: PostgreSQL database port
-            hr_HR: PostgreSQL database port
-            it_IT: PostgreSQL database port
-            ja_JP: PostgreSQL database port
-            ko_KR: PostgreSQL database port
-            nb_NO: PostgreSQL database port
-            pt_PT: PostgreSQL database port
-            ru_RU: PostgreSQL database port
-            sv_SE: PostgreSQL database port
-            tr_TR: PostgreSQL database port
-            zh_CN: PostgreSQL database port
       volumes:
         - container: /var/lib/postgresql/data
           description:
