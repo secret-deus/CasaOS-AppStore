@@ -190,7 +190,7 @@ services:
             zh_CN: Application assets and static files
   teable-db:
     image: postgres:15
-    restart: always
+    restart: unless-stopped
     container_name: teable-db
     deploy:
       resources:
@@ -326,7 +326,7 @@ services:
             zh_CN: PostgreSQL data storage
   teable-cache:
     image: redis:7.2.4
-    restart: always
+    restart: unless-stopped
     container_name: teable-cache
     deploy:
       resources:
