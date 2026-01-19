@@ -787,7 +787,6 @@ services:
 networks:
   WeKnora-network:
     driver: bridge
-name: frontend
 x-casaos:
   title:
     de_DE: weknora
