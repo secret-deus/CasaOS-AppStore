@@ -78,7 +78,7 @@ services:
       - DISABLE_REGISTRATION=false
       - DB_DRIVER=postgres
       - DB_HOST=weknora-postgres
-      - DB_PORT=5432
+      - DB_PORT="5432"
       - DB_USER=postgres
       - DB_PASSWORD=postgres123!@#
       - DB_NAME=WeKnora
