@@ -1,11 +1,11 @@
 name: weknora
 services:
-  weknora-frontend:
+  weknora:
     image: wechatopenai/weknora-ui:latest
     container_name: weknora-frontend
     ports:
       - target: 80
-        published: "80"
+        published: "1080"
         protocol: tcp
     environment:
       - MAX_FILE_SIZE_MB=50
@@ -789,20 +789,20 @@ networks:
     driver: bridge
 x-casaos:
   title:
-    de_DE: weknora
-    el_GR: weknora
-    en_GB: weknora
-    en_US: weknora
-    fr_FR: weknora
-    hr_HR: weknora
-    it_IT: weknora
-    ja_JP: weknora
-    ko_KR: weknora
-    nb_NO: weknora
-    pt_PT: weknora
-    ru_RU: weknora
-    sv_SE: weknora
-    tr_TR: weknora
+    de_DE: WeKnora
+    el_GR: WeKnora
+    en_GB: WeKnora
+    en_US: WeKnora
+    fr_FR: WeKnora
+    hr_HR: WeKnora
+    it_IT: WeKnora
+    ja_JP: WeKnora
+    ko_KR: WeKnora
+    nb_NO: WeKnora
+    pt_PT: WeKnora
+    ru_RU: WeKnora
+    sv_SE: WeKnora
+    tr_TR: WeKnora
     zh_CN: weknora
   tagline:
     de_DE: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
@@ -920,8 +920,8 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKnora/screenshot-1.png
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKnora/screenshot-2.png
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKnora/screenshot-3.png
-  main: frontend
-  port_map: "80"
+  main: weknora
+  port_map: "1080"
   architectures:
     - amd64
     - arm64
