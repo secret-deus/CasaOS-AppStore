@@ -2,7 +2,7 @@ name: weknora
 services:
   weknora:
     image: wechatopenai/weknora-ui:latest
-    container_name: weknora-frontend
+    container_name: weknora
     ports:
       - target: 80
         published: "1080"
@@ -871,6 +871,5 @@ x-casaos:
   port_map: "1080"
   architectures:
     - amd64
-    - arm64
   index: /
   scheme: http
