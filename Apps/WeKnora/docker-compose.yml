@@ -1,0 +1,929 @@
+services:
+  frontend:
+    image: wechatopenai/weknora-ui:latest
+    container_name: WeKnora-frontend
+    ports:
+      - target: 80
+        published: "80"
+        protocol: tcp
+    environment:
+      - MAX_FILE_SIZE_MB=50
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - WeKnora-network
+    restart: unless-stopped
+    x-casaos:
+      envs:
+        - container: MAX_FILE_SIZE_MB
+          description:
+            de_DE: Maximum file size allowed for upload in megabytes
+            el_GR: Maximum file size allowed for upload in megabytes
+            en_GB: Maximum file size allowed for upload in megabytes
+            en_US: Maximum file size allowed for upload in megabytes
+            fr_FR: Maximum file size allowed for upload in megabytes
+            hr_HR: Maximum file size allowed for upload in megabytes
+            it_IT: Maximum file size allowed for upload in megabytes
+            ja_JP: Maximum file size allowed for upload in megabytes
+            ko_KR: Maximum file size allowed for upload in megabytes
+            nb_NO: Maximum file size allowed for upload in megabytes
+            pt_PT: Maximum file size allowed for upload in megabytes
+            ru_RU: Maximum file size allowed for upload in megabytes
+            sv_SE: Maximum file size allowed for upload in megabytes
+            tr_TR: Maximum file size allowed for upload in megabytes
+            zh_CN: Maximum file size allowed for upload in megabytes
+      ports:
+        - container: "80"
+          description:
+            de_DE: Haupt-Weboberflächen-Port
+            el_GR: Main web interface port
+            en_GB: Main web interface port
+            en_US: Main web interface port
+            fr_FR: Main web interface port
+            hr_HR: Main web interface port
+            it_IT: Main web interface port
+            ja_JP: Main web interface port
+            ko_KR: Main web interface port
+            nb_NO: Main web interface port
+            pt_PT: Main web interface port
+            ru_RU: Main web interface port
+            sv_SE: Main web interface port
+            tr_TR: Main web interface port
+            zh_CN: 主 Web 界面端口
+  app:
+    image: wechatopenai/weknora-app:latest
+    container_name: WeKnora-app
+    ports:
+      - target: 8080
+        published: "8080"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/files
+        target: /data/files
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -f
+        - http://localhost:8080/health
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    environment:
+
+      - GIN_MODE=release
+      - DISABLE_REGISTRATION=false
+
+      - DB_DRIVER=postgres
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres123!@#
+      - DB_NAME=WeKnora
+
+      - TZ=$TZ
+
+      - RETRIEVE_DRIVER=postgres
+
+      - DOCREADER_ADDR=docreader:50051
+
+      - STORAGE_TYPE=local
+      - LOCAL_STORAGE_BASE_DIR=/data/files
+      - AUTO_RECOVER_DIRTY=true
+
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+
+      - STREAM_MANAGER_TYPE=redis
+      - REDIS_ADDR=redis:6379
+      - REDIS_PASSWORD=redis123!@#
+      - REDIS_DB=0
+      - REDIS_PREFIX=stream:
+
+      - TENANT_AES_KEY=weknorarag-api-key-secret-secret
+      - CONCURRENCY_POOL_SIZE=5
+      - JWT_SECRET=weknora-jwt-secret
+
+      - MAX_FILE_SIZE_MB=50
+    depends_on:
+      redis:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      docreader:
+        condition: service_healthy
+    networks:
+      - WeKnora-network
+    restart: unless-stopped
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    x-casaos:
+      envs:
+        - container: GIN_MODE
+          description:
+            de_DE: Gin framework mode (debug/release)
+            el_GR: Gin framework mode (debug/release)
+            en_GB: Gin framework mode (debug/release)
+            en_US: Gin framework mode (debug/release)
+            fr_FR: Gin framework mode (debug/release)
+            hr_HR: Gin framework mode (debug/release)
+            it_IT: Gin framework mode (debug/release)
+            ja_JP: Gin framework mode (debug/release)
+            ko_KR: Gin framework mode (debug/release)
+            nb_NO: Gin framework mode (debug/release)
+            pt_PT: Gin framework mode (debug/release)
+            ru_RU: Gin framework mode (debug/release)
+            sv_SE: Gin framework mode (debug/release)
+            tr_TR: Gin framework mode (debug/release)
+            zh_CN: Gin framework mode (debug/release)
+        - container: DISABLE_REGISTRATION
+          description:
+            de_DE: Disable user registration
+            el_GR: Disable user registration
+            en_GB: Disable user registration
+            en_US: Disable user registration
+            fr_FR: Disable user registration
+            hr_HR: Disable user registration
+            it_IT: Disable user registration
+            ja_JP: Disable user registration
+            ko_KR: Disable user registration
+            nb_NO: Disable user registration
+            pt_PT: Disable user registration
+            ru_RU: Disable user registration
+            sv_SE: Disable user registration
+            tr_TR: Disable user registration
+            zh_CN: Disable user registration
+        - container: DB_DRIVER
+          description:
+            de_DE: Database driver type
+            el_GR: Database driver type
+            en_GB: Database driver type
+            en_US: Database driver type
+            fr_FR: Database driver type
+            hr_HR: Database driver type
+            it_IT: Database driver type
+            ja_JP: Database driver type
+            ko_KR: Database driver type
+            nb_NO: Database driver type
+            pt_PT: Database driver type
+            ru_RU: Database driver type
+            sv_SE: Database driver type
+            tr_TR: Database driver type
+            zh_CN: Database driver type
+        - container: DB_HOST
+          description:
+            de_DE: Database server hostname
+            el_GR: Database server hostname
+            en_GB: Database server hostname
+            en_US: Database server hostname
+            fr_FR: Database server hostname
+            hr_HR: Database server hostname
+            it_IT: Database server hostname
+            ja_JP: Database server hostname
+            ko_KR: Database server hostname
+            nb_NO: Database server hostname
+            pt_PT: Database server hostname
+            ru_RU: Database server hostname
+            sv_SE: Database server hostname
+            tr_TR: Database server hostname
+            zh_CN: Database server hostname
+        - container: DB_PORT
+          description:
+            de_DE: Database server port
+            el_GR: Database server port
+            en_GB: Database server port
+            en_US: Database server port
+            fr_FR: Database server port
+            hr_HR: Database server port
+            it_IT: Database server port
+            ja_JP: Database server port
+            ko_KR: Database server port
+            nb_NO: Database server port
+            pt_PT: Database server port
+            ru_RU: Database server port
+            sv_SE: Database server port
+            tr_TR: Database server port
+            zh_CN: Database server port
+        - container: DB_USER
+          description:
+            de_DE: Database username
+            el_GR: Database username
+            en_GB: Database username
+            en_US: Database username
+            fr_FR: Database username
+            hr_HR: Database username
+            it_IT: Database username
+            ja_JP: Database username
+            ko_KR: Database username
+            nb_NO: Database username
+            pt_PT: Database username
+            ru_RU: Database username
+            sv_SE: Database username
+            tr_TR: Database username
+            zh_CN: Database username
+        - container: DB_PASSWORD
+          description:
+            de_DE: Datenbankpasswort
+            el_GR: Database password
+            en_GB: Database password
+            en_US: Database password
+            fr_FR: Database password
+            hr_HR: Database password
+            it_IT: Database password
+            ja_JP: Database password
+            ko_KR: Database password
+            nb_NO: Database password
+            pt_PT: Database password
+            ru_RU: Database password
+            sv_SE: Database password
+            tr_TR: Database password
+            zh_CN: 数据库密码
+        - container: DB_NAME
+          description:
+            de_DE: Database name
+            el_GR: Database name
+            en_GB: Database name
+            en_US: Database name
+            fr_FR: Database name
+            hr_HR: Database name
+            it_IT: Database name
+            ja_JP: Database name
+            ko_KR: Database name
+            nb_NO: Database name
+            pt_PT: Database name
+            ru_RU: Database name
+            sv_SE: Database name
+            tr_TR: Database name
+            zh_CN: Database name
+        - container: TZ
+          description:
+            de_DE: Timezone setting
+            el_GR: Timezone setting
+            en_GB: Timezone setting
+            en_US: Timezone setting
+            fr_FR: Timezone setting
+            hr_HR: Timezone setting
+            it_IT: Timezone setting
+            ja_JP: Timezone setting
+            ko_KR: Timezone setting
+            nb_NO: Timezone setting
+            pt_PT: Timezone setting
+            ru_RU: Timezone setting
+            sv_SE: Timezone setting
+            tr_TR: Timezone setting
+            zh_CN: Timezone setting
+        - container: RETRIEVE_DRIVER
+          description:
+            de_DE: Retrieval driver type
+            el_GR: Retrieval driver type
+            en_GB: Retrieval driver type
+            en_US: Retrieval driver type
+            fr_FR: Retrieval driver type
+            hr_HR: Retrieval driver type
+            it_IT: Retrieval driver type
+            ja_JP: Retrieval driver type
+            ko_KR: Retrieval driver type
+            nb_NO: Retrieval driver type
+            pt_PT: Retrieval driver type
+            ru_RU: Retrieval driver type
+            sv_SE: Retrieval driver type
+            tr_TR: Retrieval driver type
+            zh_CN: Retrieval driver type
+        - container: DOCREADER_ADDR
+          description:
+            de_DE: Document reader service address
+            el_GR: Document reader service address
+            en_GB: Document reader service address
+            en_US: Document reader service address
+            fr_FR: Document reader service address
+            hr_HR: Document reader service address
+            it_IT: Document reader service address
+            ja_JP: Document reader service address
+            ko_KR: Document reader service address
+            nb_NO: Document reader service address
+            pt_PT: Document reader service address
+            ru_RU: Document reader service address
+            sv_SE: Document reader service address
+            tr_TR: Document reader service address
+            zh_CN: Document reader service address
+        - container: STORAGE_TYPE
+          description:
+            de_DE: Storage type configuration
+            el_GR: Storage type configuration
+            en_GB: Storage type configuration
+            en_US: Storage type configuration
+            fr_FR: Storage type configuration
+            hr_HR: Storage type configuration
+            it_IT: Storage type configuration
+            ja_JP: Storage type configuration
+            ko_KR: Storage type configuration
+            nb_NO: Storage type configuration
+            pt_PT: Storage type configuration
+            ru_RU: Storage type configuration
+            sv_SE: Storage type configuration
+            tr_TR: Storage type configuration
+            zh_CN: Storage type configuration
+        - container: LOCAL_STORAGE_BASE_DIR
+          description:
+            de_DE: Base directory for local storage
+            el_GR: Base directory for local storage
+            en_GB: Base directory for local storage
+            en_US: Base directory for local storage
+            fr_FR: Base directory for local storage
+            hr_HR: Base directory for local storage
+            it_IT: Base directory for local storage
+            ja_JP: Base directory for local storage
+            ko_KR: Base directory for local storage
+            nb_NO: Base directory for local storage
+            pt_PT: Base directory for local storage
+            ru_RU: Base directory for local storage
+            sv_SE: Base directory for local storage
+            tr_TR: Base directory for local storage
+            zh_CN: Base directory for local storage
+        - container: AUTO_RECOVER_DIRTY
+          description:
+            de_DE: Auto recover dirty documents
+            el_GR: Auto recover dirty documents
+            en_GB: Auto recover dirty documents
+            en_US: Auto recover dirty documents
+            fr_FR: Auto recover dirty documents
+            hr_HR: Auto recover dirty documents
+            it_IT: Auto recover dirty documents
+            ja_JP: Auto recover dirty documents
+            ko_KR: Auto recover dirty documents
+            nb_NO: Auto recover dirty documents
+            pt_PT: Auto recover dirty documents
+            ru_RU: Auto recover dirty documents
+            sv_SE: Auto recover dirty documents
+            tr_TR: Auto recover dirty documents
+            zh_CN: Auto recover dirty documents
+        - container: OLLAMA_BASE_URL
+          description:
+            de_DE: Ollama API base URL
+            el_GR: Ollama API base URL
+            en_GB: Ollama API base URL
+            en_US: Ollama API base URL
+            fr_FR: Ollama API base URL
+            hr_HR: Ollama API base URL
+            it_IT: Ollama API base URL
+            ja_JP: Ollama API base URL
+            ko_KR: Ollama API base URL
+            nb_NO: Ollama API base URL
+            pt_PT: Ollama API base URL
+            ru_RU: Ollama API base URL
+            sv_SE: Ollama API base URL
+            tr_TR: Ollama API base URL
+            zh_CN: Ollama API base URL
+        - container: STREAM_MANAGER_TYPE
+          description:
+            de_DE: Stream manager type
+            el_GR: Stream manager type
+            en_GB: Stream manager type
+            en_US: Stream manager type
+            fr_FR: Stream manager type
+            hr_HR: Stream manager type
+            it_IT: Stream manager type
+            ja_JP: Stream manager type
+            ko_KR: Stream manager type
+            nb_NO: Stream manager type
+            pt_PT: Stream manager type
+            ru_RU: Stream manager type
+            sv_SE: Stream manager type
+            tr_TR: Stream manager type
+            zh_CN: Stream manager type
+        - container: REDIS_ADDR
+          description:
+            de_DE: Redis server address
+            el_GR: Redis server address
+            en_GB: Redis server address
+            en_US: Redis server address
+            fr_FR: Redis server address
+            hr_HR: Redis server address
+            it_IT: Redis server address
+            ja_JP: Redis server address
+            ko_KR: Redis server address
+            nb_NO: Redis server address
+            pt_PT: Redis server address
+            ru_RU: Redis server address
+            sv_SE: Redis server address
+            tr_TR: Redis server address
+            zh_CN: Redis server address
+        - container: REDIS_PASSWORD
+          description:
+            de_DE: Redis password
+            el_GR: Redis password
+            en_GB: Redis password
+            en_US: Redis password
+            fr_FR: Redis password
+            hr_HR: Redis password
+            it_IT: Redis password
+            ja_JP: Redis password
+            ko_KR: Redis password
+            nb_NO: Redis password
+            pt_PT: Redis password
+            ru_RU: Redis password
+            sv_SE: Redis password
+            tr_TR: Redis password
+            zh_CN: Redis password
+        - container: REDIS_DB
+          description:
+            de_DE: Redis database number
+            el_GR: Redis database number
+            en_GB: Redis database number
+            en_US: Redis database number
+            fr_FR: Redis database number
+            hr_HR: Redis database number
+            it_IT: Redis database number
+            ja_JP: Redis database number
+            ko_KR: Redis database number
+            nb_NO: Redis database number
+            pt_PT: Redis database number
+            ru_RU: Redis database number
+            sv_SE: Redis database number
+            tr_TR: Redis database number
+            zh_CN: Redis database number
+        - container: REDIS_PREFIX
+          description:
+            de_DE: Redis key prefix
+            el_GR: Redis key prefix
+            en_GB: Redis key prefix
+            en_US: Redis key prefix
+            fr_FR: Redis key prefix
+            hr_HR: Redis key prefix
+            it_IT: Redis key prefix
+            ja_JP: Redis key prefix
+            ko_KR: Redis key prefix
+            nb_NO: Redis key prefix
+            pt_PT: Redis key prefix
+            ru_RU: Redis key prefix
+            sv_SE: Redis key prefix
+            tr_TR: Redis key prefix
+            zh_CN: Redis key prefix
+        - container: TENANT_AES_KEY
+          description:
+            de_DE: AES key for tenant encryption
+            el_GR: AES key for tenant encryption
+            en_GB: AES key for tenant encryption
+            en_US: AES key for tenant encryption
+            fr_FR: AES key for tenant encryption
+            hr_HR: AES key for tenant encryption
+            it_IT: AES key for tenant encryption
+            ja_JP: AES key for tenant encryption
+            ko_KR: AES key for tenant encryption
+            nb_NO: AES key for tenant encryption
+            pt_PT: AES key for tenant encryption
+            ru_RU: AES key for tenant encryption
+            sv_SE: AES key for tenant encryption
+            tr_TR: AES key for tenant encryption
+            zh_CN: AES key for tenant encryption
+        - container: CONCURRENCY_POOL_SIZE
+          description:
+            de_DE: Concurrency pool size
+            el_GR: Concurrency pool size
+            en_GB: Concurrency pool size
+            en_US: Concurrency pool size
+            fr_FR: Concurrency pool size
+            hr_HR: Concurrency pool size
+            it_IT: Concurrency pool size
+            ja_JP: Concurrency pool size
+            ko_KR: Concurrency pool size
+            nb_NO: Concurrency pool size
+            pt_PT: Concurrency pool size
+            ru_RU: Concurrency pool size
+            sv_SE: Concurrency pool size
+            tr_TR: Concurrency pool size
+            zh_CN: Concurrency pool size
+        - container: JWT_SECRET
+          description:
+            de_DE: JWT secret token
+            el_GR: JWT secret token
+            en_GB: JWT secret token
+            en_US: JWT secret token
+            fr_FR: JWT secret token
+            hr_HR: JWT secret token
+            it_IT: JWT secret token
+            ja_JP: JWT secret token
+            ko_KR: JWT secret token
+            nb_NO: JWT secret token
+            pt_PT: JWT secret token
+            ru_RU: JWT secret token
+            sv_SE: JWT secret token
+            tr_TR: JWT secret token
+            zh_CN: JWT secret token
+        - container: MAX_FILE_SIZE_MB
+          description:
+            de_DE: Maximum file size allowed for upload in megabytes
+            el_GR: Maximum file size allowed for upload in megabytes
+            en_GB: Maximum file size allowed for upload in megabytes
+            en_US: Maximum file size allowed for upload in megabytes
+            fr_FR: Maximum file size allowed for upload in megabytes
+            hr_HR: Maximum file size allowed for upload in megabytes
+            it_IT: Maximum file size allowed for upload in megabytes
+            ja_JP: Maximum file size allowed for upload in megabytes
+            ko_KR: Maximum file size allowed for upload in megabytes
+            nb_NO: Maximum file size allowed for upload in megabytes
+            pt_PT: Maximum file size allowed for upload in megabytes
+            ru_RU: Maximum file size allowed for upload in megabytes
+            sv_SE: Maximum file size allowed for upload in megabytes
+            tr_TR: Maximum file size allowed for upload in megabytes
+            zh_CN: Maximum file size allowed for upload in megabytes
+      ports:
+        - container: "8080"
+          description:
+            de_DE: Backend API server port
+            el_GR: Backend API server port
+            en_GB: Backend API server port
+            en_US: Backend API server port
+            fr_FR: Backend API server port
+            hr_HR: Backend API server port
+            it_IT: Backend API server port
+            ja_JP: Backend API server port
+            ko_KR: Backend API server port
+            nb_NO: Backend API server port
+            pt_PT: Backend API server port
+            ru_RU: Backend API server port
+            sv_SE: Backend API server port
+            tr_TR: Backend API server port
+            zh_CN: Backend API server port
+      volumes:
+        - container: /data/files
+          description:
+            de_DE: Document files storage
+            el_GR: Document files storage
+            en_GB: Document files storage
+            en_US: Document files storage
+            fr_FR: Document files storage
+            hr_HR: Document files storage
+            it_IT: Document files storage
+            ja_JP: Document files storage
+            ko_KR: Document files storage
+            nb_NO: Document files storage
+            pt_PT: Document files storage
+            ru_RU: Document files storage
+            sv_SE: Document files storage
+            tr_TR: Document files storage
+            zh_CN: Document files storage
+  docreader:
+    image: wechatopenai/weknora-docreader:latest
+    container_name: WeKnora-docreader
+    ports:
+      - target: 50051
+        published: "50051"
+        protocol: tcp
+    environment:
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_PUBLIC_ENDPOINT=http://localhost:9000
+      - MAX_FILE_SIZE_MB=50
+    healthcheck:
+      test:
+        - CMD
+        - grpc_health_probe
+        - -addr=:50051
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - WeKnora-network
+    restart: unless-stopped
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    x-casaos:
+      envs:
+        - container: MINIO_ENDPOINT
+          description:
+            de_DE: MinIO object storage endpoint
+            el_GR: MinIO object storage endpoint
+            en_GB: MinIO object storage endpoint
+            en_US: MinIO object storage endpoint
+            fr_FR: MinIO object storage endpoint
+            hr_HR: MinIO object storage endpoint
+            it_IT: MinIO object storage endpoint
+            ja_JP: MinIO object storage endpoint
+            ko_KR: MinIO object storage endpoint
+            nb_NO: MinIO object storage endpoint
+            pt_PT: MinIO object storage endpoint
+            ru_RU: MinIO object storage endpoint
+            sv_SE: MinIO object storage endpoint
+            tr_TR: MinIO object storage endpoint
+            zh_CN: MinIO object storage endpoint
+        - container: MINIO_PUBLIC_ENDPOINT
+          description:
+            de_DE: MinIO public endpoint for access
+            el_GR: MinIO public endpoint for access
+            en_GB: MinIO public endpoint for access
+            en_US: MinIO public endpoint for access
+            fr_FR: MinIO public endpoint for access
+            hr_HR: MinIO public endpoint for access
+            it_IT: MinIO public endpoint for access
+            ja_JP: MinIO public endpoint for access
+            ko_KR: MinIO public endpoint for access
+            nb_NO: MinIO public endpoint for access
+            pt_PT: MinIO public endpoint for access
+            ru_RU: MinIO public endpoint for access
+            sv_SE: MinIO public endpoint for access
+            tr_TR: MinIO public endpoint for access
+            zh_CN: MinIO public endpoint for access
+        - container: MINERU_ENDPOINT
+          description:
+            de_DE: MinerU document processing endpoint
+            el_GR: MinerU document processing endpoint
+            en_GB: MinerU document processing endpoint
+            en_US: MinerU document processing endpoint
+            fr_FR: MinerU document processing endpoint
+            hr_HR: MinerU document processing endpoint
+            it_IT: MinerU document processing endpoint
+            ja_JP: MinerU document processing endpoint
+            ko_KR: MinerU document processing endpoint
+            nb_NO: MinerU document processing endpoint
+            pt_PT: MinerU document processing endpoint
+            ru_RU: MinerU document processing endpoint
+            sv_SE: MinerU document processing endpoint
+            tr_TR: MinerU document processing endpoint
+            zh_CN: MinerU document processing endpoint
+        - container: MAX_FILE_SIZE_MB
+          description:
+            de_DE: Maximum file size allowed for upload in megabytes
+            el_GR: Maximum file size allowed for upload in megabytes
+            en_GB: Maximum file size allowed for upload in megabytes
+            en_US: Maximum file size allowed for upload in megabytes
+            fr_FR: Maximum file size allowed for upload in megabytes
+            hr_HR: Maximum file size allowed for upload in megabytes
+            it_IT: Maximum file size allowed for upload in megabytes
+            ja_JP: Maximum file size allowed for upload in megabytes
+            ko_KR: Maximum file size allowed for upload in megabytes
+            nb_NO: Maximum file size allowed for upload in megabytes
+            pt_PT: Maximum file size allowed for upload in megabytes
+            ru_RU: Maximum file size allowed for upload in megabytes
+            sv_SE: Maximum file size allowed for upload in megabytes
+            tr_TR: Maximum file size allowed for upload in megabytes
+            zh_CN: Maximum file size allowed for upload in megabytes
+      ports:
+        - container: "50051"
+          description:
+            de_DE: Document reader gRPC service port
+            el_GR: Document reader gRPC service port
+            en_GB: Document reader gRPC service port
+            en_US: Document reader gRPC service port
+            fr_FR: Document reader gRPC service port
+            hr_HR: Document reader gRPC service port
+            it_IT: Document reader gRPC service port
+            ja_JP: Document reader gRPC service port
+            ko_KR: Document reader gRPC service port
+            nb_NO: Document reader gRPC service port
+            pt_PT: Document reader gRPC service port
+            ru_RU: Document reader gRPC service port
+            sv_SE: Document reader gRPC service port
+            tr_TR: Document reader gRPC service port
+            zh_CN: Document reader gRPC service port
+      volumes: []
+  postgres:
+    image: paradedb/paradedb:v0.18.9-pg17
+    container_name: WeKnora-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123!@#
+      - POSTGRES_DB=WeKnora
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /var/lib/postgresql/data
+    networks:
+      - WeKnora-network
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    stop_grace_period: 1m
+    x-casaos:
+      envs:
+        - container: POSTGRES_USER
+          description:
+            de_DE: PostgreSQL superuser name
+            el_GR: PostgreSQL superuser name
+            en_GB: PostgreSQL superuser name
+            en_US: PostgreSQL superuser name
+            fr_FR: PostgreSQL superuser name
+            hr_HR: PostgreSQL superuser name
+            it_IT: PostgreSQL superuser name
+            ja_JP: PostgreSQL superuser name
+            ko_KR: PostgreSQL superuser name
+            nb_NO: PostgreSQL superuser name
+            pt_PT: PostgreSQL superuser name
+            ru_RU: PostgreSQL superuser name
+            sv_SE: PostgreSQL superuser name
+            tr_TR: PostgreSQL superuser name
+            zh_CN: PostgreSQL superuser name
+        - container: POSTGRES_PASSWORD
+          description:
+            de_DE: PostgreSQL superuser password
+            el_GR: PostgreSQL superuser password
+            en_GB: PostgreSQL superuser password
+            en_US: PostgreSQL superuser password
+            fr_FR: PostgreSQL superuser password
+            hr_HR: PostgreSQL superuser password
+            it_IT: PostgreSQL superuser password
+            ja_JP: PostgreSQL superuser password
+            ko_KR: PostgreSQL superuser password
+            nb_NO: PostgreSQL superuser password
+            pt_PT: PostgreSQL superuser password
+            ru_RU: PostgreSQL superuser password
+            sv_SE: PostgreSQL superuser password
+            tr_TR: PostgreSQL superuser password
+            zh_CN: PostgreSQL superuser password
+        - container: POSTGRES_DB
+          description:
+            de_DE: Default database name
+            el_GR: Default database name
+            en_GB: Default database name
+            en_US: Default database name
+            fr_FR: Default database name
+            hr_HR: Default database name
+            it_IT: Default database name
+            ja_JP: Default database name
+            ko_KR: Default database name
+            nb_NO: Default database name
+            pt_PT: Default database name
+            ru_RU: Default database name
+            sv_SE: Default database name
+            tr_TR: Default database name
+            zh_CN: Default database name
+      ports: []
+      volumes:
+        - container: /var/lib/postgresql/data
+          description:
+            de_DE: PostgreSQL data directory
+            el_GR: PostgreSQL data directory
+            en_GB: PostgreSQL data directory
+            en_US: PostgreSQL data directory
+            fr_FR: PostgreSQL data directory
+            hr_HR: PostgreSQL data directory
+            it_IT: PostgreSQL data directory
+            ja_JP: PostgreSQL data directory
+            ko_KR: PostgreSQL data directory
+            nb_NO: PostgreSQL data directory
+            pt_PT: PostgreSQL data directory
+            ru_RU: PostgreSQL data directory
+            sv_SE: PostgreSQL data directory
+            tr_TR: PostgreSQL data directory
+            zh_CN: PostgreSQL data directory
+  redis:
+    image: redis:7.0-alpine
+    container_name: WeKnora-redis
+    command: 
+      - redis-server
+      - --requirepass redis123!@#
+    restart: unless-stopped
+    networks:
+      - WeKnora-network
+networks:
+  WeKnora-network:
+    driver: bridge
+name: frontend
+x-casaos:
+  title:
+    de_DE: weknora
+    el_GR: weknora
+    en_GB: weknora
+    en_US: weknora
+    fr_FR: weknora
+    hr_HR: weknora
+    it_IT: weknora
+    ja_JP: weknora
+    ko_KR: weknora
+    nb_NO: weknora
+    pt_PT: weknora
+    ru_RU: weknora
+    sv_SE: weknora
+    tr_TR: weknora
+    zh_CN: weknora
+  tagline:
+    de_DE: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    el_GR: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    en_GB: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    en_US: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    fr_FR: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    hr_HR: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    it_IT: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    ja_JP: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    ko_KR: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    nb_NO: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    pt_PT: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    ru_RU: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    sv_SE: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    tr_TR: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    zh_CN: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+  description:
+    de_DE: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    el_GR: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    en_GB: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    en_US: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    fr_FR: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    hr_HR: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    it_IT: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    ja_JP: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    ko_KR: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    nb_NO: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    pt_PT: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    ru_RU: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    sv_SE: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    tr_TR: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+    zh_CN: |-
+      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+
+      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+
+      Website: https://weknora.weixin.qq.com
+  category: AI
+  author: tecent
+  developer: fromxiaobai
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKnora/icon.png
+  thumbnail: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKnora/thumbnail.png
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKnora/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKnora/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKnora/screenshot-3.png
+  main: frontend
+  port_map: "80"
+  architectures:
+    - amd64
+    - arm64
+  index: /
+  scheme: http
