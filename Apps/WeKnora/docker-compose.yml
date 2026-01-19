@@ -1,7 +1,7 @@
 name: weknora
 services:
   weknora:
-    image: wechatopenai/weknora-ui:latest
+    image: fromxiaobai/weknora:v1.2
     container_name: weknora
     ports:
       - target: 80
@@ -74,39 +74,29 @@ services:
       retries: 3
       start_period: 60s
     environment:
-
       - GIN_MODE=release
       - DISABLE_REGISTRATION=false
-
       - DB_DRIVER=postgres
       - DB_HOST=weknora-postgres
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres123!@#
       - DB_NAME=WeKnora
-
       - TZ=$TZ
-
       - RETRIEVE_DRIVER=postgres
-
       - DOCREADER_ADDR=weknora-docreader:50051
-
       - STORAGE_TYPE=local
       - LOCAL_STORAGE_BASE_DIR=/data/files
       - AUTO_RECOVER_DIRTY=true
-
       - OLLAMA_BASE_URL=http://host.docker.internal:11434
-
       - STREAM_MANAGER_TYPE=redis
       - REDIS_ADDR=weknora-redis:6379
       - REDIS_PASSWORD=redis123!@#
       - REDIS_DB=0
       - REDIS_PREFIX=stream:
-
       - TENANT_AES_KEY=weknorarag-api-key-secret-secret
       - CONCURRENCY_POOL_SIZE=5
       - JWT_SECRET=weknora-jwt-secret
-
       - MAX_FILE_SIZE_MB=50
     depends_on:
       weknora-redis:
