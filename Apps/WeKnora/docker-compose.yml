@@ -93,7 +93,7 @@ services:
       - REDIS_ADDR=weknora-redis:6379
       - REDIS_PASSWORD=redis123!@#
       - REDIS_DB='0'
-      - REDIS_PREFIX=stream:
+      - REDIS_PREFIX="stream:"
       - TENANT_AES_KEY=weknorarag-api-key-secret-secret
       - CONCURRENCY_POOL_SIZE='5'
       - JWT_SECRET=weknora-jwt-secret
