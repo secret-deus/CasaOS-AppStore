@@ -79,7 +79,7 @@ services:
       - DISABLE_REGISTRATION=false
 
       - DB_DRIVER=postgres
-      - DB_HOST=postgres
+      - DB_HOST=weknora-postgres
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres123!@#
@@ -89,7 +89,7 @@ services:
 
       - RETRIEVE_DRIVER=postgres
 
-      - DOCREADER_ADDR=docreader:50051
+      - DOCREADER_ADDR=weknora-docreader:50051
 
       - STORAGE_TYPE=local
       - LOCAL_STORAGE_BASE_DIR=/data/files
@@ -98,7 +98,7 @@ services:
       - OLLAMA_BASE_URL=http://host.docker.internal:11434
 
       - STREAM_MANAGER_TYPE=redis
-      - REDIS_ADDR=redis:6379
+      - REDIS_ADDR=weknora-redis:6379
       - REDIS_PASSWORD=redis123!@#
       - REDIS_DB=0
       - REDIS_PREFIX=stream:
@@ -574,8 +574,6 @@ services:
         published: "50051"
         protocol: tcp
     environment:
-      - MINIO_ENDPOINT=minio:9000
-      - MINIO_PUBLIC_ENDPOINT=http://localhost:9000
       - MAX_FILE_SIZE_MB=50
     healthcheck:
       test:
@@ -593,57 +591,6 @@ services:
       - host.docker.internal:host-gateway
     x-casaos:
       envs:
-        - container: MINIO_ENDPOINT
-          description:
-            de_DE: MinIO object storage endpoint
-            el_GR: MinIO object storage endpoint
-            en_GB: MinIO object storage endpoint
-            en_US: MinIO object storage endpoint
-            fr_FR: MinIO object storage endpoint
-            hr_HR: MinIO object storage endpoint
-            it_IT: MinIO object storage endpoint
-            ja_JP: MinIO object storage endpoint
-            ko_KR: MinIO object storage endpoint
-            nb_NO: MinIO object storage endpoint
-            pt_PT: MinIO object storage endpoint
-            ru_RU: MinIO object storage endpoint
-            sv_SE: MinIO object storage endpoint
-            tr_TR: MinIO object storage endpoint
-            zh_CN: MinIO object storage endpoint
-        - container: MINIO_PUBLIC_ENDPOINT
-          description:
-            de_DE: MinIO public endpoint for access
-            el_GR: MinIO public endpoint for access
-            en_GB: MinIO public endpoint for access
-            en_US: MinIO public endpoint for access
-            fr_FR: MinIO public endpoint for access
-            hr_HR: MinIO public endpoint for access
-            it_IT: MinIO public endpoint for access
-            ja_JP: MinIO public endpoint for access
-            ko_KR: MinIO public endpoint for access
-            nb_NO: MinIO public endpoint for access
-            pt_PT: MinIO public endpoint for access
-            ru_RU: MinIO public endpoint for access
-            sv_SE: MinIO public endpoint for access
-            tr_TR: MinIO public endpoint for access
-            zh_CN: MinIO public endpoint for access
-        - container: MINERU_ENDPOINT
-          description:
-            de_DE: MinerU document processing endpoint
-            el_GR: MinerU document processing endpoint
-            en_GB: MinerU document processing endpoint
-            en_US: MinerU document processing endpoint
-            fr_FR: MinerU document processing endpoint
-            hr_HR: MinerU document processing endpoint
-            it_IT: MinerU document processing endpoint
-            ja_JP: MinerU document processing endpoint
-            ko_KR: MinerU document processing endpoint
-            nb_NO: MinerU document processing endpoint
-            pt_PT: MinerU document processing endpoint
-            ru_RU: MinerU document processing endpoint
-            sv_SE: MinerU document processing endpoint
-            tr_TR: MinerU document processing endpoint
-            zh_CN: MinerU document processing endpoint
         - container: MAX_FILE_SIZE_MB
           description:
             de_DE: Maximum file size allowed for upload in megabytes
