@@ -8,7 +8,7 @@ services:
         published: "1080"
         protocol: tcp
     environment:
-      - MAX_FILE_SIZE_MB=50
+      - MAX_FILE_SIZE_MB='50'
     depends_on:
       weknora-app:
         condition: service_healthy
@@ -92,12 +92,12 @@ services:
       - STREAM_MANAGER_TYPE=redis
       - REDIS_ADDR=weknora-redis:6379
       - REDIS_PASSWORD=redis123!@#
-      - REDIS_DB=0
+      - REDIS_DB='0'
       - REDIS_PREFIX=stream:
       - TENANT_AES_KEY=weknorarag-api-key-secret-secret
-      - CONCURRENCY_POOL_SIZE=5
+      - CONCURRENCY_POOL_SIZE='5'
       - JWT_SECRET=weknora-jwt-secret
-      - MAX_FILE_SIZE_MB=50
+      - MAX_FILE_SIZE_MB='50'
     depends_on:
       weknora-redis:
         condition: service_started
@@ -564,7 +564,7 @@ services:
         published: "50051"
         protocol: tcp
     environment:
-      - MAX_FILE_SIZE_MB=50
+      - MAX_FILE_SIZE_MB='50'
     healthcheck:
       test:
         - CMD
