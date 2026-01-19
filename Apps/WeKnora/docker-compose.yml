@@ -10,7 +10,7 @@ services:
     environment:
       - MAX_FILE_SIZE_MB=50
     depends_on:
-      app:
+      weknora-app:
         condition: service_healthy
     networks:
       - weknora-network
@@ -109,11 +109,11 @@ services:
 
       - MAX_FILE_SIZE_MB=50
     depends_on:
-      redis:
+      weknora-redis:
         condition: service_started
-      postgres:
+      weknora-postgres:
         condition: service_healthy
-      docreader:
+      weknora-docreader:
         condition: service_healthy
     networks:
       - weknora-network
