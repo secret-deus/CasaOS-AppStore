@@ -768,91 +768,91 @@ x-casaos:
     tr_TR: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
     zh_CN: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
   description:
-    de_DE: |-
+    de_DE: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    el_GR: |-
+    el_GR: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    en_GB: |-
+    en_GB: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    en_US: |-
+    en_US: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    fr_FR: |-
+    fr_FR: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    hr_HR: |-
+    hr_HR: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    it_IT: |-
+    it_IT: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    ja_JP: |-
+    ja_JP: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    ko_KR: |-
+    ko_KR: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    nb_NO: |-
+    nb_NO: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    pt_PT: |-
+    pt_PT: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    ru_RU: |-
+    ru_RU: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    sv_SE: |-
+    sv_SE: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    tr_TR: |-
+    tr_TR: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
 
       Website: https://weknora.weixin.qq.com
-    zh_CN: |-
+    zh_CN: |
       WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
 
       It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
