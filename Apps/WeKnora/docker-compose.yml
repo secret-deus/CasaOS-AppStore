@@ -1,3 +1,4 @@
+name: weknora
 services:
   frontend:
     image: wechatopenai/weknora-ui:latest
