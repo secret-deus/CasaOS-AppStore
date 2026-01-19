@@ -13,7 +13,7 @@ services:
       app:
         condition: service_healthy
     networks:
-      - WeKnora-network
+      - weknora-network
     restart: unless-stopped
     x-casaos:
       envs:
@@ -116,7 +116,7 @@ services:
       docreader:
         condition: service_healthy
     networks:
-      - WeKnora-network
+      - weknora-network
     restart: unless-stopped
     extra_hosts:
       - host.docker.internal:host-gateway
@@ -587,7 +587,7 @@ services:
       retries: 3
       start_period: 60s
     networks:
-      - WeKnora-network
+      - weknora-network
     restart: unless-stopped
     extra_hosts:
       - host.docker.internal:host-gateway
@@ -692,7 +692,7 @@ services:
         source: /DATA/AppData/$AppID/data
         target: /var/lib/postgresql/data
     networks:
-      - WeKnora-network
+      - weknora-network
     healthcheck:
       test:
         - CMD-SHELL
@@ -756,7 +756,6 @@ services:
             sv_SE: Default database name
             tr_TR: Default database name
             zh_CN: Default database name
-      ports: []
       volumes:
         - container: /var/lib/postgresql/data
           description:
@@ -783,9 +782,10 @@ services:
       - --requirepass redis123!@#
     restart: unless-stopped
     networks:
-      - WeKnora-network
+      - weknora-network
 networks:
-  WeKnora-network:
+  weknora-network:
+    name: weknora-network
     driver: bridge
 x-casaos:
   title:
@@ -912,7 +912,7 @@ x-casaos:
 
       Website: https://weknora.weixin.qq.com
   category: AI
-  author: tecent
+  author: tencent
   developer: fromxiaobai
   icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKnora/icon.png
   thumbnail: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKnora/thumbnail.png
