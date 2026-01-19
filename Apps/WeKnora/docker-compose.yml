@@ -750,7 +750,7 @@ x-casaos:
     ru_RU: WeKnora
     sv_SE: WeKnora
     tr_TR: WeKnora
-    zh_CN: weknora
+    zh_CN: WeKnora
   tagline:
     de_DE: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
     el_GR: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
