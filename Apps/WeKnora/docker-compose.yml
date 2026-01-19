@@ -1,8 +1,8 @@
 name: weknora
 services:
-  frontend:
+  weknora-frontend:
     image: wechatopenai/weknora-ui:latest
-    container_name: WeKnora-frontend
+    container_name: weknora-frontend
     ports:
       - target: 80
         published: "80"
@@ -52,9 +52,9 @@ services:
             sv_SE: Main web interface port
             tr_TR: Main web interface port
             zh_CN: 主 Web 界面端口
-  app:
+  weknora-app:
     image: wechatopenai/weknora-app:latest
-    container_name: WeKnora-app
+    container_name: weknora-app
     ports:
       - target: 8080
         published: "8080"
@@ -566,9 +566,9 @@ services:
             sv_SE: Document files storage
             tr_TR: Document files storage
             zh_CN: Document files storage
-  docreader:
+  weknora-docreader:
     image: wechatopenai/weknora-docreader:latest
-    container_name: WeKnora-docreader
+    container_name: weknora-docreader
     ports:
       - target: 50051
         published: "50051"
@@ -680,9 +680,9 @@ services:
             tr_TR: Document reader gRPC service port
             zh_CN: Document reader gRPC service port
       volumes: []
-  postgres:
+  weknora-postgres:
     image: paradedb/paradedb:v0.18.9-pg17
-    container_name: WeKnora-postgres
+    container_name: weknora-postgres
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres123!@#
@@ -774,9 +774,9 @@ services:
             sv_SE: PostgreSQL data directory
             tr_TR: PostgreSQL data directory
             zh_CN: PostgreSQL data directory
-  redis:
+  weknora-redis:
     image: redis:7.0-alpine
-    container_name: WeKnora-redis
+    container_name: weknora-redis
     command: 
       - redis-server
       - --requirepass redis123!@#
