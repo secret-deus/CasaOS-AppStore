@@ -74,6 +74,26 @@ services:
       retries: 3
       start_period: 60s
     environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=jaeger:4317
+      - OTEL_SERVICE_NAME=WeKnora
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_LOGS_EXPORTER=none
+      - OTEL_PROPAGATORS=tracecontext,baggage
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6334
+      - QDRANT_COLLECTION=weknora_embeddings
+      - QDRANT_API_KEY=
+      - QDRANT_USE_TLS=false
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY_ID=minioadmin
+      - MINIO_SECRET_ACCESS_KEY=minioadmin
+      - MINIO_BUCKET_NAME=
+      - ENABLE_GRAPH_RAG=true
+      - NEO4J_ENABLE=
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USERNAME=neo4j
+      - NEO4J_PASSWORD=password
       - GIN_MODE=release
       - DISABLE_REGISTRATION=false
       - DB_DRIVER=postgres
@@ -95,7 +115,7 @@ services:
       - REDIS_DB='0'
       - REDIS_PREFIX="stream:"
       - TENANT_AES_KEY=weknorarag-api-key-secret-secret
-      - CONCURRENCY_POOL_SIZE='5'
+      - CONCURRENCY_POOL_SIZE:5
       - JWT_SECRET=weknora-jwt-secret
       - MAX_FILE_SIZE_MB='50'
     depends_on:
@@ -720,9 +740,610 @@ services:
     restart: unless-stopped
     networks:
       - weknora-network
+  minio:
+    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    container_name: WeKnora-minio
+    ports:
+      - target: 9000
+        published: "9000"
+        protocol: tcp
+      - target: 9001
+        published: "9001"
+        protocol: tcp
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    command: ["server","/data","--console-address ",":9001"]
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/minio-data
+        target: /data
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -f
+        - http://localhost:9000/minio/health/live
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - weknora-network
+    restart: unless-stopped
+    x-casaos:
+      envs:
+        - container: MINIO_ROOT_USER
+          description:
+            de_DE: MinIO root user
+            el_GR: MinIO root user
+            en_GB: MinIO root user
+            en_US: MinIO root user
+            fr_FR: MinIO root user
+            hr_HR: MinIO root user
+            it_IT: MinIO root user
+            ja_JP: MinIO root user
+            ko_KR: MinIO root user
+            nb_NO: MinIO root user
+            pt_PT: MinIO root user
+            ru_RU: MinIO root user
+            sv_SE: MinIO root user
+            tr_TR: MinIO root user
+            zh_CN: MinIO root user
+        - container: MINIO_ROOT_PASSWORD
+          description:
+            de_DE: MinIO root password
+            el_GR: MinIO root password
+            en_GB: MinIO root password
+            en_US: MinIO root password
+            fr_FR: MinIO root password
+            hr_HR: MinIO root password
+            it_IT: MinIO root password
+            ja_JP: MinIO root password
+            ko_KR: MinIO root password
+            nb_NO: MinIO root password
+            pt_PT: MinIO root password
+            ru_RU: MinIO root password
+            sv_SE: MinIO root password
+            tr_TR: MinIO root password
+            zh_CN: MinIO root password
+      ports:
+        - container: "9000"
+          description:
+            de_DE: MinIO S3 API port
+            el_GR: MinIO S3 API port
+            en_GB: MinIO S3 API port
+            en_US: MinIO S3 API port
+            fr_FR: MinIO S3 API port
+            hr_HR: MinIO S3 API port
+            it_IT: MinIO S3 API port
+            ja_JP: MinIO S3 API port
+            ko_KR: MinIO S3 API port
+            nb_NO: MinIO S3 API port
+            pt_PT: MinIO S3 API port
+            ru_RU: MinIO S3 API port
+            sv_SE: MinIO S3 API port
+            tr_TR: MinIO S3 API port
+            zh_CN: MinIO S3 API port
+        - container: "9001"
+          description:
+            de_DE: MinIO web console port
+            el_GR: MinIO web console port
+            en_GB: MinIO web console port
+            en_US: MinIO web console port
+            fr_FR: MinIO web console port
+            hr_HR: MinIO web console port
+            it_IT: MinIO web console port
+            ja_JP: MinIO web console port
+            ko_KR: MinIO web console port
+            nb_NO: MinIO web console port
+            pt_PT: MinIO web console port
+            ru_RU: MinIO web console port
+            sv_SE: MinIO web console port
+            tr_TR: MinIO web console port
+            zh_CN: MinIO web console port
+      volumes:
+        - container: /data
+          description:
+            de_DE: MinIO object storage data
+            el_GR: MinIO object storage data
+            en_GB: MinIO object storage data
+            en_US: MinIO object storage data
+            fr_FR: MinIO object storage data
+            hr_HR: MinIO object storage data
+            it_IT: MinIO object storage data
+            ja_JP: MinIO object storage data
+            ko_KR: MinIO object storage data
+            nb_NO: MinIO object storage data
+            pt_PT: MinIO object storage data
+            ru_RU: MinIO object storage data
+            sv_SE: MinIO object storage data
+            tr_TR: MinIO object storage data
+            zh_CN: MinIO object storage data
+  jaeger:
+    image: jaegertracing/all-in-one:1.76.0
+    container_name: WeKnora-jaeger
+    ports:
+      - target: 6831
+        published: "6831"
+        protocol: udp
+      - target: 6832
+        published: "6832"
+        protocol: udp
+      - target: 5778
+        published: "5778"
+        protocol: tcp
+      - target: 16686
+        published: "16686"
+        protocol: tcp
+      - target: 4317
+        published: "4317"
+        protocol: tcp
+      - target: 4318
+        published: "4318"
+        protocol: tcp
+      - target: 14250
+        published: "14250"
+        protocol: tcp
+      - target: 14268
+        published: "14268"
+        protocol: tcp
+      - target: 9411
+        published: "9411"
+        protocol: tcp
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/jaeger
+        target: /var/lib/jaeger
+    networks:
+      - weknora-network
+    restart: unless-stopped
+    x-casaos:
+      envs:
+        - container: COLLECTOR_OTLP_ENABLED
+          description:
+            de_DE: Enable OTLP collector
+            el_GR: Enable OTLP collector
+            en_GB: Enable OTLP collector
+            en_US: Enable OTLP collector
+            fr_FR: Enable OTLP collector
+            hr_HR: Enable OTLP collector
+            it_IT: Enable OTLP collector
+            ja_JP: Enable OTLP collector
+            ko_KR: Enable OTLP collector
+            nb_NO: Enable OTLP collector
+            pt_PT: Enable OTLP collector
+            ru_RU: Enable OTLP collector
+            sv_SE: Enable OTLP collector
+            tr_TR: Enable OTLP collector
+            zh_CN: Enable OTLP collector
+        - container: COLLECTOR_ZIPKIN_HOST_PORT
+          description:
+            de_DE: Zipkin collector host and port
+            el_GR: Zipkin collector host and port
+            en_GB: Zipkin collector host and port
+            en_US: Zipkin collector host and port
+            fr_FR: Zipkin collector host and port
+            hr_HR: Zipkin collector host and port
+            it_IT: Zipkin collector host and port
+            ja_JP: Zipkin collector host and port
+            ko_KR: Zipkin collector host and port
+            nb_NO: Zipkin collector host and port
+            pt_PT: Zipkin collector host and port
+            ru_RU: Zipkin collector host and port
+            sv_SE: Zipkin collector host and port
+            tr_TR: Zipkin collector host and port
+            zh_CN: Zipkin collector host and port
+      ports:
+        - container: "6831"
+          description:
+            de_DE: Jaeger agent UDP compact thrift protocol
+            el_GR: Jaeger agent UDP compact thrift protocol
+            en_GB: Jaeger agent UDP compact thrift protocol
+            en_US: Jaeger agent UDP compact thrift protocol
+            fr_FR: Jaeger agent UDP compact thrift protocol
+            hr_HR: Jaeger agent UDP compact thrift protocol
+            it_IT: Jaeger agent UDP compact thrift protocol
+            ja_JP: Jaeger agent UDP compact thrift protocol
+            ko_KR: Jaeger agent UDP compact thrift protocol
+            nb_NO: Jaeger agent UDP compact thrift protocol
+            pt_PT: Jaeger agent UDP compact thrift protocol
+            ru_RU: Jaeger agent UDP compact thrift protocol
+            sv_SE: Jaeger agent UDP compact thrift protocol
+            tr_TR: Jaeger agent UDP compact thrift protocol
+            zh_CN: Jaeger agent UDP compact thrift protocol
+        - container: "6832"
+          description:
+            de_DE: Jaeger agent UDP binary thrift protocol
+            el_GR: Jaeger agent UDP binary thrift protocol
+            en_GB: Jaeger agent UDP binary thrift protocol
+            en_US: Jaeger agent UDP binary thrift protocol
+            fr_FR: Jaeger agent UDP binary thrift protocol
+            hr_HR: Jaeger agent UDP binary thrift protocol
+            it_IT: Jaeger agent UDP binary thrift protocol
+            ja_JP: Jaeger agent UDP binary thrift protocol
+            ko_KR: Jaeger agent UDP binary thrift protocol
+            nb_NO: Jaeger agent UDP binary thrift protocol
+            pt_PT: Jaeger agent UDP binary thrift protocol
+            ru_RU: Jaeger agent UDP binary thrift protocol
+            sv_SE: Jaeger agent UDP binary thrift protocol
+            tr_TR: Jaeger agent UDP binary thrift protocol
+            zh_CN: Jaeger agent UDP binary thrift protocol
+        - container: "5778"
+          description:
+            de_DE: Jaeger agent configuration server
+            el_GR: Jaeger agent configuration server
+            en_GB: Jaeger agent configuration server
+            en_US: Jaeger agent configuration server
+            fr_FR: Jaeger agent configuration server
+            hr_HR: Jaeger agent configuration server
+            it_IT: Jaeger agent configuration server
+            ja_JP: Jaeger agent configuration server
+            ko_KR: Jaeger agent configuration server
+            nb_NO: Jaeger agent configuration server
+            pt_PT: Jaeger agent configuration server
+            ru_RU: Jaeger agent configuration server
+            sv_SE: Jaeger agent configuration server
+            tr_TR: Jaeger agent configuration server
+            zh_CN: Jaeger agent configuration server
+        - container: "16686"
+          description:
+            de_DE: Jaeger web UI port
+            el_GR: Jaeger web UI port
+            en_GB: Jaeger web UI port
+            en_US: Jaeger web UI port
+            fr_FR: Jaeger web UI port
+            hr_HR: Jaeger web UI port
+            it_IT: Jaeger web UI port
+            ja_JP: Jaeger web UI port
+            ko_KR: Jaeger web UI port
+            nb_NO: Jaeger web UI port
+            pt_PT: Jaeger web UI port
+            ru_RU: Jaeger web UI port
+            sv_SE: Jaeger web UI port
+            tr_TR: Jaeger web UI port
+            zh_CN: Jaeger web UI port
+        - container: "4317"
+          description:
+            de_DE: Jaeger OTLP gRPC receiver
+            el_GR: Jaeger OTLP gRPC receiver
+            en_GB: Jaeger OTLP gRPC receiver
+            en_US: Jaeger OTLP gRPC receiver
+            fr_FR: Jaeger OTLP gRPC receiver
+            hr_HR: Jaeger OTLP gRPC receiver
+            it_IT: Jaeger OTLP gRPC receiver
+            ja_JP: Jaeger OTLP gRPC receiver
+            ko_KR: Jaeger OTLP gRPC receiver
+            nb_NO: Jaeger OTLP gRPC receiver
+            pt_PT: Jaeger OTLP gRPC receiver
+            ru_RU: Jaeger OTLP gRPC receiver
+            sv_SE: Jaeger OTLP gRPC receiver
+            tr_TR: Jaeger OTLP gRPC receiver
+            zh_CN: Jaeger OTLP gRPC receiver
+        - container: "4318"
+          description:
+            de_DE: Jaeger OTLP HTTP receiver
+            el_GR: Jaeger OTLP HTTP receiver
+            en_GB: Jaeger OTLP HTTP receiver
+            en_US: Jaeger OTLP HTTP receiver
+            fr_FR: Jaeger OTLP HTTP receiver
+            hr_HR: Jaeger OTLP HTTP receiver
+            it_IT: Jaeger OTLP HTTP receiver
+            ja_JP: Jaeger OTLP HTTP receiver
+            ko_KR: Jaeger OTLP HTTP receiver
+            nb_NO: Jaeger OTLP HTTP receiver
+            pt_PT: Jaeger OTLP HTTP receiver
+            ru_RU: Jaeger OTLP HTTP receiver
+            sv_SE: Jaeger OTLP HTTP receiver
+            tr_TR: Jaeger OTLP HTTP receiver
+            zh_CN: Jaeger OTLP HTTP receiver
+        - container: "14250"
+          description:
+            de_DE: Jaeger gRPC receiver
+            el_GR: Jaeger gRPC receiver
+            en_GB: Jaeger gRPC receiver
+            en_US: Jaeger gRPC receiver
+            fr_FR: Jaeger gRPC receiver
+            hr_HR: Jaeger gRPC receiver
+            it_IT: Jaeger gRPC receiver
+            ja_JP: Jaeger gRPC receiver
+            ko_KR: Jaeger gRPC receiver
+            nb_NO: Jaeger gRPC receiver
+            pt_PT: Jaeger gRPC receiver
+            ru_RU: Jaeger gRPC receiver
+            sv_SE: Jaeger gRPC receiver
+            tr_TR: Jaeger gRPC receiver
+            zh_CN: Jaeger gRPC receiver
+        - container: "14268"
+          description:
+            de_DE: Jaeger HTTP collector
+            el_GR: Jaeger HTTP collector
+            en_GB: Jaeger HTTP collector
+            en_US: Jaeger HTTP collector
+            fr_FR: Jaeger HTTP collector
+            hr_HR: Jaeger HTTP collector
+            it_IT: Jaeger HTTP collector
+            ja_JP: Jaeger HTTP collector
+            ko_KR: Jaeger HTTP collector
+            nb_NO: Jaeger HTTP collector
+            pt_PT: Jaeger HTTP collector
+            ru_RU: Jaeger HTTP collector
+            sv_SE: Jaeger HTTP collector
+            tr_TR: Jaeger HTTP collector
+            zh_CN: Jaeger HTTP collector
+        - container: "9411"
+          description:
+            de_DE: Zipkin compatible HTTP endpoint
+            el_GR: Zipkin compatible HTTP endpoint
+            en_GB: Zipkin compatible HTTP endpoint
+            en_US: Zipkin compatible HTTP endpoint
+            fr_FR: Zipkin compatible HTTP endpoint
+            hr_HR: Zipkin compatible HTTP endpoint
+            it_IT: Zipkin compatible HTTP endpoint
+            ja_JP: Zipkin compatible HTTP endpoint
+            ko_KR: Zipkin compatible HTTP endpoint
+            nb_NO: Zipkin compatible HTTP endpoint
+            pt_PT: Zipkin compatible HTTP endpoint
+            ru_RU: Zipkin compatible HTTP endpoint
+            sv_SE: Zipkin compatible HTTP endpoint
+            tr_TR: Zipkin compatible HTTP endpoint
+            zh_CN: Zipkin compatible HTTP endpoint
+      volumes:
+        - container: /var/lib/jaeger
+          description:
+            de_DE: Jaeger tracing data storage
+            el_GR: Jaeger tracing data storage
+            en_GB: Jaeger tracing data storage
+            en_US: Jaeger tracing data storage
+            fr_FR: Jaeger tracing data storage
+            hr_HR: Jaeger tracing data storage
+            it_IT: Jaeger tracing data storage
+            ja_JP: Jaeger tracing data storage
+            ko_KR: Jaeger tracing data storage
+            nb_NO: Jaeger tracing data storage
+            pt_PT: Jaeger tracing data storage
+            ru_RU: Jaeger tracing data storage
+            sv_SE: Jaeger tracing data storage
+            tr_TR: Jaeger tracing data storage
+            zh_CN: Jaeger tracing data storage
+  neo4j:
+    image: neo4j:2025.10.1
+    container_name: WeKnora-neo4j
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/neo4j-data
+        target: /data
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4JLABS_PLUGINS=["apoc"]
+    ports:
+      - target: 7474
+        published: "7474"
+        protocol: tcp
+      - target: 7687
+        published: "7687"
+        protocol: tcp
+    restart: unless-stopped
+    networks:
+      - weknora-network
+    x-casaos:
+      envs:
+        - container: NEO4J_AUTH
+          description:
+            de_DE: Neo4j authentication credentials
+            el_GR: Neo4j authentication credentials
+            en_GB: Neo4j authentication credentials
+            en_US: Neo4j authentication credentials
+            fr_FR: Neo4j authentication credentials
+            hr_HR: Neo4j authentication credentials
+            it_IT: Neo4j authentication credentials
+            ja_JP: Neo4j authentication credentials
+            ko_KR: Neo4j authentication credentials
+            nb_NO: Neo4j authentication credentials
+            pt_PT: Neo4j authentication credentials
+            ru_RU: Neo4j authentication credentials
+            sv_SE: Neo4j authentication credentials
+            tr_TR: Neo4j authentication credentials
+            zh_CN: Neo4j authentication credentials
+        - container: NEO4J_apoc_export_file_enabled
+          description:
+            de_DE: Enable APOC export file procedures
+            el_GR: Enable APOC export file procedures
+            en_GB: Enable APOC export file procedures
+            en_US: Enable APOC export file procedures
+            fr_FR: Enable APOC export file procedures
+            hr_HR: Enable APOC export file procedures
+            it_IT: Enable APOC export file procedures
+            ja_JP: Enable APOC export file procedures
+            ko_KR: Enable APOC export file procedures
+            nb_NO: Enable APOC export file procedures
+            pt_PT: Enable APOC export file procedures
+            ru_RU: Enable APOC export file procedures
+            sv_SE: Enable APOC export file procedures
+            tr_TR: Enable APOC export file procedures
+            zh_CN: Enable APOC export file procedures
+        - container: NEO4J_apoc_import_file_enabled
+          description:
+            de_DE: Enable APOC import file procedures
+            el_GR: Enable APOC import file procedures
+            en_GB: Enable APOC import file procedures
+            en_US: Enable APOC import file procedures
+            fr_FR: Enable APOC import file procedures
+            hr_HR: Enable APOC import file procedures
+            it_IT: Enable APOC import file procedures
+            ja_JP: Enable APOC import file procedures
+            ko_KR: Enable APOC import file procedures
+            nb_NO: Enable APOC import file procedures
+            pt_PT: Enable APOC import file procedures
+            ru_RU: Enable APOC import file procedures
+            sv_SE: Enable APOC import file procedures
+            tr_TR: Enable APOC import file procedures
+            zh_CN: Enable APOC import file procedures
+        - container: NEO4J_apoc_import_file_use__neo4j__config
+          description:
+            de_DE: Use neo4j config for APOC import
+            el_GR: Use neo4j config for APOC import
+            en_GB: Use neo4j config for APOC import
+            en_US: Use neo4j config for APOC import
+            fr_FR: Use neo4j config for APOC import
+            hr_HR: Use neo4j config for APOC import
+            it_IT: Use neo4j config for APOC import
+            ja_JP: Use neo4j config for APOC import
+            ko_KR: Use neo4j config for APOC import
+            nb_NO: Use neo4j config for APOC import
+            pt_PT: Use neo4j config for APOC import
+            ru_RU: Use neo4j config for APOC import
+            sv_SE: Use neo4j config for APOC import
+            tr_TR: Use neo4j config for APOC import
+            zh_CN: Use neo4j config for APOC import
+        - container: NEO4JLABS_PLUGINS
+          description:
+            de_DE: Neo4j labs plugins to install
+            el_GR: Neo4j labs plugins to install
+            en_GB: Neo4j labs plugins to install
+            en_US: Neo4j labs plugins to install
+            fr_FR: Neo4j labs plugins to install
+            hr_HR: Neo4j labs plugins to install
+            it_IT: Neo4j labs plugins to install
+            ja_JP: Neo4j labs plugins to install
+            ko_KR: Neo4j labs plugins to install
+            nb_NO: Neo4j labs plugins to install
+            pt_PT: Neo4j labs plugins to install
+            ru_RU: Neo4j labs plugins to install
+            sv_SE: Neo4j labs plugins to install
+            tr_TR: Neo4j labs plugins to install
+            zh_CN: Neo4j labs plugins to install
+      ports:
+        - container: "7474"
+          description:
+            de_DE: Neo4j web interface port
+            el_GR: Neo4j web interface port
+            en_GB: Neo4j web interface port
+            en_US: Neo4j web interface port
+            fr_FR: Neo4j web interface port
+            hr_HR: Neo4j web interface port
+            it_IT: Neo4j web interface port
+            ja_JP: Neo4j web interface port
+            ko_KR: Neo4j web interface port
+            nb_NO: Neo4j web interface port
+            pt_PT: Neo4j web interface port
+            ru_RU: Neo4j web interface port
+            sv_SE: Neo4j web interface port
+            tr_TR: Neo4j web interface port
+            zh_CN: Neo4j web interface port
+        - container: "7687"
+          description:
+            de_DE: Neo4j bolt protocol port
+            el_GR: Neo4j bolt protocol port
+            en_GB: Neo4j bolt protocol port
+            en_US: Neo4j bolt protocol port
+            fr_FR: Neo4j bolt protocol port
+            hr_HR: Neo4j bolt protocol port
+            it_IT: Neo4j bolt protocol port
+            ja_JP: Neo4j bolt protocol port
+            ko_KR: Neo4j bolt protocol port
+            nb_NO: Neo4j bolt protocol port
+            pt_PT: Neo4j bolt protocol port
+            ru_RU: Neo4j bolt protocol port
+            sv_SE: Neo4j bolt protocol port
+            tr_TR: Neo4j bolt protocol port
+            zh_CN: Neo4j bolt protocol port
+      volumes:
+        - container: /data
+          description:
+            de_DE: Neo4j graph database storage
+            el_GR: Neo4j graph database storage
+            en_GB: Neo4j graph database storage
+            en_US: Neo4j graph database storage
+            fr_FR: Neo4j graph database storage
+            hr_HR: Neo4j graph database storage
+            it_IT: Neo4j graph database storage
+            ja_JP: Neo4j graph database storage
+            ko_KR: Neo4j graph database storage
+            nb_NO: Neo4j graph database storage
+            pt_PT: Neo4j graph database storage
+            ru_RU: Neo4j graph database storage
+            sv_SE: Neo4j graph database storage
+            tr_TR: Neo4j graph database storage
+            zh_CN: Neo4j graph database storage
+  qdrant:
+    image: qdrant/qdrant:v1.16.2
+    container_name: WeKnora-qdrant
+    ports:
+      - target: 6333
+        published: "6333"
+        protocol: tcp
+      - target: 6334
+        published: "6334"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/storage
+        target: /qdrant/storage
+    networks:
+      - weknora-network
+    restart: unless-stopped
+    x-casaos:
+      ports:
+        - container: "6333"
+          description:
+            de_DE: Qdrant REST API port
+            el_GR: Qdrant REST API port
+            en_GB: Qdrant REST API port
+            en_US: Qdrant REST API port
+            fr_FR: Qdrant REST API port
+            hr_HR: Qdrant REST API port
+            it_IT: Qdrant REST API port
+            ja_JP: Qdrant REST API port
+            ko_KR: Qdrant REST API port
+            nb_NO: Qdrant REST API port
+            pt_PT: Qdrant REST API port
+            ru_RU: Qdrant REST API port
+            sv_SE: Qdrant REST API port
+            tr_TR: Qdrant REST API port
+            zh_CN: Qdrant REST API port
+        - container: "6334"
+          description:
+            de_DE: Qdrant gRPC API port
+            el_GR: Qdrant gRPC API port
+            en_GB: Qdrant gRPC API port
+            en_US: Qdrant gRPC API port
+            fr_FR: Qdrant gRPC API port
+            hr_HR: Qdrant gRPC API port
+            it_IT: Qdrant gRPC API port
+            ja_JP: Qdrant gRPC API port
+            ko_KR: Qdrant gRPC API port
+            nb_NO: Qdrant gRPC API port
+            pt_PT: Qdrant gRPC API port
+            ru_RU: Qdrant gRPC API port
+            sv_SE: Qdrant gRPC API port
+            tr_TR: Qdrant gRPC API port
+            zh_CN: Qdrant gRPC API port
+      volumes:
+        - container: /qdrant/storage
+          description:
+            de_DE: Qdrant vector database storage
+            el_GR: Qdrant vector database storage
+            en_GB: Qdrant vector database storage
+            en_US: Qdrant vector database storage
+            fr_FR: Qdrant vector database storage
+            hr_HR: Qdrant vector database storage
+            it_IT: Qdrant vector database storage
+            ja_JP: Qdrant vector database storage
+            ko_KR: Qdrant vector database storage
+            nb_NO: Qdrant vector database storage
+            pt_PT: Qdrant vector database storage
+            ru_RU: Qdrant vector database storage
+            sv_SE: Qdrant vector database storage
+            tr_TR: Qdrant vector database storage
+            zh_CN: Qdrant vector database storage
 networks:
   weknora-network:
-    name: weknora-network
     driver: bridge
 x-casaos:
   title:
