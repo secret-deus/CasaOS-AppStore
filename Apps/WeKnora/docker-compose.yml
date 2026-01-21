@@ -1,7 +1,7 @@
 name: weknora
 services:
   weknora:
-    image: fromxiaobai/weknora:v1.2
+    image: wechatopenai/weknora-ui:latest
     container_name: weknora
     ports:
       - target: 80
@@ -10,7 +10,7 @@ services:
     environment:
       - MAX_FILE_SIZE_MB='50'
     depends_on:
-      weknora-app:
+      app:
         condition: service_healthy
     networks:
       - weknora-network
@@ -52,7 +52,7 @@ services:
             sv_SE: Main web interface port
             tr_TR: Main web interface port
             zh_CN: 主 Web 界面端口
-  weknora-app:
+  app:
     image: wechatopenai/weknora-app:latest
     container_name: weknora-app
     ports:
