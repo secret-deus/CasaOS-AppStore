@@ -742,7 +742,7 @@ services:
       - weknora-network
   minio:
     image: minio/minio:RELEASE.2025-09-07T16-13-09Z
-    container_name: WeKnora-minio
+    container_name: weknora-minio
     ports:
       - target: 9000
         published: "9000"
@@ -756,7 +756,7 @@ services:
     command:
       - server
       - /data
-      - '--console-address '
+      - '--console-address'
       - :9001
     volumes:
       - type: bind
@@ -865,7 +865,7 @@ services:
             zh_CN: MinIO object storage data
   jaeger:
     image: jaegertracing/all-in-one:1.76.0
-    container_name: WeKnora-jaeger
+    container_name: weknora-jaeger
     ports:
       - target: 6831
         published: "6831"
@@ -1114,7 +1114,7 @@ services:
             zh_CN: Jaeger tracing data storage
   neo4j:
     image: neo4j:2025.10.1
-    container_name: WeKnora-neo4j
+    container_name: weknora-neo4j
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/neo4j-data
@@ -1277,7 +1277,7 @@ services:
             zh_CN: Neo4j graph database storage
   qdrant:
     image: qdrant/qdrant:v1.16.2
-    container_name: WeKnora-qdrant
+    container_name: weknora-qdrant
     ports:
       - target: 6333
         published: "6333"
