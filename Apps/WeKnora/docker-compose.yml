@@ -734,7 +734,7 @@ services:
   weknora-redis:
     image: redis:7.0-alpine
     container_name: weknora-redis
-    command: 
+    command:
       - redis-server
       - --requirepass redis123!@#
     restart: unless-stopped
@@ -753,7 +753,11 @@ services:
     environment:
       - MINIO_ROOT_USER=minioadmin
       - MINIO_ROOT_PASSWORD=minioadmin
-    command: ["server","/data","--console-address ",":9001"]
+    command:
+      - server
+      - /data
+      - '--console-address '
+      - :9001
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/minio-data
@@ -1379,96 +1383,231 @@ x-casaos:
     tr_TR: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
     zh_CN: WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
   description:
-    de_DE: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+    de_DE: |-
+      WeKnora ist ein Framework für tiefes Dokumentenverständnis und semantische Abfrage, das auf großen Sprachmodellen (LLM) basiert und speziell für Dokumentszenarien mit komplexen Strukturen und heterogenen Inhalten entwickelt wurde. Es verwendet eine modulare Architektur, die Schlüsseltechnologien wie multimodale Vorverarbeitung, semantische Vektorindizierung, intelligente Abfrage und Inferenz großer Modelle integriert. Basierend auf dem Retrieval-Augmented Generation (RAG)-Paradigma ermöglicht es kontextsensitive, hochwertige Q&A-Fähigkeiten. WeKnora kann Dokumenteninhalte in verschiedenen Formaten tiefgehend verstehen, relevante Dokumentenfragmente mit der Inferenz des Sprachmodells kombinieren und genaue, kohärente semantische Ergebnisse ausgeben.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Hauptfunktionen]
+      - Die Kernfunktionen von WeKnora decken den gesamten Workflow der intelligenten Dokumentenverarbeitung und Q&A ab:
+      - Multimodale Tiefenanalyse: Unterstützt die Extraktion strukturierter Inhalte aus verschiedenen Formaten wie PDF, Word, TXT, Bildern, einschließlich OCR-Bildtexterkennung.
+      - Semantische Vektorindizierung und intelligente Abfrage: Erreicht hochpräzise semantische Übereinstimmung und Rückruf durch eine Kombination aus Vektorabfrage, Schlüsselwortabfrage und sogar wissensgraph-erweiterter Abfrage.
+      - RAG-Closed-Loop-Q&A-Generierung: Generiert genaue und kohärente Inhaltsantworten durch die Nutzung von Inferenz großer Sprachmodelle und der Fusion von Abfragefragmenten.
+      - Agent-Modus-Erweiterungsfähigkeiten: Unterstützt den ReACT Agent-Modus, der während mehrstufiger Iterationen integrierte Tools, externe Websuchen usw. aufrufen kann, um die Verarbeitung komplexer Aufgaben zu verbessern.
+      - Verwaltung verschiedener Wissensdatenbanktypen: Kann FAQ- und Dokumenten-Wissensdatenbanken erstellen und Tags flexibel verwalten, Dateien oder URLs stapelweise importieren.
+      - Konfigurierbare Dialogstrategie und UI: Bietet eine intuitive Weboberfläche und REST-API, die die Online-Anpassung von Modellen, Abfrageschwellenwerten und Prompts zur Steuerung des Dialogverhaltens ermöglicht.
 
-      Website: https://weknora.weixin.qq.com
-    el_GR: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Erfahren Sie mehr]
+      [Offizielle Website](https://weknora.weixin.qq.com)
+      [GitHub-Link](https://github.com/Tencent/WeKnora)
+    el_GR: |-
+      Το WeKnora είναι ένα πλαίσιο βαθιάς κατανόησης εγγράφων και σημασιολογικής ανάκτησης που βασίζεται σε μεγάλα γλωσσικά μοντέλα (LLM), σχεδιασμένο ειδικά για σενάρια εγγράφων με πολύπλοκες δομές και ετερογενές περιεχόμενο. Υιοθετεί μια αρθρωτή αρχιτεκτονική, ενσωματώνοντας βασικές τεχνολογίες όπως η πολυτροπική προεπεξεργασία, η ευρετηρίαση σημασιολογικών διανυσμάτων, η έξυπνη ανάκτηση και η εξαγωγή συμπερασμάτων μεγάλων μοντέλων. Βασισμένο στο παράδειγμα Retrieval-Augmented Generation (RAG), επιτυγχάνει δυνατότητες ερωτοαπαντήσεων υψηλής ποιότητας με επίγνωση του πλαισίου. Το WeKnora μπορεί να κατανοήσει βαθιά το περιεχόμενο εγγράφων διαφορετικών μορφών, να συνδυάσει σχετικά αποσπάσματα εγγράφων με την εξαγωγή συμπερασμάτων του γλωσσικού μοντέλου και να εξάγει ακριβή, συνεκτικά σημασιολογικά αποτελέσματα.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Βασικά Χαρακτηριστικά]
+      - Οι βασικές λειτουργίες του WeKnora καλύπτουν την πλήρη ροή εργασιών έξυπνης επεξεργασίας εγγράφων και ερωτοαπαντήσεων:
+      - Πολυτροπική Βαθιά Ανάλυση: Υποστηρίζει την εξαγωγή δομημένου περιεχομένου από διάφορες μορφές όπως PDF, Word, TXT, εικόνες, συμπεριλαμβανομένης της αναγνώρισης κειμένου εικόνας OCR.
+      - Ευρετηρίαση Σημασιολογικών Διανυσμάτων και Έξυπνη Ανάκτηση: Επιτυγχάνει αντιστοίχιση και ανάκληση σημασιολογίας υψηλής ακρίβειας μέσω συνδυασμού ανάκτησης διανυσμάτων, ανάκτησης λέξεων-κλειδιών, ακόμη και ανάκτησης ενισχυμένης με γράφο γνώσης.
+      - Δημιουργία Ερωτοαπαντήσεων Κλειστού Βρόχου RAG: Δημιουργεί ακριβείς και συνεκτικές απαντήσεις περιεχομένου αξιοποιώντας την εξαγωγή συμπερασμάτων μεγάλων γλωσσικών μοντέλων και τη συγχώνευση αποσπασμάτων ανάκτησης.
+      - Βελτιωμένες Δυνατότητες Λειτουργίας Agent: Υποστηρίζει τη λειτουργία ReACT Agent, η οποία μπορεί να καλέσει ενσωματωμένα εργαλεία, εξωτερική αναζήτηση ιστού κ.λπ., κατά τη διάρκεια επαναλήψεων πολλαπλών γύρων, για τη βελτίωση των δυνατοτήτων επεξεργασίας σύνθετων εργασιών.
+      - Διαχείριση Βάσεων Γνώσης Πολλαπλών Τύπων: Μπορεί να δημιουργήσει βάσεις γνώσης τύπου FAQ και εγγράφων, και να διαχειρίζεται ευέλικτα ετικέτες, να εισάγει μαζικά αρχεία ή URL.
+      - Διαμορφώσιμη Στρατηγική Διαλόγου και UI: Παρέχει μια διαισθητική διεπαφή Web και REST API, επιτρέποντας την online προσαρμογή μοντέλων, ορίων ανάκτησης και Prompt για τον έλεγχο της συμπεριφοράς του διαλόγου.
 
-      Website: https://weknora.weixin.qq.com
-    en_GB: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Μάθετε περισσότερα]
+      [Επίσημος Ιστότοπος](https://weknora.weixin.qq.com)
+      [Σύνδεσμος GitHub](https://github.com/Tencent/WeKnora)
+    en_GB: |-
+      WeKnora is a deep document understanding and semantic retrieval framework based on Large Language Models (LLM), specifically designed for document scenarios with complex structures and heterogeneous content. It adopts a modular architecture, integrating key technologies such as multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large model inference. Based on the Retrieval-Augmented Generation (RAG) paradigm, it achieves context-aware, high-quality Q&A capabilities. WeKnora can deeply understand document content in different formats, combine relevant document fragments with language model inference, and output accurate, coherent semantic results.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Key Features]
+      - WeKnora's core functions cover the complete intelligent document processing and Q&A workflow:
+      - Multimodal Deep Parsing: Supports structured content extraction from various formats such as PDF, Word, TXT, images, including OCR image text recognition.
+      - Semantic Vector Indexing and Intelligent Retrieval: Achieves high-precision semantic matching and recall through a combination of vector retrieval, keyword retrieval, and even knowledge graph-enhanced retrieval.
+      - RAG Closed-Loop Q&A Generation: Generates accurate and coherent content answers by leveraging large language model inference and retrieval fragment fusion.
+      - Agent Mode Enhanced Capabilities: Supports ReACT Agent mode, which can call built-in tools, external web search, etc., during multi-round iterations, to improve complex task processing capabilities.
+      - Multi-type Knowledge Base Management: Can create FAQ and document-type knowledge bases, and flexibly manage tags, batch import files or URLs.
+      - Configurable Dialogue Strategy and UI: Provides an intuitive Web interface and REST API, allowing online adjustment of models, retrieval thresholds, and Prompt to control dialogue behaviour.
 
-      Website: https://weknora.weixin.qq.com
-    en_US: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Learn More]
+      [Official Website](https://weknora.weixin.qq.com)
+      [GitHub Link](https://github.com/Tencent/WeKnora)
+    en_US: |-
+      WeKnora is a deep document understanding and semantic retrieval framework based on Large Language Models (LLM), specifically designed for document scenarios with complex structures and heterogeneous content. It adopts a modular architecture, integrating key technologies such as multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large model inference. Based on the Retrieval-Augmented Generation (RAG) paradigm, it achieves context-aware, high-quality Q&A capabilities. WeKnora can deeply understand document content in different formats, combine relevant document fragments with language model inference, and output accurate, coherent semantic results.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Key Features]
+      - WeKnora's core functions cover the complete intelligent document processing and Q&A workflow:
+      - Multimodal Deep Parsing: Supports structured content extraction from various formats such as PDF, Word, TXT, images, including OCR image text recognition.
+      - Semantic Vector Indexing and Intelligent Retrieval: Achieves high-precision semantic matching and recall through a combination of vector retrieval, keyword retrieval, and even knowledge graph-enhanced retrieval.
+      - RAG Closed-Loop Q&A Generation: Generates accurate and coherent content answers by leveraging large language model inference and retrieval fragment fusion.
+      - Agent Mode Enhanced Capabilities: Supports ReACT Agent mode, which can call built-in tools, external web search, etc., during multi-round iterations, to improve complex task processing capabilities.
+      - Multi-type Knowledge Base Management: Can create FAQ and document-type knowledge bases, and flexibly manage tags, batch import files or URLs.
+      - Configurable Dialogue Strategy and UI: Provides an intuitive Web interface and REST API, allowing online adjustment of models, retrieval thresholds, and Prompt to control dialogue behavior.
 
-      Website: https://weknora.weixin.qq.com
-    fr_FR: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Learn More]
+      [Official Website](https://weknora.weixin.qq.com)
+      [GitHub Link](https://github.com/Tencent/WeKnora)
+    fr_FR: |-
+      WeKnora est un cadre de compréhension approfondie de documents et de récupération sémantique basé sur les grands modèles linguistiques (LLM), spécialement conçu pour les scénarios de documents avec des structures complexes et des contenus hétérogènes. Il adopte une architecture modulaire, intégrant des technologies clés telles que le prétraitement multimodal, l'indexation vectorielle sémantique, la récupération intelligente et l'inférence de grands modèles. Basé sur le paradigme de génération augmentée par récupération (RAG), il offre des capacités de questions-réponses de haute qualité et sensibles au contexte. WeKnora peut comprendre en profondeur le contenu des documents dans différents formats, combiner les fragments de documents pertinents avec l'inférence du modèle linguistique et produire des résultats sémantiques précis et cohérents.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Fonctionnalités clés]
+      - Les fonctions principales de WeKnora couvrent l'ensemble du flux de travail de traitement intelligent des documents et de questions-réponses :
+      - Analyse multimodale approfondie : Prend en charge l'extraction de contenu structuré à partir de divers formats tels que PDF, Word, TXT, images, y compris la reconnaissance de texte d'image OCR.
+      - Indexation vectorielle sémantique et récupération intelligente : Atteint une correspondance sémantique et un rappel de haute précision grâce à une combinaison de récupération vectorielle, de récupération par mots-clés et même de récupération améliorée par graphe de connaissances.
+      - Génération de questions-réponses en boucle fermée RAG : Génère des réponses de contenu précises et cohérentes en tirant parti de l'inférence de grands modèles linguistiques et de la fusion de fragments de récupération.
+      - Capacités améliorées du mode Agent : Prend en charge le mode Agent ReACT, qui peut appeler des outils intégrés, une recherche Web externe, etc., pendant les itérations multi-tours, pour améliorer les capacités de traitement des tâches complexes.
+      - Gestion de bases de connaissances multi-types : Peut créer des bases de connaissances de type FAQ et document, et gérer de manière flexible les balises, importer des fichiers ou des URL par lots.
+      - Stratégie de dialogue et interface utilisateur configurables : Fournit une interface Web intuitive et une API REST, permettant l'ajustement en ligne des modèles, des seuils de récupération et des invites (Prompt) pour contrôler le comportement du dialogue.
 
-      Website: https://weknora.weixin.qq.com
-    hr_HR: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [En savoir plus]
+      [Site officiel](https://weknora.weixin.qq.com)
+      [Lien GitHub](https://github.com/Tencent/WeKnora)
+    hr_HR: |-
+      WeKnora je okvir za dubinsko razumijevanje dokumenata i semantičko pretraživanje temeljen na velikim jezičnim modelima (LLM), posebno dizajniran za scenarije dokumenata sa složenim strukturama i heterogenim sadržajem. Usvaja modularnu arhitekturu, integrirajući ključne tehnologije kao što su multimodalna predobrada, indeksiranje semantičkih vektora, inteligentno pretraživanje i zaključivanje velikih modela. Temeljen na paradigmi generiranja poboljšanog pretraživanjem (RAG), postiže kontekstualno svjesne, visokokvalitetne mogućnosti pitanja i odgovora. WeKnora može duboko razumjeti sadržaj dokumenata u različitim formatima, kombinirati relevantne fragmente dokumenata sa zaključivanjem jezičnog modela i isporučiti točne, koherentne semantičke rezultate.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Ključne značajke]
+      - Osnovne funkcije WeKnore pokrivaju cjelokupni tijek rada inteligentne obrade dokumenata i pitanja i odgovora:
+      - Multimodalna dubinska analiza: Podržava ekstrakciju strukturiranog sadržaja iz različitih formata kao što su PDF, Word, TXT, slike, uključujući OCR prepoznavanje teksta slike.
+      - Indeksiranje semantičkih vektora i inteligentno pretraživanje: Postiže visoko precizno semantičko podudaranje i opoziv kombinacijom vektorskog pretraživanja, pretraživanja ključnim riječima, pa čak i pretraživanja poboljšanog grafom znanja.
+      - RAG generiranje pitanja i odgovora zatvorene petlje: Generira točne i koherentne odgovore na sadržaj iskorištavanjem zaključivanja velikih jezičnih modela i fuzije fragmenata pretraživanja.
+      - Poboljšane mogućnosti Agent načina rada: Podržava ReACT Agent način rada, koji može pozivati ugrađene alate, vanjsko web pretraživanje itd., tijekom višestrukih iteracija, radi poboljšanja mogućnosti obrade složenih zadataka.
+      - Upravljanje višestrukim vrstama baza znanja: Može stvarati baze znanja tipa FAQ i dokumenata te fleksibilno upravljati oznakama, skupno uvoziti datoteke ili URL-ove.
+      - Konfigurabilna strategija dijaloga i korisničko sučelje: Pruža intuitivno web sučelje i REST API, omogućujući online prilagodbu modela, pragova pretraživanja i Prompt-a za kontrolu ponašanja dijaloga.
 
-      Website: https://weknora.weixin.qq.com
-    it_IT: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Saznajte više]
+      [Službena web stranica](https://weknora.weixin.qq.com)
+      [GitHub poveznica](https://github.com/Tencent/WeKnora)
+    it_IT: |-
+      WeKnora è un framework di comprensione profonda dei documenti e di recupero semantico basato su Grandi Modelli Linguistici (LLM), specificamente progettato per scenari documentali con strutture complesse e contenuti eterogenei. Adotta un'architettura modulare, integrando tecnologie chiave come la pre-elaborazione multimodale, l'indicizzazione vettoriale semantica, il recupero intelligente e l'inferenza di modelli di grandi dimensioni. Basato sul paradigma di Generazione Aumentata dal Recupero (RAG), raggiunge capacità di Q&A di alta qualità e sensibili al contesto. WeKnora è in grado di comprendere in profondità il contenuto dei documenti in diversi formati, combinare frammenti di documenti pertinenti con l'inferenza del modello linguistico e produrre risultati semantici accurati e coerenti.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Funzionalità principali]
+      - Le funzioni principali di WeKnora coprono l'intero flusso di lavoro di elaborazione intelligente dei documenti e di Q&A:
+      - Analisi Multimodale Profonda: Supporta l'estrazione di contenuti strutturati da vari formati come PDF, Word, TXT, immagini, inclusa la riconoscimento del testo da immagini OCR.
+      - Indicizzazione Vettoriale Semantica e Recupero Intelligente: Ottiene una corrispondenza semantica e un richiamo ad alta precisione attraverso una combinazione di recupero vettoriale, recupero per parole chiave e persino recupero potenziato da grafi di conoscenza.
+      - Generazione Q&A a Ciclo Chiuso RAG: Genera risposte di contenuto accurate e coerenti sfruttando l'inferenza di grandi modelli linguistici e la fusione di frammenti di recupero.
+      - Capacità Potenziate in Modalità Agente: Supporta la modalità Agente ReACT, che può richiamare strumenti integrati, ricerca web esterna, ecc., durante iterazioni multi-turno, per migliorare le capacità di elaborazione di attività complesse.
+      - Gestione di Basi di Conoscenza Multitipo: Può creare basi di conoscenza di tipo FAQ e documentale, e gestire in modo flessibile tag, importare in blocco file o URL.
+      - Strategia di Dialogo e UI Configurabili: Fornisce un'interfaccia Web intuitiva e un'API REST, consentendo la regolazione online di modelli, soglie di recupero e Prompt per controllare il comportamento del dialogo.
 
-      Website: https://weknora.weixin.qq.com
-    ja_JP: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Scopri di più]
+      [Sito Ufficiale](https://weknora.weixin.qq.com)
+      [Link GitHub](https://github.com/Tencent/WeKnora)
+    ja_JP: |-
+      WeKnoraは、大規模言語モデル（LLM）に基づく深層文書理解およびセマンティック検索フレームワークであり、複雑な構造と異種コンテンツを持つ文書シナリオを処理するために特別に設計されています。モジュール式アーキテクチャを採用し、マルチモーダル前処理、セマンティックベクトルインデックス、インテリジェント検索、大規模モデル推論などの主要技術を統合しています。検索拡張生成（RAG）パラダイムに基づいて、コンテキストを認識した高品質なQ&A機能を実現します。WeKnoraは、さまざまな形式の文書コンテンツを深く理解し、関連する文書フラグメントと言語モデル推論を組み合わせて、正確で一貫性のあるセマンティック結果を出力できます。
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [主な機能]
+      - WeKnoraのコア機能は、インテリジェントな文書処理とQ&Aワークフロー全体をカバーしています。
+      - マルチモーダル深層解析：PDF、Word、TXT、画像などのさまざまな形式からの構造化コンテンツ抽出をサポートし、OCR画像テキスト認識を含みます。
+      - セマンティックベクトルインデックスとインテリジェント検索：ベクトル検索、キーワード検索、さらには知識グラフ強化検索の組み合わせにより、高精度なセマンティックマッチングとリコールを実現します。
+      - RAGクローズドループQ&A生成：大規模言語モデル推論と検索フラグメントの融合を活用して、正確で一貫性のあるコンテンツ回答を生成します。
+      - エージェントモード強化機能：ReACTエージェントモードをサポートし、多段階の反復プロセス中に組み込みツール、外部Web検索などを呼び出すことで、複雑なタスク処理能力を向上させます。
+      - 多種多様なナレッジベース管理：FAQおよび文書タイプのナレッジベースを作成し、タグを柔軟に管理したり、ファイルやURLを一括インポートしたりできます。
+      - 設定可能な対話戦略とUI：直感的なWebインターフェースとREST APIを提供し、モデル、検索しきい値、プロンプトをオンラインで調整して対話動作を制御できます。
 
-      Website: https://weknora.weixin.qq.com
-    ko_KR: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [詳細はこちら]
+      [公式サイト](https://weknora.weixin.qq.com)
+      [GitHubリンク](https://github.com/Tencent/WeKnora)
+    ko_KR: |-
+      WeKnora는 복잡한 구조와 이기종 콘텐츠를 가진 문서 시나리오를 처리하도록 특별히 설계된 대규모 언어 모델(LLM) 기반의 심층 문서 이해 및 의미 검색 프레임워크입니다. 다중 모드 전처리, 의미 벡터 인덱싱, 지능형 검색 및 대규모 모델 추론과 같은 핵심 기술을 통합하는 모듈식 아키텍처를 채택합니다. 검색 증강 생성(RAG) 패러다임을 기반으로 상황 인식적인 고품질 Q&A 기능을 구현합니다. WeKnora는 다양한 형식의 문서 콘텐츠를 깊이 이해하고, 관련 문서 조각을 언어 모델 추론과 결합하여 정확하고 일관된 의미 결과를 출력할 수 있습니다.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [주요 기능]
+      - WeKnora의 핵심 기능은 완전한 지능형 문서 처리 및 Q&A 워크플로우를 포괄합니다:
+      - 다중 모드 심층 분석: PDF, Word, TXT, 이미지 등 다양한 형식의 구조화된 콘텐츠 추출을 지원하며, OCR 이미지 텍스트 인식을 포함합니다.
+      - 의미 벡터 인덱싱 및 지능형 검색: 벡터 검색, 키워드 검색, 심지어 지식 그래프 강화 검색 조합을 통해 고정밀 의미 매칭 및 재현을 달성합니다.
+      - RAG 폐쇄 루프 Q&A 생성: 대규모 언어 모델 추론과 검색 조각 융합을 활용하여 정확하고 일관된 콘텐츠 답변을 생성합니다.
+      - 에이전트 모드 강화 기능: ReACT 에이전트 모드를 지원하여 다중 라운드 반복 과정에서 내장 도구, 외부 웹 검색 등을 호출하여 복잡한 작업 처리 능력을 향상시킬 수 있습니다.
+      - 다중 유형 지식 기반 관리: FAQ 및 문서 유형 지식 기반을 생성하고, 태그를 유연하게 관리하며, 파일 또는 URL을 일괄적으로 가져올 수 있습니다.
+      - 구성 가능한 대화 전략 및 UI: 직관적인 웹 인터페이스와 REST API를 제공하여 모델, 검색 임계값 및 프롬프트를 온라인으로 조정하여 대화 동작을 제어할 수 있습니다.
 
-      Website: https://weknora.weixin.qq.com
-    nb_NO: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [더 알아보기]
+      [공식 웹사이트](https://weknora.weixin.qq.com)
+      [GitHub 링크](https://github.com/Tencent/WeKnora)
+    nb_NO: |-
+      WeKnora er et rammeverk for dyp dokumentforståelse og semantisk gjenfinning basert på store språkmodeller (LLM), spesielt designet for dokumentscenarier med komplekse strukturer og heterogent innhold. Det benytter en modulær arkitektur som integrerer nøkkelteknologier som multimodal forbehandling, semantisk vektorindeksering, intelligent gjenfinning og inferens av store modeller. Basert på Retrieval-Augmented Generation (RAG)-paradigmet, oppnår det kontekstbevisste, høykvalitets Q&A-funksjoner. WeKnora kan dypt forstå dokumentinnhold i forskjellige formater, kombinere relevante dokumentfragmenter med språkmodellinferens, og utgi nøyaktige, sammenhengende semantiske resultater.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Nøkkelfunksjoner]
+      - WeKnoras kjernefunksjoner dekker hele arbeidsflyten for intelligent dokumentbehandling og Q&A:
+      - Multimodal Dyp Analyse: Støtter strukturert innholdsutvinning fra ulike formater som PDF, Word, TXT, bilder, inkludert OCR bilde-tekstgjenkjenning.
+      - Semantisk Vektorindeksering og Intelligent Gjenfinning: Oppnår høypresis semantisk matching og gjenkalling gjennom en kombinasjon av vektorgjenfinning, nøkkelordgjenfinning, og til og med kunnskapsgraf-forbedret gjenfinning.
+      - RAG Lukket-sløyfe Q&A-generering: Genererer nøyaktige og sammenhengende innholdsvarer ved å utnytte inferens fra store språkmodeller og fusjon av gjenfinningsfragmenter.
+      - Agentmodus Forbedrede Funksjoner: Støtter ReACT Agent-modus, som kan kalle innebygde verktøy, ekstern websøk osv., under flertrinnsiterasjoner, for å forbedre behandlingskapasiteten for komplekse oppgaver.
+      - Flertype Kunnskapsbasebehandling: Kan opprette FAQ- og dokumenttype kunnskapsbaser, og fleksibelt administrere tagger, masseimportere filer eller URL-er.
+      - Konfigurerbar Dialogstrategi og UI: Tilbyr et intuitivt webgrensesnitt og REST API, som tillater online justering av modeller, gjenfinningsgrenseverdier og Prompt for å kontrollere dialogatferd.
 
-      Website: https://weknora.weixin.qq.com
-    pt_PT: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Lær mer]
+      [Offisiell nettside](https://weknora.weixin.qq.com)
+      [GitHub-lenke](https://github.com/Tencent/WeKnora)
+    pt_PT: |-
+      WeKnora é uma estrutura de compreensão profunda de documentos e recuperação semântica baseada em Grandes Modelos de Linguagem (LLM), especificamente concebida para cenários de documentos com estruturas complexas e conteúdo heterogéneo. Adota uma arquitetura modular, integrando tecnologias chave como pré-processamento multimodal, indexação de vetores semânticos, recuperação inteligente e inferência de grandes modelos. Baseado no paradigma de Geração Aumentada por Recuperação (RAG), alcança capacidades de Q&A de alta qualidade e sensíveis ao contexto. WeKnora pode compreender profundamente o conteúdo de documentos em diferentes formatos, combinar fragmentos de documentos relevantes com a inferência do modelo de linguagem e produzir resultados semânticos precisos e coerentes.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Principais Funcionalidades]
+      - As funções centrais do WeKnora cobrem todo o fluxo de trabalho de processamento inteligente de documentos e Q&A:
+      - Análise Multimodal Profunda: Suporta a extração de conteúdo estruturado de vários formatos como PDF, Word, TXT, imagens, incluindo reconhecimento de texto de imagem OCR.
+      - Indexação de Vetores Semânticos e Recuperação Inteligente: Alcança correspondência semântica e recuperação de alta precisão através de uma combinação de recuperação vetorial, recuperação por palavras-chave e até mesmo recuperação aprimorada por grafo de conhecimento.
+      - Geração de Q&A em Ciclo Fechado RAG: Gera respostas de conteúdo precisas e coerentes aproveitando a inferência de grandes modelos de linguagem e a fusão de fragmentos de recuperação.
+      - Capacidades Aprimoradas do Modo Agente: Suporta o modo Agente ReACT, que pode chamar ferramentas incorporadas, pesquisa web externa, etc., durante iterações multi-rondas, para melhorar as capacidades de processamento de tarefas complexas.
+      - Gestão de Bases de Conhecimento Multitipo: Pode criar bases de conhecimento do tipo FAQ e documento, e gerir flexivelmente etiquetas, importar ficheiros ou URLs em lote.
+      - Estratégia de Diálogo e UI Configuráveis: Fornece uma interface Web intuitiva e uma API REST, permitindo o ajuste online de modelos, limiares de recuperação e Prompt para controlar o comportamento do diálogo.
 
-      Website: https://weknora.weixin.qq.com
-    ru_RU: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Saiba Mais]
+      [Website Oficial](https://weknora.weixin.qq.com)
+      [Link GitHub](https://github.com/Tencent/WeKnora)
+    ru_RU: |-
+      WeKnora — это фреймворк для глубокого понимания документов и семантического поиска, основанный на больших языковых моделях (LLM), специально разработанный для сценариев работы с документами, имеющими сложную структуру и гетерогенное содержимое. Он использует модульную архитектуру, объединяющую ключевые технологии, такие как мультимодальная предварительная обработка, индексация семантических векторов, интеллектуальный поиск и вывод больших моделей. Основанный на парадигме генерации с использованием извлечения (RAG), он обеспечивает контекстно-зависимые, высококачественные возможности вопросов и ответов. WeKnora может глубоко понимать содержимое документов в различных форматах, комбинировать соответствующие фрагменты документов с выводом языковой модели и выдавать точные, связные семантические результаты.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Основные функции]
+      - Основные функции WeKnora охватывают полный рабочий процесс интеллектуальной обработки документов и вопросов и ответов:
+      - Мультимодальный глубокий анализ: Поддерживает извлечение структурированного содержимого из различных форматов, таких как PDF, Word, TXT, изображения, включая распознавание текста на изображениях OCR.
+      - Индексация семантических векторов и интеллектуальный поиск: Достигает высокоточной семантической сопоставимости и отзыва за счет комбинации векторного поиска, поиска по ключевым словам и даже поиска, улучшенного графом знаний.
+      - Генерация вопросов и ответов RAG с замкнутым циклом: Генерирует точные и связные ответы на основе содержимого, используя вывод больших языковых моделей и слияние фрагментов поиска.
+      - Расширенные возможности режима агента: Поддерживает режим агента ReACT, который может вызывать встроенные инструменты, внешний веб-поиск и т. д. в ходе многораундовых итераций для повышения способности обработки сложных задач.
+      - Управление базами знаний различных типов: Может создавать базы знаний типа FAQ и документов, а также гибко управлять тегами, массово импортировать файлы или URL-адреса.
+      - Настраиваемая стратегия диалога и пользовательский интерфейс: Предоставляет интуитивно понятный веб-интерфейс и REST API, позволяя онлайн настраивать модели, пороги поиска и подсказки (Prompt) для управления поведением диалога.
 
-      Website: https://weknora.weixin.qq.com
-    sv_SE: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Узнать больше]
+      [Официальный сайт](https://weknora.weixin.qq.com)
+      [Ссылка на GitHub](https://github.com/Tencent/WeKnora)
+    sv_SE: |-
+      WeKnora är ett ramverk för djup dokumentförståelse och semantisk hämtning baserat på stora språkmodeller (LLM), speciellt utformat för dokumentscenarier med komplexa strukturer och heterogent innehåll. Det använder en modulär arkitektur som integrerar nyckelteknologier som multimodal förbehandling, semantisk vektorindexering, intelligent hämtning och inferens av stora modeller. Baserat på paradigmet Retrieval-Augmented Generation (RAG) uppnår det kontextmedvetna, högkvalitativa Q&A-funktioner. WeKnora kan djupt förstå dokumentinnehåll i olika format, kombinera relevanta dokumentfragment med språkmodellinferens och mata ut exakta, sammanhängande semantiska resultat.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Nyckelfunktioner]
+      - WeKnoras kärnfunktioner täcker hela arbetsflödet för intelligent dokumentbehandling och Q&A:
+      - Multimodal Djupanalys: Stöder extraktion av strukturerat innehåll från olika format som PDF, Word, TXT, bilder, inklusive OCR bildtextigenkänning.
+      - Semantisk Vektorindexering och Intelligent Hämtning: Uppnår högprecisions semantisk matchning och återkallning genom en kombination av vektorhämtning, nyckelordshämtning och till och med kunskapsgraf-förstärkt hämtning.
+      - RAG Sluten-loop Q&A-generering: Genererar exakta och sammanhängande innehållssvar genom att utnyttja inferens från stora språkmodeller och fusion av hämtningsfragment.
+      - Agentläge Förbättrade Funktioner: Stöder ReACT Agent-läge, som kan anropa inbyggda verktyg, extern webbsökning etc., under flerstegsiterationer, för att förbättra bearbetningskapaciteten för komplexa uppgifter.
+      - Fler-typ Kunskapsbas-hantering: Kan skapa FAQ- och dokumenttyp kunskapsbaser, och flexibelt hantera taggar, massimportera filer eller URL:er.
+      - Konfigurerbar Dialogstrategi och UI: Erbjuder ett intuitivt webbgränssnitt och REST API, som tillåter onlinejustering av modeller, hämtningströsklar och Prompt för att kontrollera dialogbeteende.
 
-      Website: https://weknora.weixin.qq.com
-    tr_TR: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Läs mer]
+      [Officiell webbplats](https://weknora.weixin.qq.com)
+      [GitHub-länk](https://github.com/Tencent/WeKnora)
+    tr_TR: |-
+      WeKnora, Büyük Dil Modelleri (LLM) tabanlı derin belge anlama ve anlamsal alma çerçevesidir. Karmaşık yapılı ve heterojen içerikli belge senaryolarını işlemek üzere özel olarak tasarlanmıştır. Çok modlu ön işleme, anlamsal vektör indeksleme, akıllı alma ve büyük model çıkarımı gibi temel teknolojileri entegre eden modüler bir mimariyi benimser. Retrieval-Augmented Generation (RAG) paradigmasına dayanarak, bağlama duyarlı, yüksek kaliteli Soru-Cevap yetenekleri sunar. WeKnora, farklı formatlardaki belge içeriğini derinlemesine anlayabilir, ilgili belge parçalarını dil modeli çıkarımıyla birleştirerek doğru, tutarlı anlamsal sonuçlar üretebilir.
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [Ana Özellikler]
+      - WeKnora'nın temel işlevleri, akıllı belge işleme ve Soru-Cevap iş akışının tamamını kapsar:
+      - Çok Modlu Derin Ayrıştırma: PDF, Word, TXT, resimler gibi çeşitli formatlardan yapılandırılmış içerik çıkarımını destekler, OCR görüntü metin tanıma dahil.
+      - Anlamsal Vektör İndeksleme ve Akıllı Alma: Vektör alma, anahtar kelime alma ve hatta bilgi grafiği destekli alma kombinasyonu aracılığıyla yüksek hassasiyetli anlamsal eşleştirme ve geri çağırma sağlar.
+      - RAG Kapalı Döngü Soru-Cevap Üretimi: Büyük dil modeli çıkarımı ve alma parçası füzyonundan yararlanarak doğru ve tutarlı içerik yanıtları üretir.
+      - Agent Modu Gelişmiş Yetenekleri: Çok turlu yinelemeler sırasında yerleşik araçları, harici web aramasını vb. çağırabilen ReACT Agent modunu destekleyerek karmaşık görev işleme yeteneklerini geliştirir.
+      - Çok Türlü Bilgi Tabanı Yönetimi: SSS ve belge tipi bilgi tabanları oluşturabilir, etiketleri esnek bir şekilde yönetebilir, dosyaları veya URL'leri toplu olarak içe aktarabilir.
+      - Yapılandırılabilir Diyalog Stratejisi ve Kullanıcı Arayüzü: Sezgisel bir Web arayüzü ve REST API sağlar, modellerin, alma eşiklerinin ve Prompt'un çevrimiçi olarak ayarlanmasına olanak tanıyarak diyalog davranışını kontrol eder.
 
-      Website: https://weknora.weixin.qq.com
-    zh_CN: |
-      WeKnora is an LLM-powered framework designed for deep document understanding and semantic retrieval, especially for handling complex, heterogeneous documents.
+      [Daha Fazla Bilgi Edinin]
+      [Resmi Web Sitesi](https://weknora.weixin.qq.com)
+      [GitHub Bağlantısı](https://github.com/Tencent/WeKnora)
+    zh_CN: |-
+      WeKnora是一款基于大语言模型（LLM）的深度文档理解与语义检索框架，专为处理结构复杂、异构内容的文档场景设计。它采用模块化架构，融合了多模态预处理、语义向量索引、智能检索与大模型推理等关键技术，并基于检索增强生成（RAG）范式实现上下文感知的高质量问答能力。WeKnora能够深入理解不同格式的文档内容，将相关文档片段与语言模型推理结合，输出准确、连贯的语义结果。
 
-      It adopts a modular architecture that combines multimodal preprocessing, semantic vector indexing, intelligent retrieval, and large language model inference. At its core, WeKnora follows the RAG (Retrieval-Augmented Generation) paradigm, enabling high-quality, context-aware answers by combining relevant document chunks with model reasoning.
+      [主要功能]
+      - WeKnora 核心功能覆盖完整的智能文档处理与问答流程：
+      - 多模态深度解析：支持 PDF、Word、TXT、图片等多种格式的结构化内容提取，包括 OCR 图像文字识别。
+      - 语义向量索引与智能检索：通过向量检索、关键词检索甚至知识图谱增强检索组合，实现高精度语义匹配与召回。
+      - RAG 闭环问答生成：借助大语言模型推理和检索片段融合生成准确、连贯的内容回答。
+      - Agent 模式增强能力：支持 ReACT Agent 模式，可在多轮迭代过程中调用内置工具、外部网络搜索等，提高复杂任务处理能力。
+      - 多类型知识库管理：可创建 FAQ 和文档类型知识库，并灵活管理标签、批量导入文件或 URL。
+      - 可配置对话策略与 UI：提供直观 Web 界面和 REST API，可在线调整模型、检索阈值与 Prompt 控制对话行为。
 
-      Website: https://weknora.weixin.qq.com
+      [了解更多]
+      [官方网站](https://weknora.weixin.qq.com)
+      [github链接](https://github.com/Tencent/WeKnora)
   category: AI
   author: tencent
   developer: fromxiaobai
