@@ -98,7 +98,7 @@ services:
       - DISABLE_REGISTRATION=false
       - DB_DRIVER=postgres
       - DB_HOST=weknora-postgres
-      - DB_PORT="5432"
+      - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres123!@#
       - DB_NAME=WeKnora
@@ -112,12 +112,12 @@ services:
       - STREAM_MANAGER_TYPE=redis
       - REDIS_ADDR=weknora-redis:6379
       - REDIS_PASSWORD=redis123!@#
-      - REDIS_DB='0'
+      - REDIS_DB=0
       - REDIS_PREFIX="stream:"
       - TENANT_AES_KEY=weknorarag-api-key-secret-secret
       - CONCURRENCY_POOL_SIZE:5
       - JWT_SECRET=weknora-jwt-secret
-      - MAX_FILE_SIZE_MB='50'
+      - MAX_FILE_SIZE_MB=50
     depends_on:
       weknora-redis:
         condition: service_started
