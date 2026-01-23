@@ -105,7 +105,7 @@ services:
       - TZ=$TZ
       - RETRIEVE_DRIVER=postgres
       - DOCREADER_ADDR=weknora-docreader:50051
-      - STORAGE_TYPE=local
+      - STORAGE_TYPE=minio
       - LOCAL_STORAGE_BASE_DIR=/data/files
       - AUTO_RECOVER_DIRTY=true
       - OLLAMA_BASE_URL=http://host.docker.internal:11434
@@ -584,7 +584,7 @@ services:
         published: "50051"
         protocol: tcp
     environment:
-      - MAX_FILE_SIZE_MB='50'
+      - MAX_FILE_SIZE_MB=50
     healthcheck:
       test:
         - CMD
