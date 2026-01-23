@@ -15,6 +15,10 @@ services:
     networks:
       - weknora-network
     restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          memory: 128M
     x-casaos:
       envs:
         - container: MAX_FILE_SIZE_MB
@@ -63,6 +67,10 @@ services:
       - type: bind
         source: /DATA/AppData/$AppID/files
         target: /data/files
+    deploy:
+      resources:
+        reservations:
+          memory: 512M
     healthcheck:
       test:
         - CMD
@@ -585,6 +593,13 @@ services:
         protocol: tcp
     environment:
       - MAX_FILE_SIZE_MB=50
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY_ID=minioadmin
+      - MINIO_SECRET_ACCESS_KEY=minioadmin
+    deploy:
+      resources:
+        reservations:
+          memory: 256M
     healthcheck:
       test:
         - CMD
@@ -658,6 +673,10 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+    deploy:
+      resources:
+        reservations:
+          memory: 512M
     restart: unless-stopped
     stop_grace_period: 1m
     x-casaos:
@@ -737,6 +756,12 @@ services:
     command:
       - redis-server
       - --requirepass redis123!@#
+      - --appendonly
+      - yes
+    deploy:
+      resources:
+        reservations:
+          memory: 128M
     restart: unless-stopped
     networks:
       - weknora-network
@@ -753,6 +778,10 @@ services:
     environment:
       - MINIO_ROOT_USER=minioadmin
       - MINIO_ROOT_PASSWORD=minioadmin
+    deploy:
+      resources:
+        reservations:
+          memory: 512M
     command:
       - server
       - /data
@@ -897,6 +926,10 @@ services:
     environment:
       - COLLECTOR_OTLP_ENABLED=true
       - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+    deploy:
+      resources:
+        reservations:
+          memory: 512M
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/jaeger
@@ -1133,6 +1166,10 @@ services:
         published: "7687"
         protocol: tcp
     restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          memory: 256M
     networks:
       - weknora-network
     x-casaos:
@@ -1292,6 +1329,10 @@ services:
     networks:
       - weknora-network
     restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          memory: 256M
     x-casaos:
       ports:
         - container: "6333"
