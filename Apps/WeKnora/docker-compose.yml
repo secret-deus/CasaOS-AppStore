@@ -848,22 +848,22 @@ services:
     container_name: weknora-jaeger
     ports:
       - target: 6831
-        published: "6831"
+        published: "46831"
         protocol: udp
       - target: 6832
-        published: "6832"
+        published: "46832"
         protocol: udp
       - target: 5778
-        published: "5778"
+        published: "45778"
         protocol: tcp
       - target: 16686
         published: "16686"
         protocol: tcp
       - target: 4317
-        published: "4317"
+        published: "44317"
         protocol: tcp
       - target: 4318
-        published: "4318"
+        published: "44318"
         protocol: tcp
       - target: 14250
         published: "14250"
@@ -872,7 +872,7 @@ services:
         published: "14268"
         protocol: tcp
       - target: 9411
-        published: "9411"
+        published: "49411"
         protocol: tcp
     environment:
       - COLLECTOR_OTLP_ENABLED=true
@@ -1114,10 +1114,10 @@ services:
       - NEO4JLABS_PLUGINS=["apoc"]
     ports:
       - target: 7474
-        published: "7474"
+        published: "47474"
         protocol: tcp
       - target: 7687
-        published: "7687"
+        published: "47687"
         protocol: tcp
     restart: unless-stopped
     deploy:
@@ -1274,10 +1274,10 @@ services:
       - null
     ports:
       - target: 6333
-        published: "6333"
+        published: "46333"
         protocol: tcp
       - target: 6334
-        published: "6334"
+        published: "46334"
         protocol: tcp
     volumes:
       - type: bind
