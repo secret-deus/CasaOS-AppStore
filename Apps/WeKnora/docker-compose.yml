@@ -59,10 +59,6 @@ services:
   app:
     image: wechatopenai/weknora-app:v0.2.10
     container_name: weknora-app
-    ports:
-      - target: 8080
-        published: "8080"
-        protocol: tcp
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/files
@@ -97,11 +93,6 @@ services:
       - MINIO_ACCESS_KEY_ID=minioadmin
       - MINIO_SECRET_ACCESS_KEY=minioadmin
       - MINIO_BUCKET_NAME=weknora
-      - ENABLE_GRAPH_RAG=true
-      - NEO4J_ENABLE=true
-      - NEO4J_URI=bolt://neo4j:7687
-      - NEO4J_USERNAME=neo4j
-      - NEO4J_PASSWORD=password
       - GIN_MODE=release
       - DISABLE_REGISTRATION=false
       - DB_DRIVER=postgres
@@ -548,24 +539,6 @@ services:
             sv_SE: Maximal filstorlek för uppladdning i megabyte
             tr_TR: Yükleme için izin verilen maksimum dosya boyutu (megabayt cinsinden)
             zh_CN: 最大允许上传文件大小（MB）
-      ports:
-        - container: "8080"
-          description:
-            de_DE: Backend-API-Server-Port
-            el_GR: Θύρα διακομιστή Backend API
-            en_GB: Backend API server port
-            en_US: Backend API server port
-            fr_FR: Port du serveur API Backend
-            hr_HR: Port poslužitelja Backend API
-            it_IT: Porta del server API Backend
-            ja_JP: バックエンド API サーバーポート
-            ko_KR: 백엔드 API 서버 포트
-            nb_NO: Backend API-serverport
-            pt_PT: Porta do servidor de API Backend
-            ru_RU: Порт сервера Backend API
-            sv_SE: Backend API-serverport
-            tr_TR: Backend API sunucu bağlantı noktası
-            zh_CN: 后端 API 服务器端口
       volumes:
         - container: /data/files
           description:
@@ -587,10 +560,6 @@ services:
   weknora-docreader:
     image: wechatopenai/weknora-docreader:v0.2.10
     container_name: weknora-docreader
-    ports:
-      - target: 50051
-        published: "50051"
-        protocol: tcp
     environment:
       - MAX_FILE_SIZE_MB=50
       - MINIO_ENDPOINT=minio:9000
@@ -634,25 +603,6 @@ services:
             sv_SE: Maximal filstorlek för uppladdning i megabyte
             tr_TR: Yükleme için izin verilen maksimum dosya boyutu (megabayt cinsinden)
             zh_CN: 最大允许上传文件大小（MB）
-      ports:
-        - container: "50051"
-          description:
-            de_DE: gRPC-Service-Port des Dokumentlesegeräts
-            el_GR: Θύρα gRPC υπηρεσίας ανάγνωσης εγγράφων
-            en_GB: Document reader gRPC service port
-            en_US: Document reader gRPC service port
-            fr_FR: Port du service gRPC du lecteur de documents
-            hr_HR: gRPC vrata usluge čitanja dokumenata
-            it_IT: Porta del servizio gRPC del lettore di documenti
-            ja_JP: ドキュメントリーダー gRPC サービスポート
-            ko_KR: 문서 리더 gRPC 서비스 포트
-            nb_NO: Port for gRPC-tjeneste for dokumentleser
-            pt_PT: Porta do serviço gRPC de leitura de documentos
-            ru_RU: Порт gRPC-службы чтения документов
-            sv_SE: Port för gRPC-tjänst för dokumentläsare
-            tr_TR: Belge okuyucu gRPC hizmeti bağlantı noktası
-            zh_CN: 文档读取器 gRPC 服务端口
-      volumes: []
   weknora-postgres:
     image: paradedb/paradedb:v0.18.9-pg17
     container_name: weknora-postgres
@@ -771,10 +721,10 @@ services:
     container_name: weknora-minio
     ports:
       - target: 9000
-        published: "9000"
+        published: "19000"
         protocol: tcp
       - target: 9001
-        published: "9001"
+        published: "19001"
         protocol: tcp
     environment:
       - MINIO_ROOT_USER=minioadmin
@@ -1149,6 +1099,9 @@ services:
   neo4j:
     image: neo4j:2025.10.1
     container_name: weknora-neo4j
+    profiles:
+      - neo4j
+      - full
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/neo4j-data
@@ -1316,6 +1269,9 @@ services:
   qdrant:
     image: qdrant/qdrant:v1.16.2
     container_name: weknora-qdrant
+    profiles:
+      - qdrant
+      - null
     ports:
       - target: 6333
         published: "6333"
