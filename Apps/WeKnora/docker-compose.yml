@@ -1271,7 +1271,7 @@ services:
     container_name: weknora-qdrant
     profiles:
       - "qdrant"
-      - "null"
+      - "full"
     ports:
       - target: 6333
         published: "46333"
