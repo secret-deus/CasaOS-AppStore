@@ -1100,8 +1100,8 @@ services:
     image: neo4j:2025.10.1
     container_name: weknora-neo4j
     profiles:
-      - neo4j
-      - full
+      - "neo4j"
+      - "full"
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/neo4j-data
@@ -1270,8 +1270,8 @@ services:
     image: qdrant/qdrant:v1.16.2
     container_name: weknora-qdrant
     profiles:
-      - qdrant
-      - null
+      - "qdrant"
+      - "null"
     ports:
       - target: 6333
         published: "46333"
