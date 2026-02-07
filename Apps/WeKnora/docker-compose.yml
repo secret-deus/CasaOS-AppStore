@@ -1,7 +1,7 @@
 name: weknora
 services:
   weknora:
-    image: wechatopenai/weknora-ui:v0.2.10
+    image: wechatopenai/weknora-ui:v0.2.14
     container_name: weknora
     ports:
       - target: 80
@@ -57,7 +57,7 @@ services:
             tr_TR: Ana web arayüzü bağlantı noktası
             zh_CN: 主 Web 界面端口
   app:
-    image: wechatopenai/weknora-app:v0.2.10
+    image: wechatopenai/weknora-app:v0.2.14
     container_name: weknora-app
     volumes:
       - type: bind
@@ -558,7 +558,7 @@ services:
             tr_TR: Belge dosyaları depolama alanı
             zh_CN: 文档文件存储
   weknora-docreader:
-    image: wechatopenai/weknora-docreader:v0.2.10
+    image: wechatopenai/weknora-docreader:v0.2.14
     container_name: weknora-docreader
     environment:
       - MAX_FILE_SIZE_MB=50
