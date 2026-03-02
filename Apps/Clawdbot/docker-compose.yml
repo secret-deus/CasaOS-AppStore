@@ -1,17 +1,14 @@
 services:
-  clawdbot:
-    image: clawdbot:local
+  openclaw:
+    image: fromxiaobai/openclaw:latest
     environment:
       HOME: /home/node
       TERM: xterm-256color
-      CLAWDBOT_GATEWAY_TOKEN: dfsf123
+      OPENCLAW_GATEWAY_TOKEN: casaos
     volumes:
       - type: bind
-        source: /DATA/AppData/$AppID/clawdbot
-        target: /home/node/.clawdbot
-      - type: bind
-        source: /DATA/AppData/$AppID/clawd
-        target: /home/node/clawd
+        source: /DATA/AppData/$AppID/openclaw
+        target: /home/node/.openclaw
     ports:
       - target: 18789
         published: "24190"
@@ -31,7 +28,7 @@ services:
       - --allow-unconfigured
       - --port
       - '18789'
-    container_name: clawdbot
+    container_name: openclaw
     x-casaos:
       envs:
         - container: HOME
@@ -68,138 +65,121 @@ services:
             sv_SE: Definierar terminaltypen, ofta inställd för korrekt interaktion med kommandoraden.
             tr_TR: Terminal türünü tanımlar, genellikle doğru komut satırı etkileşimi için ayarlanır.
             zh_CN: 定义终端类型，通常设置为实现正确的命令行交互。
-        - container: CLAWDBOT_GATEWAY_TOKEN
+        - container: OPENCLAW_GATEWAY_TOKEN
           description:
-            de_DE: Authentifizierungs-Token für das Clawdbot-Gateway zur Verbindung mit externen Diensten.
-            el_GR: Διακριτικό ελέγχου ταυτότητας για την πύλη Clawdbot για σύνδεση με εξωτερικές υπηρεσίες.
-            en_GB: Authentication token for the Clawdbot gateway to connect to external services.
-            en_US: Authentication token for the Clawdbot gateway to connect to external services.
-            fr_FR: Jeton d'authentification pour la passerelle Clawdbot afin de se connecter aux services externes.
-            hr_HR: Autentifikacijski token za Clawdbot pristupnik za povezivanje s vanjskim uslugama.
-            it_IT: Token di autenticazione per il gateway Clawdbot per connettersi a servizi esterni.
-            ja_JP: 外部サービスに接続するためのClawdbotゲートウェイの認証トークン。
-            ko_KR: Clawdbot 게이트웨이가 외부 서비스에 연결하기 위한 인증 토큰입니다.
-            nb_NO: Autentiseringstoken for Clawdbot-gatewayen for å koble til eksterne tjenester.
-            pt_PT: Token de autenticação para o gateway Clawdbot se conectar a serviços externos.
-            ru_RU: Токен аутентификации для шлюза Clawdbot для подключения к внешним службам.
-            sv_SE: Autentiseringstoken för Clawdbot-gatewayen för att ansluta till externa tjänster.
-            tr_TR: Clawdbot ağ geçidinin harici hizmetlere bağlanması için kimlik doğrulama belirteci.
-            zh_CN: Clawdbot 网关连接到外部服务的身份验证令牌。
+            de_DE: Authentifizierungs-Token für das OpenClaw-Gateway zur Verbindung mit externen Diensten.
+            el_GR: Διακριτικό ελέγχου ταυτότητας για την πύλη OpenClaw για σύνδεση με εξωτερικές υπηρεσίες.
+            en_GB: Authentication token for the OpenClaw gateway to connect to external services.
+            en_US: Authentication token for the OpenClaw gateway to connect to external services.
+            fr_FR: Jeton d'authentification pour la passerelle OpenClaw afin de se connecter aux services externes.
+            hr_HR: Autentifikacijski token za OpenClaw pristupnik za povezivanje s vanjskim uslugama.
+            it_IT: Token di autenticazione per il gateway OpenClaw per connettersi a servizi esterni.
+            ja_JP: 外部サービスに接続するためのOpenClawゲートウェイの認証トークン。
+            ko_KR: OpenClaw 게이트웨이가 외부 서비스에 연결하기 위한 인증 토큰입니다.
+            nb_NO: Autentiseringstoken for OpenClaw-gatewayen for å koble til eksterne tjenester.
+            pt_PT: Token de autenticação para o gateway OpenClaw se conectar a serviços externos.
+            ru_RU: Токен аутентификации для шлюза OpenClaw для подключения к внешним службам.
+            sv_SE: Autentiseringstoken för OpenClaw-gatewayen för att ansluta till externa tjänster.
+            tr_TR: OpenClaw ağ geçidinin harici hizmetlere bağlanması için kimlik doğrulama belirteci.
+            zh_CN: OpenClaw 网关连接到外部服务的身份验证令牌。
       ports:
         - container: "18789"
           description:
-            de_DE: Haupt-Webinterface-Port für den Zugriff auf Clawdbot.
-            el_GR: Κύρια θύρα διεπαφής ιστού για πρόσβαση στο Clawdbot.
-            en_GB: Main web interface port for accessing Clawdbot.
-            en_US: Main web interface port for accessing Clawdbot.
-            fr_FR: Port principal de l'interface web pour accéder à Clawdbot.
-            hr_HR: Glavni port web sučelja za pristup Clawdbotu.
-            it_IT: Porta principale dell'interfaccia web per accedere a Clawdbot.
-            ja_JP: ClawdbotにアクセスするためのメインWebインターフェースポート。
-            ko_KR: Clawdbot에 액세스하기 위한 주 웹 인터페이스 포트입니다.
-            nb_NO: Hovedport for webgrensesnitt for tilgang til Clawdbot.
-            pt_PT: Porta principal da interface web para aceder ao Clawdbot.
-            ru_RU: Основной порт веб-интерфейса для доступа к Clawdbot.
-            sv_SE: Huvudport för webbgränssnittet för åtkomst till Clawdbot.
-            tr_TR: Clawdbot'a erişim için ana web arayüzü bağlantı noktası.
-            zh_CN: 访问 Clawdbot 的主 Web 界面端口。
+            de_DE: Haupt-Webinterface-Port für den Zugriff auf OpenClaw.
+            el_GR: Κύρια θύρα διεπαφής ιστού για πρόσβαση στο OpenClaw.
+            en_GB: Main web interface port for accessing OpenClaw.
+            en_US: Main web interface port for accessing OpenClaw.
+            fr_FR: Port principal de l'interface web pour accéder à OpenClaw.
+            hr_HR: Glavni port web sučelja za pristup OpenClawu.
+            it_IT: Porta principale dell'interfaccia web per accedere a OpenClaw.
+            ja_JP: OpenClawにアクセスするためのメインWebインターフェースポート。
+            ko_KR: OpenClaw에 액세스하기 위한 주 웹 인터페이스 포트입니다.
+            nb_NO: Hovedport for webgrensesnitt for tilgang til OpenClaw.
+            pt_PT: Porta principal da interface web para aceder ao OpenClaw.
+            ru_RU: Основной порт веб-интерфейса для доступа к OpenClaw.
+            sv_SE: Huvudport för webbgränssnittet för åtkomst till OpenClaw.
+            tr_TR: OpenClaw'a erişim için ana web arayüzü bağlantı noktası.
+            zh_CN: 访问 OpenClaw 的主 Web 界面端口。
         - container: "18790"
           description:
-            de_DE: Interner API-Port für die Kerndienste von Clawdbot.
-            el_GR: Εσωτερική θύρα API για τις βασικές υπηρεσίες του Clawdbot.
-            en_GB: Internal API port for Clawdbot's core services.
-            en_US: Internal API port for Clawdbot's core services.
-            fr_FR: Port API interne pour les services principaux de Clawdbot.
-            hr_HR: Interni API port za Clawdbotove temeljne usluge.
-            it_IT: Porta API interna per i servizi principali di Clawdbot.
-            ja_JP: Clawdbotのコアサービス用の内部APIポート。
-            ko_KR: Clawdbot의 핵심 서비스를 위한 내부 API 포트입니다.
-            nb_NO: Intern API-port for Clawdbots kjernetjenester.
-            pt_PT: Porta API interna para os serviços principais do Clawdbot.
-            ru_RU: Внутренний порт API для основных служб Clawdbot.
-            sv_SE: Intern API-port för Clawdbots kärntjänster.
-            tr_TR: Clawdbot'un çekirdek uygulama dosyaları ve çalışma zamanı verilerini içerir.
-            zh_CN: Clawdbot 核心服务的内部 API 端口。
+            de_DE: Interner API-Port für die Kerndienste von OpenClaw.
+            el_GR: Εσωτερική θύρα API για τις βασικές υπηρεσίες του OpenClaw.
+            en_GB: Internal API port for OpenClaw's core services.
+            en_US: Internal API port for OpenClaw's core services.
+            fr_FR: Port API interne pour les services principaux de OpenClaw.
+            hr_HR: Interni API port za OpenClawove temeljne usluge.
+            it_IT: Porta API interna per i servizi principali di OpenClaw.
+            ja_JP: OpenClawのコアサービス用の内部APIポート。
+            ko_KR: OpenClaw의 핵심 서비스를 위한 내부 API 포트입니다.
+            nb_NO: Intern API-port for OpenClaws kjernetjenester.
+            pt_PT: Porta API interna para os serviços principais do OpenClaw.
+            ru_RU: Внутренний порт API для основных служб OpenClaw.
+            sv_SE: Intern API-port för OpenClaws kärntjänster.
+            tr_TR: OpenClaw'un çekirdek uygulama dosyaları ve çalışma zamanı verilerini içerir.
+            zh_CN: OpenClaw 核心服务的内部 API 端口。
       volumes:
-        - container: /home/node/.clawdbot
+        - container: /home/node/.openclaw
           description:
-            de_DE: Speichert die Konfigurationsdateien und persistenten Daten von Clawdbot.
-            el_GR: Αποθηκεύει τα αρχεία διαμόρφωσης και τα μόνιμα δεδομένα του Clawdbot.
-            en_GB: Stores Clawdbot's configuration files and persistent data.
-            en_US: Stores Clawdbot's configuration files and persistent data.
-            fr_FR: Stocke les fichiers de configuration et les données persistantes de Clawdbot.
-            hr_HR: Pohranjuje Clawdbotove konfiguracijske datoteke i trajne podatke.
-            it_IT: Archivia i file di configurazione e i dati persistenti di Clawdbot.
-            ja_JP: Clawdbotの設定ファイルと永続データを保存します。
-            ko_KR: Clawdbot의 구성 파일과 영구 데이터를 저장합니다.
-            nb_NO: Lagrer Clawdbots konfigurasjonsfiler og vedvarende data.
-            pt_PT: Armazena os ficheiros de configuração e os dados persistentes do Clawdbot.
-            ru_RU: Хранит конфигурационные файлы и постоянные данные Clawdbot.
-            sv_SE: Lagrar Clawdbots konfigurationsfiler och beständiga data.
-            tr_TR: Clawdbot'un yapılandırma dosyalarını ve kalıcı verilerini depolar.
-            zh_CN: 存储 Clawdbot 的配置文件和持久数据。
-        - container: /home/node/clawd
-          description:
-            de_DE: Enthält die Kernanwendungsdateien und Laufzeitdaten von Clawdbot.
-            el_GR: Περιέχει τα βασικά αρχεία εφαρμογής και τα δεδομένα χρόνου εκτέλεσης του Clawdbot.
-            en_GB: Contains Clawdbot's core application files and runtime data.
-            en_US: Contains Clawdbot's core application files and runtime data.
-            fr_FR: Contient les fichiers d'application principaux et les données d'exécution de Clawdbot.
-            hr_HR: Sadrži Clawdbotove temeljne aplikacijske datoteke i podatke o izvođenju.
-            it_IT: Contiene i file dell'applicazione principale e i dati di runtime di Clawdbot.
-            ja_JP: Clawdbotのコアアプリケーションファイルとランタイムデータが含まれています。
-            ko_KR: Clawdbot의 핵심 애플리케이션 파일과 런타임 데이터를 포함합니다.
-            nb_NO: Inneholder Clawdbots kjerneapplikasjonsfiler og kjøretidsdata.
-            pt_PT: Contém os ficheiros de aplicação principais e os dados de tempo de execução do Clawdbot.
-            ru_RU: Содержит основные файлы приложения и данные времени выполнения Clawdbot.
-            sv_SE: Innehåller Clawdbots kärnapplikationsfiler och körningsdata.
-            tr_TR: Clawdbot'un çekirdek uygulama dosyalarını ve çalışma zamanı verilerini içerir.
-            zh_CN: 包含 Clawdbot 的核心应用程序文件和运行时数据。
-name: clawdbot
+            de_DE: Speichert die Konfigurationsdateien und persistenten Daten von OpenClaw.
+            el_GR: Αποθηκεύει τα αρχεία διαμόρφωσης και τα μόνιμα δεδομένα του OpenClaw.
+            en_GB: Stores OpenClaw's configuration files and persistent data.
+            en_US: Stores OpenClaw's configuration files and persistent data.
+            fr_FR: Stocke les fichiers de configuration et les données persistantes de OpenClaw.
+            hr_HR: Pohranjuje OpenClawove konfiguracijske datoteke i trajne podatke.
+            it_IT: Archivia i file di configurazione e i dati persistenti di OpenClaw.
+            ja_JP: OpenClawの設定ファイルと永続データを保存します。
+            ko_KR: OpenClaw의 구성 파일과 영구 데이터를 저장합니다.
+            nb_NO: Lagrer OpenClaws konfigurasjonsfiler og vedvarende data.
+            pt_PT: Armazena os ficheiros de configuração e os dados persistentes do OpenClaw.
+            ru_RU: Хранит конфигурационные файлы и постоянные данные OpenClaw.
+            sv_SE: Lagrar OpenClaws konfigurationsfiler och beständiga data.
+            tr_TR: OpenClaw'un yapılandırma dosyalarını ve kalıcı verilerini depolar.
+            zh_CN: 存储 OpenClaw 的配置文件和持久数据。
+name: openclaw
 x-casaos:
   title:
-    de_DE: clawdbot
-    el_GR: clawdbot
-    en_GB: clawdbot
-    en_US: clawdbot
-    fr_FR: clawdbot
-    hr_HR: clawdbot
-    it_IT: clawdbot
-    ja_JP: clawdbot
-    ko_KR: clawdbot
-    nb_NO: clawdbot
-    pt_PT: clawdbot
-    ru_RU: clawdbot
-    sv_SE: clawdbot
-    tr_TR: clawdbot
-    zh_CN: clawdbot
+    de_DE: openclaw
+    el_GR: openclaw
+    en_GB: openclaw
+    en_US: openclaw
+    fr_FR: openclaw
+    hr_HR: openclaw
+    it_IT: openclaw
+    ja_JP: openclaw
+    ko_KR: openclaw
+    nb_NO: openclaw
+    pt_PT: openclaw
+    ru_RU: openclaw
+    sv_SE: openclaw
+    tr_TR: openclaw
+    zh_CN: openclaw
   tagline:
-    de_DE: Clawdbot ist ein persönlicher KI-Assistent, den Sie auf Ihren eigenen Geräten ausführen.
-    el_GR: Το Clawdbot είναι ένας προσωπικός βοηθός τεχνητής νοημοσύνης που εκτελείτε στις δικές σας συσκευές.
-    en_GB: Clawdbot is a personal AI assistant you run on your own devices
-    en_US: Clawdbot is a personal AI assistant you run on your own devices
-    fr_FR: Clawdbot est un assistant IA personnel que vous exécutez sur vos propres appareils.
-    hr_HR: Clawdbot je osobni AI asistent kojeg pokrećete na vlastitim uređajima.
-    it_IT: Clawdbot è un assistente AI personale che puoi eseguire sui tuoi dispositivi.
-    ja_JP: Clawdbotは、ご自身のデバイスで実行するパーソナルAIアシスタントです。
-    ko_KR: Clawdbot은 사용자의 기기에서 실행되는 개인 AI 비서입니다.
-    nb_NO: Clawdbot er en personlig AI-assistent du kjører på dine egne enheter.
-    pt_PT: Clawdbot é um assistente de IA pessoal que executa nos seus próprios dispositivos.
-    ru_RU: Clawdbot — это персональный ИИ-помощник, который вы запускаете на своих собственных устройствах.
-    sv_SE: Clawdbot är en personlig AI-assistent som du kör på dina egna enheter.
-    tr_TR: Clawdbot, kendi cihazlarınızda çalıştırdığınız kişisel bir yapay zeka asistanıdır.
-    zh_CN: Clawdbot 是一个您在自己的设备上运行的个人 AI 助手。
+    de_DE: OpenClaw ist ein persönlicher KI-Assistent, den Sie auf Ihren eigenen Geräten ausführen.
+    el_GR: Το OpenClaw είναι ένας προσωπικός βοηθός τεχνητής νοημοσύνης που εκτελείτε στις δικές σας συσκευές.
+    en_GB: OpenClaw is a personal AI assistant you run on your own devices
+    en_US: OpenClaw is a personal AI assistant you run on your own devices
+    fr_FR: OpenClaw est un assistant IA personnel que vous exécutez sur vos propres appareils.
+    hr_HR: OpenClaw je osobni AI asistent kojeg pokrećete na vlastitim uređajima.
+    it_IT: OpenClaw è un assistente AI personale che puoi eseguire sui tuoi dispositivi.
+    ja_JP: OpenClawは、ご自身のデバイスで実行するパーソナルAIアシスタントです。
+    ko_KR: OpenClaw은 사용자의 기기에서 실행되는 개인 AI 비서입니다.
+    nb_NO: OpenClaw er en personlig AI-assistent du kjører på dine egne enheter.
+    pt_PT: OpenClaw é um assistente de IA pessoal que executa nos seus próprios dispositivos.
+    ru_RU: OpenClaw — это персональный ИИ-помощник, который вы запускаете на своих собственных устройствах.
+    sv_SE: OpenClaw är en personlig AI-assistent som du kör på dina egna enheter.
+    tr_TR: OpenClaw, kendi cihazlarınızda çalıştırdığınız kişisel bir yapay zeka asistanıdır.
+    zh_CN: OpenClaw 是一个您在自己的设备上运行的个人 AI 助手。
   description:
     de_DE: |
-      Clawdbot ist ein quelloffener persönlicher KI-Assistent, der darauf abzielt, die Fähigkeiten großer Sprachmodelle (LLMs) auf intelligente Agenten zu erweitern, die proaktiv Aufgaben ausführen, plattformübergreifend interagieren und kontinuierlich arbeiten. Er unterstützt den 24/7-Betrieb auf den eigenen Geräten oder Servern des Benutzers und bietet intelligente Automatisierungsdienste über gängige Kommunikationstools. Clawdbot verbindet KI über eine lokal laufende „Gateway+Agent“-Architektur mit bestehenden Chat-Kanälen (wie WhatsApp, Telegram, Discord usw.), sodass er nicht nur Fragen beantworten, sondern auch proaktiv Aktionen ausführen, Termine verwalten, E-Mails bearbeiten, Workflows automatisieren und vieles mehr kann.
+      OpenClaw ist ein quelloffener persönlicher KI-Assistent, der darauf abzielt, die Fähigkeiten großer Sprachmodelle (LLMs) auf intelligente Agenten zu erweitern, die proaktiv Aufgaben ausführen, plattformübergreifend interagieren und kontinuierlich arbeiten. Er unterstützt den 24/7-Betrieb auf den eigenen Geräten oder Servern des Benutzers und bietet intelligente Automatisierungsdienste über gängige Kommunikationstools. OpenClaw verbindet KI über eine lokal laufende „Gateway+Agent“-Architektur mit bestehenden Chat-Kanälen (wie WhatsApp, Telegram, Discord usw.), sodass er nicht nur Fragen beantworten, sondern auch proaktiv Aktionen ausführen, Termine verwalten, E-Mails bearbeiten, Workflows automatisieren und vieles mehr kann.
 
       **Hauptmerkmale**:
 
-      - Lokal zuerst & selbst gehostet: Clawdbot läuft auf den eigenen Geräten des Benutzers (macOS, Linux, Windows/WSL2) oder Cloud-Servern, ist nicht auf Cloud-Hosting angewiesen, Daten bleiben lokal, was Datenschutz und Kontrolle verbessert.
+      - Lokal zuerst & selbst gehostet: OpenClaw läuft auf den eigenen Geräten des Benutzers (macOS, Linux, Windows/WSL2) oder Cloud-Servern, ist nicht auf Cloud-Hosting angewiesen, Daten bleiben lokal, was Datenschutz und Kontrolle verbessert.
 
       - Mehrkanal-Kommunikationsintegration: Interagieren Sie direkt mit der KI über gängige Kommunikationsplattformen wie WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams usw., ohne zusätzliche Anwendungen.
 
-      - Immer online & Langzeitgedächtnis: Clawdbot kann 24/7 dauerhaft laufen, verfügt über ein persistentes Gedächtnis und Kontextbeibehaltungsfähigkeiten, kann Präferenzen und frühere Gespräche speichern und personalisierte Dienste anbieten.
+      - Immer online & Langzeitgedächtnis: OpenClaw kann 24/7 dauerhaft laufen, verfügt über ein persistentes Gedächtnis und Kontextbeibehaltungsfähigkeiten, kann Präferenzen und frühere Gespräche speichern und personalisierte Dienste anbieten.
 
       - Ausführung realer Aktionen: Neben Textantworten kann er Systemaufgaben ausführen (z. B. Posteingang leeren, E-Mails senden, Formulare ausfüllen, Termine planen, im Web surfen, Browser steuern usw.).
 
@@ -209,17 +189,17 @@ x-casaos:
 
       [Offizielle Dokumentation und Anleitung](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     el_GR: |
-      Το Clawdbot είναι ένας ανοιχτού κώδικα προσωπικός βοηθός AI, σχεδιασμένος να επεκτείνει τις δυνατότητες των Μεγάλων Γλωσσικών Μοντέλων (LLM) σε ευφυείς πράκτορες που εκτελούν προληπτικά εργασίες, αλληλεπιδρούν σε πολλαπλές πλατφόρμες και λειτουργούν συνεχώς. Υποστηρίζει 24/7 λειτουργία στις συσκευές ή τους διακομιστές του χρήστη και παρέχει έξυπνες υπηρεσίες αυτοματισμού μέσω κοινών εργαλείων επικοινωνίας. Το Clawdbot συνδέει την AI με υπάρχοντα κανάλια συνομιλίας (όπως WhatsApp, Telegram, Discord κ.λπ.) μέσω μιας τοπικά εκτελούμενης αρχιτεκτονικής "πύλης + πράκτορα", επιτρέποντάς της όχι μόνο να απαντά σε ερωτήσεις, αλλά και να εκτελεί προληπτικά ενέργειες, να διαχειρίζεται χρονοδιαγράμματα, να επεξεργάζεται email, να αυτοματοποιεί ροές εργασίας κ.λπ.
+      Το OpenClaw είναι ένας ανοιχτού κώδικα προσωπικός βοηθός AI, σχεδιασμένος να επεκτείνει τις δυνατότητες των Μεγάλων Γλωσσικών Μοντέλων (LLM) σε ευφυείς πράκτορες που εκτελούν προληπτικά εργασίες, αλληλεπιδρούν σε πολλαπλές πλατφόρμες και λειτουργούν συνεχώς. Υποστηρίζει 24/7 λειτουργία στις συσκευές ή τους διακομιστές του χρήστη και παρέχει έξυπνες υπηρεσίες αυτοματισμού μέσω κοινών εργαλείων επικοινωνίας. Το OpenClaw συνδέει την AI με υπάρχοντα κανάλια συνομιλίας (όπως WhatsApp, Telegram, Discord κ.λπ.) μέσω μιας τοπικά εκτελούμενης αρχιτεκτονικής "πύλης + πράκτορα", επιτρέποντάς της όχι μόνο να απαντά σε ερωτήσεις, αλλά και να εκτελεί προληπτικά ενέργειες, να διαχειρίζεται χρονοδιαγράμματα, να επεξεργάζεται email, να αυτοματοποιεί ροές εργασίας κ.λπ.
 
       **Κύρια Χαρακτηριστικά**:
 
-      - Τοπική προτεραιότητα & αυτο-φιλοξενία: Το Clawdbot λειτουργεί στις συσκευές του χρήστη (macOS, Linux, Windows/WSL2) ή σε διακομιστές cloud, δεν εξαρτάται από φιλοξενία cloud, τα δεδομένα παραμένουν τοπικά, βελτιώνοντας την ιδιωτικότητα και τον έλεγχο.
+      - Τοπική προτεραιότητα & αυτο-φιλοξενία: Το OpenClaw λειτουργεί στις συσκευές του χρήστη (macOS, Linux, Windows/WSL2) ή σε διακομιστές cloud, δεν εξαρτάται από φιλοξενία cloud, τα δεδομένα παραμένουν τοπικά, βελτιώνοντας την ιδιωτικότητα και τον έλεγχο.
 
       - Ενσωμάτωση επικοινωνίας πολλαπλών καναλιών: Αλληλεπιδράστε απευθείας με την AI μέσω κοινών πλατφορμών επικοινωνίας όπως WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams κ.λπ., χωρίς πρόσθετες εφαρμογές.
 
-      - Συνεχής λειτουργία & μακροπρόθεσμη μνήμη: Το Clawdbot μπορεί να λειτουργεί συνεχώς 24/7, διαθέτει μόνιμη μνήμη και δυνατότητες διατήρησης περιβάλλοντος, μπορεί να θυμάται προτιμήσεις, ιστορικές συνομιλίες και να παρέχει εξατομικευμένες υπηρεσίες.
+      - Συνεχής λειτουργία & μακροπρόθεσμη μνήμη: Το OpenClaw μπορεί να λειτουργεί συνεχώς 24/7, διαθέτει μόνιμη μνήμη και δυνατότητες διατήρησης περιβάλλοντος, μπορεί να θυμάται προτιμήσεις, ιστορικές συνομιλίες και να παρέχει εξατομικευμένες υπηρεσίες.
 
       - Εκτέλεση πραγματικών ενεργειών: Εκτός από τις απαντήσεις κειμένου, μπορεί να εκτελεί εργασίες συστήματος (π.χ. εκκαθάριση εισερχομένων, αποστολή email, συμπλήρωση φορμών, προγραμματισμός ραντεβού, περιήγηση στο διαδίκτυο, έλεγχος προγράμματος περιήγησης κ.λπ.).
 
@@ -229,17 +209,17 @@ x-casaos:
 
       [Επίσημη Τεκμηρίωση και Οδηγίες](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     en_GB: |
-      Clawdbot is an open-source personal AI assistant designed to extend the capabilities of Large Language Models (LLMs) into intelligent agents that proactively execute tasks, interact across multiple platforms, and operate continuously. It supports 24/7 operation on the user's own devices or servers and provides intelligent automation services via common communication tools. Clawdbot connects AI to existing chat channels (such as WhatsApp, Telegram, Discord, etc.) through a locally running "gateway + agent" architecture, enabling it to not only answer questions but also proactively perform actions, manage schedules, process emails, automate workflows, and more.
+      OpenClaw is an open-source personal AI assistant designed to extend the capabilities of Large Language Models (LLMs) into intelligent agents that proactively execute tasks, interact across multiple platforms, and operate continuously. It supports 24/7 operation on the user's own devices or servers and provides intelligent automation services via common communication tools. OpenClaw connects AI to existing chat channels (such as WhatsApp, Telegram, Discord, etc.) through a locally running "gateway + agent" architecture, enabling it to not only answer questions but also proactively perform actions, manage schedules, process emails, automate workflows, and more.
 
       **Key Features**:
 
-      - Local-first & Self-hosted: Clawdbot runs on the user's own devices (macOS, Linux, Windows/WSL2) or cloud servers, does not rely on cloud hosting, data remains local, enhancing privacy and control.
+      - Local-first & Self-hosted: OpenClaw runs on the user's own devices (macOS, Linux, Windows/WSL2) or cloud servers, does not rely on cloud hosting, data remains local, enhancing privacy and control.
 
       - Multi-channel Communication Integration: Interact directly with AI via common communication platforms such as WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., without additional applications.
 
-      - Always-on & Long-term Memory: Clawdbot can run persistently 24/7, possesses persistent memory and context retention capabilities, can remember preferences, historical conversations, and provide personalised services.
+      - Always-on & Long-term Memory: OpenClaw can run persistently 24/7, possesses persistent memory and context retention capabilities, can remember preferences, historical conversations, and provide personalised services.
 
       - Real Action Execution: Besides text replies, it can perform system tasks (e.g., clear inbox, send emails, fill forms, schedule appointments, browse the web, control browser, etc.).
 
@@ -249,17 +229,17 @@ x-casaos:
 
       [Official Documentation and Guide](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     en_US: |
-      Clawdbot 是一个开源的个人 AI 助手，旨在将大型语言模型（LLM）的能力扩展到主动执行任务、跨多平台交互和持续运营的智能代理，它支持在用户自己的设备或服务器上 24/7 运行，并通过常用通讯工具提供智能自动化服务。 Clawdbot 通过一个本地运行的“网关+代理”架构，将 AI 连接到现有的聊天渠道（如 WhatsApp、Telegram、Discord 等），使其不仅能回答问题，还能主动执行操作、管理日程、处理邮件、自动化工作流程等。
+      OpenClaw 是一个开源的个人 AI 助手，旨在将大型语言模型（LLM）的能力扩展到主动执行任务、跨多平台交互和持续运营的智能代理，它支持在用户自己的设备或服务器上 24/7 运行，并通过常用通讯工具提供智能自动化服务。 OpenClaw 通过一个本地运行的“网关+代理”架构，将 AI 连接到现有的聊天渠道（如 WhatsApp、Telegram、Discord 等），使其不仅能回答问题，还能主动执行操作、管理日程、处理邮件、自动化工作流程等。
 
       **主要特性**：
 
-      - 本地优先与自托管： Clawdbot 在用户自己的设备（macOS、Linux、Windows/WSL2）或云服务器上运行，不依赖云托管，数据保留在本地，提高隐私与控制权。
+      - 本地优先与自托管： OpenClaw 在用户自己的设备（macOS、Linux、Windows/WSL2）或云服务器上运行，不依赖云托管，数据保留在本地，提高隐私与控制权。
 
       - 多渠道通讯集成： 通过 WhatsApp、Telegram、Slack、Discord、Signal、iMessage、Microsoft Teams 等常用通讯平台直接与 AI 交互，无需额外应用。
 
-      - 持续在线与长期记忆： Clawdbot 可 24/7 常驻运行，拥有持久记忆和上下文保持能力，能记住偏好、历史对话并提供个性化服务。
+      - 持续在线与长期记忆： OpenClaw 可 24/7 常驻运行，拥有持久记忆和上下文保持能力，能记住偏好、历史对话并提供个性化服务。
 
       - 实际动作执行： 除了文本回复，它可以执行系统任务（如清理收件箱、发送邮件、填写表单、调度日程、浏览网页、控制浏览器等）。
 
@@ -269,17 +249,17 @@ x-casaos:
 
       [官方文档和说明](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     fr_FR: |
-      Clawdbot est un assistant IA personnel open-source, conçu pour étendre les capacités des grands modèles linguistiques (LLM) à des agents intelligents qui exécutent des tâches de manière proactive, interagissent sur plusieurs plateformes et fonctionnent en continu. Il prend en charge un fonctionnement 24h/24 et 7j/7 sur les propres appareils ou serveurs de l'utilisateur et fournit des services d'automatisation intelligents via des outils de communication courants. Clawdbot connecte l'IA aux canaux de discussion existants (tels que WhatsApp, Telegram, Discord, etc.) grâce à une architecture "passerelle + agent" exécutée localement, lui permettant non seulement de répondre aux questions, mais aussi d'exécuter des actions de manière proactive, de gérer des plannings, de traiter des e-mails, d'automatiser des flux de travail, etc.
+      OpenClaw est un assistant IA personnel open-source, conçu pour étendre les capacités des grands modèles linguistiques (LLM) à des agents intelligents qui exécutent des tâches de manière proactive, interagissent sur plusieurs plateformes et fonctionnent en continu. Il prend en charge un fonctionnement 24h/24 et 7j/7 sur les propres appareils ou serveurs de l'utilisateur et fournit des services d'automatisation intelligents via des outils de communication courants. OpenClaw connecte l'IA aux canaux de discussion existants (tels que WhatsApp, Telegram, Discord, etc.) grâce à une architecture "passerelle + agent" exécutée localement, lui permettant non seulement de répondre aux questions, mais aussi d'exécuter des actions de manière proactive, de gérer des plannings, de traiter des e-mails, d'automatiser des flux de travail, etc.
 
       **Caractéristiques principales**:
 
-      - Priorité locale et auto-hébergement: Clawdbot fonctionne sur les propres appareils de l'utilisateur (macOS, Linux, Windows/WSL2) ou sur des serveurs cloud, ne dépend pas de l'hébergement cloud, les données restent locales, améliorant la confidentialité et le contrôle.
+      - Priorité locale et auto-hébergement: OpenClaw fonctionne sur les propres appareils de l'utilisateur (macOS, Linux, Windows/WSL2) ou sur des serveurs cloud, ne dépend pas de l'hébergement cloud, les données restent locales, améliorant la confidentialité et le contrôle.
 
       - Intégration de communication multicanal: Interagissez directement avec l'IA via des plateformes de communication courantes telles que WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., sans applications supplémentaires.
 
-      - Toujours actif et mémoire à long terme: Clawdbot peut fonctionner en permanence 24h/24 et 7j/7, possède une mémoire persistante et des capacités de rétention de contexte, peut se souvenir des préférences, des conversations passées et fournir des services personnalisés.
+      - Toujours actif et mémoire à long terme: OpenClaw peut fonctionner en permanence 24h/24 et 7j/7, possède une mémoire persistante et des capacités de rétention de contexte, peut se souvenir des préférences, des conversations passées et fournir des services personnalisés.
 
       - Exécution d'actions réelles: Outre les réponses textuelles, il peut exécuter des tâches système (par exemple, vider la boîte de réception, envoyer des e-mails, remplir des formulaires, planifier des rendez-vous, naviguer sur le web, contrôler le navigateur, etc.).
 
@@ -289,17 +269,17 @@ x-casaos:
 
       [Documentation et guide officiels](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     hr_HR: |
-      Clawdbot je osobni AI asistent otvorenog koda, dizajniran za proširenje mogućnosti velikih jezičnih modela (LLM) na inteligentne agente koji proaktivno izvršavaju zadatke, interagiraju na više platformi i rade kontinuirano. Podržava 24/7 rad na korisnikovim vlastitim uređajima ili poslužiteljima i pruža inteligentne usluge automatizacije putem uobičajenih komunikacijskih alata. Clawdbot povezuje AI s postojećim chat kanalima (kao što su WhatsApp, Telegram, Discord itd.) putem lokalno pokrenute arhitekture "gateway + agent", omogućujući mu ne samo odgovaranje na pitanja, već i proaktivno izvršavanje radnji, upravljanje rasporedima, obradu e-pošte, automatizaciju radnih procesa i još mnogo toga.
+      OpenClaw je osobni AI asistent otvorenog koda, dizajniran za proširenje mogućnosti velikih jezičnih modela (LLM) na inteligentne agente koji proaktivno izvršavaju zadatke, interagiraju na više platformi i rade kontinuirano. Podržava 24/7 rad na korisnikovim vlastitim uređajima ili poslužiteljima i pruža inteligentne usluge automatizacije putem uobičajenih komunikacijskih alata. OpenClaw povezuje AI s postojećim chat kanalima (kao što su WhatsApp, Telegram, Discord itd.) putem lokalno pokrenute arhitekture "gateway + agent", omogućujući mu ne samo odgovaranje na pitanja, već i proaktivno izvršavanje radnji, upravljanje rasporedima, obradu e-pošte, automatizaciju radnih procesa i još mnogo toga.
 
       **Glavne značajke**:
 
-      - Lokalno prvo i samostalno hostirano: Clawdbot radi na korisnikovim vlastitim uređajima (macOS, Linux, Windows/WSL2) ili oblačnim poslužiteljima, ne ovisi o oblačnom hostingu, podaci ostaju lokalni, poboljšavajući privatnost i kontrolu.
+      - Lokalno prvo i samostalno hostirano: OpenClaw radi na korisnikovim vlastitim uređajima (macOS, Linux, Windows/WSL2) ili oblačnim poslužiteljima, ne ovisi o oblačnom hostingu, podaci ostaju lokalni, poboljšavajući privatnost i kontrolu.
 
       - Integracija višekanalne komunikacije: Izravno komunicirajte s AI putem uobičajenih komunikacijskih platformi kao što su WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams itd., bez dodatnih aplikacija.
 
-      - Uvijek uključen i dugoročno pamćenje: Clawdbot može raditi neprekidno 24/7, posjeduje trajno pamćenje i mogućnosti zadržavanja konteksta, može pamtiti preferencije, povijesne razgovore i pružati personalizirane usluge.
+      - Uvijek uključen i dugoročno pamćenje: OpenClaw može raditi neprekidno 24/7, posjeduje trajno pamćenje i mogućnosti zadržavanja konteksta, može pamtiti preferencije, povijesne razgovore i pružati personalizirane usluge.
 
       - Izvršavanje stvarnih radnji: Osim tekstualnih odgovora, može izvršavati sistemske zadatke (npr. čišćenje pristigle pošte, slanje e-pošte, ispunjavanje obrazaca, zakazivanje sastanaka, pregledavanje weba, kontrola preglednika itd.).
 
@@ -309,17 +289,17 @@ x-casaos:
 
       [Službena dokumentacija i vodič](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     it_IT: |
-      Clawdbot è un assistente AI personale open source, progettato per estendere le capacità dei modelli linguistici di grandi dimensioni (LLM) a agenti intelligenti che eseguono proattivamente attività, interagiscono su più piattaforme e operano continuamente. Supporta il funzionamento 24 ore su 24, 7 giorni su 7 sui dispositivi o server dell'utente e fornisce servizi di automazione intelligenti tramite strumenti di comunicazione comuni. Clawdbot collega l'IA ai canali di chat esistenti (come WhatsApp, Telegram, Discord, ecc.) tramite un'architettura "gateway + agente" in esecuzione locale, consentendogli non solo di rispondere alle domande, ma anche di eseguire proattivamente azioni, gestire programmi, elaborare e-mail, automatizzare flussi di lavoro e altro ancora.
+      OpenClaw è un assistente AI personale open source, progettato per estendere le capacità dei modelli linguistici di grandi dimensioni (LLM) a agenti intelligenti che eseguono proattivamente attività, interagiscono su più piattaforme e operano continuamente. Supporta il funzionamento 24 ore su 24, 7 giorni su 7 sui dispositivi o server dell'utente e fornisce servizi di automazione intelligenti tramite strumenti di comunicazione comuni. OpenClaw collega l'IA ai canali di chat esistenti (come WhatsApp, Telegram, Discord, ecc.) tramite un'architettura "gateway + agente" in esecuzione locale, consentendogli non solo di rispondere alle domande, ma anche di eseguire proattivamente azioni, gestire programmi, elaborare e-mail, automatizzare flussi di lavoro e altro ancora.
 
       **Caratteristiche principali**:
 
-      - Local-first e auto-ospitato: Clawdbot funziona sui dispositivi dell'utente (macOS, Linux, Windows/WSL2) o su server cloud, non dipende dall'hosting cloud, i dati rimangono locali, migliorando la privacy e il controllo.
+      - Local-first e auto-ospitato: OpenClaw funziona sui dispositivi dell'utente (macOS, Linux, Windows/WSL2) o su server cloud, non dipende dall'hosting cloud, i dati rimangono locali, migliorando la privacy e il controllo.
 
       - Integrazione della comunicazione multicanale: Interagisci direttamente con l'IA tramite piattaforme di comunicazione comuni come WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, ecc., senza applicazioni aggiuntive.
 
-      - Sempre attivo e memoria a lungo termine: Clawdbot può funzionare in modo persistente 24 ore su 24, 7 giorni su 7, possiede memoria persistente e capacità di mantenimento del contesto, può ricordare preferenze, conversazioni storiche e fornire servizi personalizzati.
+      - Sempre attivo e memoria a lungo termine: OpenClaw può funzionare in modo persistente 24 ore su 24, 7 giorni su 7, possiede memoria persistente e capacità di mantenimento del contesto, può ricordare preferenze, conversazioni storiche e fornire servizi personalizzati.
 
       - Esecuzione di azioni reali: Oltre alle risposte testuali, può eseguire attività di sistema (ad es. svuotare la posta in arrivo, inviare e-mail, compilare moduli, pianificare appuntamenti, navigare sul web, controllare il browser, ecc.).
 
@@ -329,17 +309,17 @@ x-casaos:
 
       [Documentazione e guida ufficiali](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     ja_JP: |
-      Clawdbotは、大規模言語モデル（LLM）の機能を、タスクを積極的に実行し、複数のプラットフォーム間で対話し、継続的に運用するインテリジェントエージェントに拡張することを目的としたオープンソースの個人AIアシスタントです。ユーザー自身のデバイスまたはサーバーで24時間365日稼働をサポートし、一般的な通信ツールを介してインテリジェントな自動化サービスを提供します。Clawdbotは、ローカルで実行される「ゲートウェイ+エージェント」アーキテクチャを通じて、AIを既存のチャットチャネル（WhatsApp、Telegram、Discordなど）に接続し、質問に答えるだけでなく、積極的にアクションを実行したり、スケジュールを管理したり、メールを処理したり、ワークフローを自動化したりすることができます。
+      OpenClawは、大規模言語モデル（LLM）の機能を、タスクを積極的に実行し、複数のプラットフォーム間で対話し、継続的に運用するインテリジェントエージェントに拡張することを目的としたオープンソースの個人AIアシスタントです。ユーザー自身のデバイスまたはサーバーで24時間365日稼働をサポートし、一般的な通信ツールを介してインテリジェントな自動化サービスを提供します。OpenClawは、ローカルで実行される「ゲートウェイ+エージェント」アーキテクチャを通じて、AIを既存のチャットチャネル（WhatsApp、Telegram、Discordなど）に接続し、質問に答えるだけでなく、積極的にアクションを実行したり、スケジュールを管理したり、メールを処理したり、ワークフローを自動化したりすることができます。
 
       **主な機能**:
 
-      - ローカル優先＆セルフホスト型：Clawdbotは、ユーザー自身のデバイス（macOS、Linux、Windows/WSL2）またはクラウドサーバーで動作し、クラウドホスティングに依存せず、データはローカルに保持され、プライバシーと制御が向上します。
+      - ローカル優先＆セルフホスト型：OpenClawは、ユーザー自身のデバイス（macOS、Linux、Windows/WSL2）またはクラウドサーバーで動作し、クラウドホスティングに依存せず、データはローカルに保持され、プライバシーと制御が向上します。
 
       - マルチチャネル通信統合：WhatsApp、Telegram、Slack、Discord、Signal、iMessage、Microsoft Teamsなどの一般的な通信プラットフォームを介してAIと直接対話し、追加のアプリケーションは不要です。
 
-      - 常時稼働＆長期記憶：Clawdbotは24時間365日永続的に稼働でき、永続的な記憶とコンテキスト保持機能を備えており、好みや過去の会話を記憶し、パーソナライズされたサービスを提供できます。
+      - 常時稼働＆長期記憶：OpenClawは24時間365日永続的に稼働でき、永続的な記憶とコンテキスト保持機能を備えており、好みや過去の会話を記憶し、パーソナライズされたサービスを提供できます。
 
       - 実際のアクション実行：テキスト応答に加えて、システムタスク（受信トレイのクリア、メール送信、フォーム入力、スケジュールの設定、ウェブ閲覧、ブラウザ制御など）を実行できます。
 
@@ -349,17 +329,17 @@ x-casaos:
 
       [公式ドキュメントとガイド](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     ko_KR: |
-      Clawdbot은 대규모 언어 모델(LLM)의 기능을 능동적으로 작업을 실행하고, 여러 플랫폼에서 상호 작용하며, 지속적으로 운영되는 지능형 에이전트로 확장하도록 설계된 오픈 소스 개인 AI 비서입니다. 사용자 자신의 장치 또는 서버에서 24시간 연중무휴 작동을 지원하며, 일반적인 통신 도구를 통해 지능형 자동화 서비스를 제공합니다. Clawdbot은 로컬에서 실행되는 "게이트웨이 + 에이전트" 아키텍처를 통해 AI를 기존 채팅 채널(예: WhatsApp, Telegram, Discord 등)에 연결하여 질문에 답할 뿐만 아니라 능동적으로 작업을 수행하고, 일정을 관리하고, 이메일을 처리하고, 워크플로를 자동화하는 등의 작업을 수행할 수 있습니다.
+      OpenClaw은 대규모 언어 모델(LLM)의 기능을 능동적으로 작업을 실행하고, 여러 플랫폼에서 상호 작용하며, 지속적으로 운영되는 지능형 에이전트로 확장하도록 설계된 오픈 소스 개인 AI 비서입니다. 사용자 자신의 장치 또는 서버에서 24시간 연중무휴 작동을 지원하며, 일반적인 통신 도구를 통해 지능형 자동화 서비스를 제공합니다. OpenClaw은 로컬에서 실행되는 "게이트웨이 + 에이전트" 아키텍처를 통해 AI를 기존 채팅 채널(예: WhatsApp, Telegram, Discord 등)에 연결하여 질문에 답할 뿐만 아니라 능동적으로 작업을 수행하고, 일정을 관리하고, 이메일을 처리하고, 워크플로를 자동화하는 등의 작업을 수행할 수 있습니다.
 
       **주요 기능**:
 
-      - 로컬 우선 및 자체 호스팅: Clawdbot은 사용자 자신의 장치(macOS, Linux, Windows/WSL2) 또는 클라우드 서버에서 실행되며, 클라우드 호스팅에 의존하지 않고 데이터가 로컬에 유지되어 개인 정보 보호 및 제어 기능이 향상됩니다.
+      - 로컬 우선 및 자체 호스팅: OpenClaw은 사용자 자신의 장치(macOS, Linux, Windows/WSL2) 또는 클라우드 서버에서 실행되며, 클라우드 호스팅에 의존하지 않고 데이터가 로컬에 유지되어 개인 정보 보호 및 제어 기능이 향상됩니다.
 
       - 다중 채널 통신 통합: WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams 등과 같은 일반적인 통신 플랫폼을 통해 추가 애플리케이션 없이 AI와 직접 상호 작용합니다.
 
-      - 상시 작동 및 장기 기억: Clawdbot은 24시간 연중무휴로 지속적으로 실행될 수 있으며, 영구적인 기억 및 컨텍스트 유지 기능을 갖추고 있어 선호도, 과거 대화를 기억하고 개인화된 서비스를 제공할 수 있습니다.
+      - 상시 작동 및 장기 기억: OpenClaw은 24시간 연중무휴로 지속적으로 실행될 수 있으며, 영구적인 기억 및 컨텍스트 유지 기능을 갖추고 있어 선호도, 과거 대화를 기억하고 개인화된 서비스를 제공할 수 있습니다.
 
       - 실제 작업 실행: 텍스트 응답 외에도 시스템 작업(예: 받은 편지함 정리, 이메일 보내기, 양식 작성, 일정 예약, 웹 검색, 브라우저 제어 등)을 수행할 수 있습니다.
 
@@ -369,17 +349,17 @@ x-casaos:
 
       [공식 문서 및 가이드](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     nb_NO: |
-      Clawdbot er en åpen kildekode personlig AI-assistent, designet for å utvide kapasiteten til store språkmodeller (LLM-er) til intelligente agenter som proaktivt utfører oppgaver, interagerer på tvers av flere plattformer og opererer kontinuerlig. Den støtter 24/7 drift på brukerens egne enheter eller servere og tilbyr intelligente automatiseringstjenester via vanlige kommunikasjonsverktøy. Clawdbot kobler AI til eksisterende chatkanaler (som WhatsApp, Telegram, Discord osv.) gjennom en lokalt kjørende "gateway + agent"-arkitektur, slik at den ikke bare kan svare på spørsmål, men også proaktivt utføre handlinger, administrere tidsplaner, behandle e-poster, automatisere arbeidsflyter og mer.
+      OpenClaw er en åpen kildekode personlig AI-assistent, designet for å utvide kapasiteten til store språkmodeller (LLM-er) til intelligente agenter som proaktivt utfører oppgaver, interagerer på tvers av flere plattformer og opererer kontinuerlig. Den støtter 24/7 drift på brukerens egne enheter eller servere og tilbyr intelligente automatiseringstjenester via vanlige kommunikasjonsverktøy. OpenClaw kobler AI til eksisterende chatkanaler (som WhatsApp, Telegram, Discord osv.) gjennom en lokalt kjørende "gateway + agent"-arkitektur, slik at den ikke bare kan svare på spørsmål, men også proaktivt utføre handlinger, administrere tidsplaner, behandle e-poster, automatisere arbeidsflyter og mer.
 
       **Hovedfunksjoner**:
 
-      - Lokal-først og selv-hostet: Clawdbot kjører på brukerens egne enheter (macOS, Linux, Windows/WSL2) eller skyserver, er ikke avhengig av skyhosting, data forblir lokale, noe som forbedrer personvern og kontroll.
+      - Lokal-først og selv-hostet: OpenClaw kjører på brukerens egne enheter (macOS, Linux, Windows/WSL2) eller skyserver, er ikke avhengig av skyhosting, data forblir lokale, noe som forbedrer personvern og kontroll.
 
       - Flerkanals kommunikasjonsintegrasjon: Samhandle direkte med AI via vanlige kommunikasjonsplattformer som WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams osv., uten ekstra applikasjoner.
 
-      - Alltid på og langtidshukommelse: Clawdbot kan kjøre vedvarende 24/7, har vedvarende hukommelse og kontekstbevaringsevner, kan huske preferanser, historiske samtaler og tilby personaliserte tjenester.
+      - Alltid på og langtidshukommelse: OpenClaw kan kjøre vedvarende 24/7, har vedvarende hukommelse og kontekstbevaringsevner, kan huske preferanser, historiske samtaler og tilby personaliserte tjenester.
 
       - Utførelse av reelle handlinger: I tillegg til tekstsvar kan den utføre systemoppgaver (f.eks. tømme innboks, sende e-poster, fylle ut skjemaer, planlegge avtaler, surfe på nettet, kontrollere nettleser osv.).
 
@@ -389,17 +369,17 @@ x-casaos:
 
       [Offisiell dokumentasjon og veiledning](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     pt_PT: |
-      Clawdbot é um assistente de IA pessoal de código aberto, concebido para estender as capacidades dos Grandes Modelos de Linguagem (LLMs) a agentes inteligentes que executam tarefas proactivamente, interagem em múltiplas plataformas e operam continuamente. Suporta operação 24/7 nos próprios dispositivos ou servidores do utilizador e fornece serviços de automação inteligentes através de ferramentas de comunicação comuns. O Clawdbot conecta a IA a canais de chat existentes (como WhatsApp, Telegram, Discord, etc.) através de uma arquitetura "gateway + agente" em execução local, permitindo-lhe não só responder a perguntas, mas também executar ações proactivamente, gerir horários, processar e-mails, automatizar fluxos de trabalho e muito mais.
+      OpenClaw é um assistente de IA pessoal de código aberto, concebido para estender as capacidades dos Grandes Modelos de Linguagem (LLMs) a agentes inteligentes que executam tarefas proactivamente, interagem em múltiplas plataformas e operam continuamente. Suporta operação 24/7 nos próprios dispositivos ou servidores do utilizador e fornece serviços de automação inteligentes através de ferramentas de comunicação comuns. O OpenClaw conecta a IA a canais de chat existentes (como WhatsApp, Telegram, Discord, etc.) através de uma arquitetura "gateway + agente" em execução local, permitindo-lhe não só responder a perguntas, mas também executar ações proactivamente, gerir horários, processar e-mails, automatizar fluxos de trabalho e muito mais.
 
       **Principais Características**:
 
-      - Local-first e Auto-hospedado: O Clawdbot é executado nos próprios dispositivos do utilizador (macOS, Linux, Windows/WSL2) ou em servidores na nuvem, não depende de alojamento na nuvem, os dados permanecem locais, melhorando a privacidade e o controlo.
+      - Local-first e Auto-hospedado: O OpenClaw é executado nos próprios dispositivos do utilizador (macOS, Linux, Windows/WSL2) ou em servidores na nuvem, não depende de alojamento na nuvem, os dados permanecem locais, melhorando a privacidade e o controlo.
 
       - Integração de Comunicação Multicanal: Interaja diretamente com a IA através de plataformas de comunicação comuns como WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., sem aplicações adicionais.
 
-      - Sempre Ativo e Memória de Longo Prazo: O Clawdbot pode funcionar persistentemente 24/7, possui memória persistente e capacidades de retenção de contexto, pode lembrar preferências, conversas históricas e fornecer serviços personalizados.
+      - Sempre Ativo e Memória de Longo Prazo: O OpenClaw pode funcionar persistentemente 24/7, possui memória persistente e capacidades de retenção de contexto, pode lembrar preferências, conversas históricas e fornecer serviços personalizados.
 
       - Execução de Ações Reais: Além das respostas de texto, pode executar tarefas do sistema (por exemplo, limpar a caixa de entrada, enviar e-mails, preencher formulários, agendar compromissos, navegar na web, controlar o navegador, etc.).
 
@@ -409,17 +389,17 @@ x-casaos:
 
       [Documentação e Guia Oficiais](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     ru_RU: |
-      Clawdbot — это персональный AI-ассистент с открытым исходным кодом, разработанный для расширения возможностей больших языковых моделей (LLM) до интеллектуальных агентов, которые проактивно выполняют задачи, взаимодействуют на нескольких платформах и работают непрерывно. Он поддерживает круглосуточную работу на собственных устройствах или серверах пользователя и предоставляет интеллектуальные услуги автоматизации через распространенные средства связи. Clawdbot подключает ИИ к существующим чат-каналам (таким как WhatsApp, Telegram, Discord и т. д.) через локально работающую архитектуру «шлюз + агент», что позволяет ему не только отвечать на вопросы, но и проактивно выполнять действия, управлять расписаниями, обрабатывать электронную почту, автоматизировать рабочие процессы и многое другое.
+      OpenClaw — это персональный AI-ассистент с открытым исходным кодом, разработанный для расширения возможностей больших языковых моделей (LLM) до интеллектуальных агентов, которые проактивно выполняют задачи, взаимодействуют на нескольких платформах и работают непрерывно. Он поддерживает круглосуточную работу на собственных устройствах или серверах пользователя и предоставляет интеллектуальные услуги автоматизации через распространенные средства связи. OpenClaw подключает ИИ к существующим чат-каналам (таким как WhatsApp, Telegram, Discord и т. д.) через локально работающую архитектуру «шлюз + агент», что позволяет ему не только отвечать на вопросы, но и проактивно выполнять действия, управлять расписаниями, обрабатывать электронную почту, автоматизировать рабочие процессы и многое другое.
 
       **Основные характеристики**:
 
-      - Локальный приоритет и самостоятельное размещение: Clawdbot работает на собственных устройствах пользователя (macOS, Linux, Windows/WSL2) или облачных серверах, не зависит от облачного хостинга, данные остаются локальными, что повышает конфиденциальность и контроль.
+      - Локальный приоритет и самостоятельное размещение: OpenClaw работает на собственных устройствах пользователя (macOS, Linux, Windows/WSL2) или облачных серверах, не зависит от облачного хостинга, данные остаются локальными, что повышает конфиденциальность и контроль.
 
       - Многоканальная интеграция связи: Взаимодействуйте напрямую с ИИ через распространенные коммуникационные платформы, такие как WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams и т. д., без дополнительных приложений.
 
-      - Постоянная работа и долгосрочная память: Clawdbot может работать постоянно 24/7, обладает постоянной памятью и возможностями сохранения контекста, может запоминать предпочтения, исторические разговоры и предоставлять персонализированные услуги.
+      - Постоянная работа и долгосрочная память: OpenClaw может работать постоянно 24/7, обладает постоянной памятью и возможностями сохранения контекста, может запоминать предпочтения, исторические разговоры и предоставлять персонализированные услуги.
 
       - Выполнение реальных действий: Помимо текстовых ответов, он может выполнять системные задачи (например, очищать входящие, отправлять электронные письма, заполнять формы, планировать встречи, просматривать веб-страницы, управлять браузером и т. д.).
 
@@ -429,17 +409,17 @@ x-casaos:
 
       [Официальная документация и руководство](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     sv_SE: |
-      Clawdbot är en öppen källkods personlig AI-assistent, designad för att utöka kapaciteten hos stora språkmodeller (LLM) till intelligenta agenter som proaktivt utför uppgifter, interagerar över flera plattformar och fungerar kontinuerligt. Den stöder 24/7-drift på användarens egna enheter eller servrar och tillhandahåller intelligenta automationstjänster via vanliga kommunikationsverktyg. Clawdbot ansluter AI till befintliga chattkanaler (som WhatsApp, Telegram, Discord, etc.) genom en lokalt körande "gateway + agent"-arkitektur, vilket gör att den inte bara kan svara på frågor utan också proaktivt utföra åtgärder, hantera scheman, bearbeta e-post, automatisera arbetsflöden och mer.
+      OpenClaw är en öppen källkods personlig AI-assistent, designad för att utöka kapaciteten hos stora språkmodeller (LLM) till intelligenta agenter som proaktivt utför uppgifter, interagerar över flera plattformar och fungerar kontinuerligt. Den stöder 24/7-drift på användarens egna enheter eller servrar och tillhandahåller intelligenta automationstjänster via vanliga kommunikationsverktyg. OpenClaw ansluter AI till befintliga chattkanaler (som WhatsApp, Telegram, Discord, etc.) genom en lokalt körande "gateway + agent"-arkitektur, vilket gör att den inte bara kan svara på frågor utan också proaktivt utföra åtgärder, hantera scheman, bearbeta e-post, automatisera arbetsflöden och mer.
 
       **Huvudfunktioner**:
 
-      - Lokal-först och självvärd: Clawdbot körs på användarens egna enheter (macOS, Linux, Windows/WSL2) eller molnservrar, är inte beroende av molnvärdskap, data förblir lokala, vilket förbättrar integritet och kontroll.
+      - Lokal-först och självvärd: OpenClaw körs på användarens egna enheter (macOS, Linux, Windows/WSL2) eller molnservrar, är inte beroende av molnvärdskap, data förblir lokala, vilket förbättrar integritet och kontroll.
 
       - Multikanals kommunikationsintegration: Interagera direkt med AI via vanliga kommunikationsplattformar som WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., utan ytterligare applikationer.
 
-      - Alltid på och långtidsminne: Clawdbot kan köras persistent 24/7, har persistent minne och kontextbevarande förmågor, kan komma ihåg preferenser, historiska konversationer och tillhandahålla personliga tjänster.
+      - Alltid på och långtidsminne: OpenClaw kan köras persistent 24/7, har persistent minne och kontextbevarande förmågor, kan komma ihåg preferenser, historiska konversationer och tillhandahålla personliga tjänster.
 
       - Verklig åtgärdsutförande: Förutom textsvaren kan den utföra systemuppgifter (t.ex. rensa inkorgen, skicka e-post, fylla i formulär, schemalägga möten, surfa på webben, styra webbläsare, etc.).
 
@@ -449,17 +429,17 @@ x-casaos:
 
       [Officiell dokumentation och guide](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     tr_TR: |
-      Clawdbot, Büyük Dil Modellerinin (LLM'ler) yeteneklerini proaktif olarak görevleri yürüten, birden fazla platformda etkileşim kuran ve sürekli çalışan akıllı aracılara genişletmek için tasarlanmış açık kaynaklı bir kişisel yapay zeka asistanıdır. Kullanıcının kendi cihazlarında veya sunucularında 7/24 çalışmayı destekler ve yaygın iletişim araçları aracılığıyla akıllı otomasyon hizmetleri sunar. Clawdbot, yerel olarak çalışan bir "ağ geçidi + aracı" mimarisi aracılığıyla yapay zekayı mevcut sohbet kanallarına (WhatsApp, Telegram, Discord vb. gibi) bağlar, böylece sadece soruları yanıtlamakla kalmaz, aynı zamanda proaktif olarak eylemler gerçekleştirebilir, programları yönetebilir, e-postaları işleyebilir, iş akışlarını otomatikleştirebilir ve daha fazlasını yapabilir.
+      OpenClaw, Büyük Dil Modellerinin (LLM'ler) yeteneklerini proaktif olarak görevleri yürüten, birden fazla platformda etkileşim kuran ve sürekli çalışan akıllı aracılara genişletmek için tasarlanmış açık kaynaklı bir kişisel yapay zeka asistanıdır. Kullanıcının kendi cihazlarında veya sunucularında 7/24 çalışmayı destekler ve yaygın iletişim araçları aracılığıyla akıllı otomasyon hizmetleri sunar. OpenClaw, yerel olarak çalışan bir "ağ geçidi + aracı" mimarisi aracılığıyla yapay zekayı mevcut sohbet kanallarına (WhatsApp, Telegram, Discord vb. gibi) bağlar, böylece sadece soruları yanıtlamakla kalmaz, aynı zamanda proaktif olarak eylemler gerçekleştirebilir, programları yönetebilir, e-postaları işleyebilir, iş akışlarını otomatikleştirebilir ve daha fazlasını yapabilir.
 
       **Ana Özellikler**:
 
-      - Yerel öncelikli ve kendi kendine barındırılan: Clawdbot, kullanıcının kendi cihazlarında (macOS, Linux, Windows/WSL2) veya bulut sunucularında çalışır, bulut barındırmaya bağımlı değildir, veriler yerel kalır, bu da gizliliği ve kontrolü artırır.
+      - Yerel öncelikli ve kendi kendine barındırılan: OpenClaw, kullanıcının kendi cihazlarında (macOS, Linux, Windows/WSL2) veya bulut sunucularında çalışır, bulut barındırmaya bağımlı değildir, veriler yerel kalır, bu da gizliliği ve kontrolü artırır.
 
       - Çok kanallı İletişim Entegrasyonu: WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams vb. gibi yaygın iletişim platformları aracılığıyla yapay zeka ile ek uygulamalara gerek kalmadan doğrudan etkileşim kurun.
 
-      - Her Zaman Açık ve Uzun Süreli Bellek: Clawdbot 7/24 sürekli çalışabilir, kalıcı belleğe ve bağlam koruma yeteneklerine sahiptir, tercihleri, geçmiş konuşmaları hatırlayabilir ve kişiselleştirilmiş hizmetler sunabilir.
+      - Her Zaman Açık ve Uzun Süreli Bellek: OpenClaw 7/24 sürekli çalışabilir, kalıcı belleğe ve bağlam koruma yeteneklerine sahiptir, tercihleri, geçmiş konuşmaları hatırlayabilir ve kişiselleştirilmiş hizmetler sunabilir.
 
       - Gerçek Eylem Yürütme: Metin yanıtlarının yanı sıra, sistem görevlerini (örn. gelen kutusunu temizleme, e-posta gönderme, form doldurma, randevu planlama, web'de gezinme, tarayıcı kontrolü vb.) gerçekleştirebilir.
 
@@ -469,17 +449,17 @@ x-casaos:
 
       [Resmi Belgeler ve Kılavuz](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
     zh_CN: |
-      Clawdbot 是一个开源的个人 AI 助手，旨在将大型语言模型（LLM）的能力扩展到主动执行任务、跨多平台交互和持续运营的智能代理，它支持在用户自己的设备或服务器上 24/7 运行，并通过常用通讯工具提供智能自动化服务。 Clawdbot 通过一个本地运行的“网关+代理”架构，将 AI 连接到现有的聊天渠道（如 WhatsApp、Telegram、Discord 等），使其不仅能回答问题，还能主动执行操作、管理日程、处理邮件、自动化工作流程等。
+      OpenClaw 是一个开源的个人 AI 助手，旨在将大型语言模型（LLM）的能力扩展到主动执行任务、跨多平台交互和持续运营的智能代理，它支持在用户自己的设备或服务器上 24/7 运行，并通过常用通讯工具提供智能自动化服务。 OpenClaw 通过一个本地运行的“网关+代理”架构，将 AI 连接到现有的聊天渠道（如 WhatsApp、Telegram、Discord 等），使其不仅能回答问题，还能主动执行操作、管理日程、处理邮件、自动化工作流程等。
 
       **主要特性**：
 
-      - 本地优先与自托管： Clawdbot 在用户自己的设备（macOS、Linux、Windows/WSL2）或云服务器上运行，不依赖云托管，数据保留在本地，提高隐私与控制权。
+      - 本地优先与自托管： OpenClaw 在用户自己的设备（macOS、Linux、Windows/WSL2）或云服务器上运行，不依赖云托管，数据保留在本地，提高隐私与控制权。
 
       - 多渠道通讯集成： 通过 WhatsApp、Telegram、Slack、Discord、Signal、iMessage、Microsoft Teams 等常用通讯平台直接与 AI 交互，无需额外应用。
 
-      - 持续在线与长期记忆： Clawdbot 可 24/7 常驻运行，拥有持久记忆和上下文保持能力，能记住偏好、历史对话并提供个性化服务。
+      - 持续在线与长期记忆： OpenClaw 可 24/7 常驻运行，拥有持久记忆和上下文保持能力，能记住偏好、历史对话并提供个性化服务。
 
       - 实际动作执行： 除了文本回复，它可以执行系统任务（如清理收件箱、发送邮件、填写表单、调度日程、浏览网页、控制浏览器等）。
 
@@ -489,17 +469,17 @@ x-casaos:
 
       [官方文档和说明](https://docs.clawd.bot/)
 
-      [GitHub](https://github.com/clawdbot/clawdbot)
+      [GitHub](https://github.com/openclaw/openclaw)
   category: AI
-  author: clawdbot
+  author: openclaw
   developer: fromxiaobai
-  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Clawdbot/icon.png
-  thumbnail: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Clawdbot/thumbnail.png
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/OpenClaw/icon.png
+  thumbnail: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/OpenClaw/thumbnail.png
   screenshot_link:
-    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Clawdbot/screenshot-1.png
-    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Clawdbot/screenshot-2.png
-    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Clawdbot/screenshot-3.png
-  main: clawdbot
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/OpenClaw/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/OpenClaw/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/OpenClaw/screenshot-3.png
+  main: openclaw
   port_map: "24190"
   architectures:
     - amd64
