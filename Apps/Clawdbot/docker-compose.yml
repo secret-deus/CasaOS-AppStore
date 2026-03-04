@@ -7,8 +7,8 @@ services:
       OPENCLAW_GATEWAY_TOKEN: casaos
     volumes:
       - type: bind
-        source: /DATA/AppData/$AppID/openclaw
-        target: /home/node/.openclaw
+        source: /DATA/AppData/$AppID/workspace
+        target: /home/node/.openclaw/workspace
     ports:
       - target: 18789
         published: "24190"
