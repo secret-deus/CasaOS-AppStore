@@ -1,6 +1,9 @@
 # OpenClaw 配置指引
 
 ## 1. 进入容器并启动配置向导
+进入容器：
+docker exec -it openclaw bash
+
 在容器终端执行：
 
 ```bash
