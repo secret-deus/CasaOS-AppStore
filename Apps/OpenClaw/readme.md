@@ -1,8 +1,11 @@
 # OpenClaw 配置指引
 
 ## 1. 进入容器并启动配置向导
-进入容器：
+
+ssh连接zimacube后命令行进入容器：
+```bash
 docker exec -it openclaw bash
+```
 
 在容器终端执行：
 
