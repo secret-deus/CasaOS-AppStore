@@ -472,7 +472,7 @@ x-casaos:
       [GitHub](https://github.com/openclaw/openclaw)
   category: AI
   author: openclaw
-  developer: fromxiaobai
+  developer: openclaw
   icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/OpenClaw/icon.png
   thumbnail: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/OpenClaw/thumbnail.png
   screenshot_link:
@@ -483,6 +483,5 @@ x-casaos:
   port_map: "24190"
   architectures:
     - amd64
-    - arm64
   index: /
   scheme: http
