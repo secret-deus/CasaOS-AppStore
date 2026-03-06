@@ -54,15 +54,15 @@ node /app/dist/index.js config
 ![确认 Telegram 凭证](image-11.png)
 
 3. 当系统询问 `Configure DM access policies now? (default: pairing)` 时，选择 `Yes`，默认使用配对模式。  
-![选择配对模式入口](screenshot-1.png)
+![选择配对模式入口](image-12.png)
 
 4. 在 `Telegram DM policy` 中选择 `Pairing (recommended)`。  
-![选择 Pairing](screenshot-2.png)
+![选择 Pairing](image-13.png)
 
 5. 返回 `Select sections to configure` 后，选择 `Continue (Done)` 完成 Telegram 配置。  
-![选择 Continue (Done)](screenshot-3.png)
+![选择 Continue (Done)](image-1.png)
 
-6. 完成上述设置后，在终端执行以下命令，将 `openclaw` 与你的 Bot 绑定：
+1. 完成上述设置后，在终端执行以下命令，将 `openclaw` 与你的 Bot 绑定：
 
 ```bash
 openclaw pairing approve telegram <你的配对码>

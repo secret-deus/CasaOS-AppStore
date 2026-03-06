@@ -488,5 +488,5 @@ x-casaos:
   port_map: "24190"
   architectures:
     - amd64
-  index: /
-  scheme: http
+  index: ?token=casaos
+  scheme: https
