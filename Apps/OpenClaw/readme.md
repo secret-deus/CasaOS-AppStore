@@ -64,6 +64,8 @@ node /app/dist/index.js config
 
 1. 完成上述设置后，在终端执行以下命令，将 `openclaw` 与你的 Bot 绑定：
 
+首先点开机器人对话框，点击/start，等待机器人回复配对码
+
 ```bash
 openclaw pairing approve telegram <你的配对码>
 ```
