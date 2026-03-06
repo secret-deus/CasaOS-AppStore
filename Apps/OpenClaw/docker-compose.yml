@@ -175,306 +175,336 @@ x-casaos:
     tr_TR: OpenClaw, kendi cihazlarınızda çalıştırdığınız kişisel bir yapay zeka asistanıdır.
     zh_CN: OpenClaw 是一个您在自己的设备上运行的个人 AI 助手。
   description:
-    de_DE: |
-      OpenClaw ist ein quelloffener persönlicher KI-Assistent, der darauf abzielt, die Fähigkeiten großer Sprachmodelle (LLMs) auf intelligente Agenten zu erweitern, die proaktiv Aufgaben ausführen, plattformübergreifend interagieren und kontinuierlich arbeiten. Er unterstützt den 24/7-Betrieb auf den eigenen Geräten oder Servern des Benutzers und bietet intelligente Automatisierungsdienste über gängige Kommunikationstools. OpenClaw verbindet KI über eine lokal laufende „Gateway+Agent“-Architektur mit bestehenden Chat-Kanälen (wie WhatsApp, Telegram, Discord usw.), sodass er nicht nur Fragen beantworten, sondern auch proaktiv Aktionen ausführen, Termine verwalten, E-Mails bearbeiten, Workflows automatisieren und vieles mehr kann.
+    de_DE: |-
+      OpenClaw ist ein quelloffener persönlicher KI-Assistent, der entwickelt wurde, um die Fähigkeiten großer Sprachmodelle (LLMs) zu erweitern und sie in intelligente Agenten zu verwandeln, die aktiv Aufgaben ausführen, über mehrere Plattformen hinweg interagieren und kontinuierlich arbeiten. Er unterstützt den 24/7-Betrieb auf dem eigenen Gerät oder Server des Benutzers und bietet intelligente Automatisierungsdienste über gängige Kommunikationstools. OpenClaw verbindet KI über eine lokal laufende „Gateway + Agent“-Architektur mit bestehenden Chat-Kanälen (wie WhatsApp, Telegram, Discord usw.) und ermöglicht es ihr, nicht nur Fragen zu beantworten, sondern auch proaktiv Aktionen auszuführen, Zeitpläne zu verwalten, E-Mails zu verarbeiten, Workflows zu automatisieren und vieles mehr.
 
       **Hauptmerkmale**:
 
-      - Lokal zuerst & selbst gehostet: OpenClaw läuft auf den eigenen Geräten des Benutzers (macOS, Linux, Windows/WSL2) oder Cloud-Servern, ist nicht auf Cloud-Hosting angewiesen, Daten bleiben lokal, was Datenschutz und Kontrolle verbessert.
+      - Multi-Kanal-Kommunikationsintegration: Interagieren Sie direkt mit der KI über gängige Kommunikationsplattformen wie WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams usw., ohne zusätzliche Anwendungen zu benötigen.
 
-      - Mehrkanal-Kommunikationsintegration: Interagieren Sie direkt mit der KI über gängige Kommunikationsplattformen wie WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams usw., ohne zusätzliche Anwendungen.
+      - Kontinuierlich online & Langzeitgedächtnis: OpenClaw kann 24/7 laufen und verfügt über persistente Speicher- und Kontextbeibehaltungsfähigkeiten, die es ihm ermöglichen, Präferenzen und historische Konversationen zu speichern und personalisierte Dienste bereitzustellen.
 
-      - Immer online & Langzeitgedächtnis: OpenClaw kann 24/7 dauerhaft laufen, verfügt über ein persistentes Gedächtnis und Kontextbeibehaltungsfähigkeiten, kann Präferenzen und frühere Gespräche speichern und personalisierte Dienste anbieten.
+      - Ausführung realer Aktionen: Über Textantworten hinaus kann es Systemaufgaben ausführen (z. B. Posteingang leeren, E-Mails senden, Formulare ausfüllen, Termine planen, Web durchsuchen, Browser steuern usw.).
 
-      - Ausführung realer Aktionen: Neben Textantworten kann er Systemaufgaben ausführen (z. B. Posteingang leeren, E-Mails senden, Formulare ausfüllen, Termine planen, im Web surfen, Browser steuern usw.).
-
-      - Fähigkeitserweiterung & automatisierte Workflows: Unterstützt Community-Plugins, erweiterte Fähigkeiten und benutzerdefinierte Automatisierungsskripte, die es der KI ermöglichen, komplexe Aufgaben in verschiedenen Szenarien auszuführen.
+      - Skill-Erweiterung & automatisierte Workflows: Unterstützt Community-Plugins, erweiterte Skills und benutzerdefinierte Automatisierungsskripte, die es der KI ermöglichen, komplexe Aufgaben in verschiedenen Szenarien auszuführen.
 
       **Erfahren Sie mehr:**
 
-      [Offizielle Dokumentation und Anleitung](https://docs.clawd.bot/)
+      - [Offizielle Website](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    el_GR: |
-      Το OpenClaw είναι ένας ανοιχτού κώδικα προσωπικός βοηθός AI, σχεδιασμένος να επεκτείνει τις δυνατότητες των Μεγάλων Γλωσσικών Μοντέλων (LLM) σε ευφυείς πράκτορες που εκτελούν προληπτικά εργασίες, αλληλεπιδρούν σε πολλαπλές πλατφόρμες και λειτουργούν συνεχώς. Υποστηρίζει 24/7 λειτουργία στις συσκευές ή τους διακομιστές του χρήστη και παρέχει έξυπνες υπηρεσίες αυτοματισμού μέσω κοινών εργαλείων επικοινωνίας. Το OpenClaw συνδέει την AI με υπάρχοντα κανάλια συνομιλίας (όπως WhatsApp, Telegram, Discord κ.λπ.) μέσω μιας τοπικά εκτελούμενης αρχιτεκτονικής "πύλης + πράκτορα", επιτρέποντάς της όχι μόνο να απαντά σε ερωτήσεις, αλλά και να εκτελεί προληπτικά ενέργειες, να διαχειρίζεται χρονοδιαγράμματα, να επεξεργάζεται email, να αυτοματοποιεί ροές εργασίας κ.λπ.
+      - [Offizielle Dokumentation](https://docs.openclaw.ai/)
 
-      **Κύρια Χαρακτηριστικά**:
+      - [OpenClaw GitHub-Repository](https://github.com/openclaw/openclaw)
 
-      - Τοπική προτεραιότητα & αυτο-φιλοξενία: Το OpenClaw λειτουργεί στις συσκευές του χρήστη (macOS, Linux, Windows/WSL2) ή σε διακομιστές cloud, δεν εξαρτάται από φιλοξενία cloud, τα δεδομένα παραμένουν τοπικά, βελτιώνοντας την ιδιωτικότητα και τον έλεγχο.
+      - [Konfigurationsanleitung]()
+    el_GR: |-
+      Το OpenClaw είναι ένας προσωπικός βοηθός τεχνητής νοημοσύνης ανοιχτού κώδικα, σχεδιασμένος να επεκτείνει τις δυνατότητες των μεγάλων γλωσσικών μοντέλων (LLMs) σε ευφυείς πράκτορες που εκτελούν ενεργά εργασίες, αλληλεπιδρούν σε πολλαπλές πλατφόρμες και λειτουργούν συνεχώς. Υποστηρίζει 24/7 λειτουργία στην συσκευή ή τον διακομιστή του χρήστη και παρέχει υπηρεσίες έξυπνου αυτοματισμού μέσω κοινών εργαλείων επικοινωνίας. Το OpenClaw συνδέει την τεχνητή νοημοσύνη με υπάρχοντα κανάλια συνομιλίας (όπως WhatsApp, Telegram, Discord, κ.λπ.) μέσω μιας τοπικά εκτελούμενης αρχιτεκτονικής "gateway + agent", επιτρέποντάς της όχι μόνο να απαντά σε ερωτήσεις αλλά και να εκτελεί προληπτικά ενέργειες, να διαχειρίζεται χρονοδιαγράμματα, να επεξεργάζεται email, να αυτοματοποιεί ροές εργασίας και πολλά άλλα.
 
-      - Ενσωμάτωση επικοινωνίας πολλαπλών καναλιών: Αλληλεπιδράστε απευθείας με την AI μέσω κοινών πλατφορμών επικοινωνίας όπως WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams κ.λπ., χωρίς πρόσθετες εφαρμογές.
+      **Βασικά Χαρακτηριστικά**:
 
-      - Συνεχής λειτουργία & μακροπρόθεσμη μνήμη: Το OpenClaw μπορεί να λειτουργεί συνεχώς 24/7, διαθέτει μόνιμη μνήμη και δυνατότητες διατήρησης περιβάλλοντος, μπορεί να θυμάται προτιμήσεις, ιστορικές συνομιλίες και να παρέχει εξατομικευμένες υπηρεσίες.
+      - Ενσωμάτωση Επικοινωνίας Πολλαπλών Καναλιών: Αλληλεπιδράστε απευθείας με την τεχνητή νοημοσύνη μέσω κοινών πλατφορμών επικοινωνίας όπως WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, κ.λπ., χωρίς την ανάγκη για πρόσθετες εφαρμογές.
 
-      - Εκτέλεση πραγματικών ενεργειών: Εκτός από τις απαντήσεις κειμένου, μπορεί να εκτελεί εργασίες συστήματος (π.χ. εκκαθάριση εισερχομένων, αποστολή email, συμπλήρωση φορμών, προγραμματισμός ραντεβού, περιήγηση στο διαδίκτυο, έλεγχος προγράμματος περιήγησης κ.λπ.).
+      - Συνεχής Online & Μακροπρόθεσμη Μνήμη: Το OpenClaw μπορεί να λειτουργεί 24/7, διαθέτοντας μόνιμη μνήμη και δυνατότητες διατήρησης πλαισίου, επιτρέποντάς του να θυμάται προτιμήσεις, ιστορικές συνομιλίες και να παρέχει εξατομικευμένες υπηρεσίες.
 
-      - Επέκταση δεξιοτήτων & αυτοματοποιημένες ροές εργασίας: Υποστηρίζει πρόσθετα κοινότητας, εκτεταμένες δεξιότητες και προσαρμοσμένα σενάρια αυτοματισμού, επιτρέποντας στην AI να εκτελεί σύνθετες εργασίες σε διάφορα σενάρια.
+      - Εκτέλεση Πραγματικών Ενεργειών: Πέρα από τις απαντήσεις κειμένου, μπορεί να εκτελεί εργασίες συστήματος (π.χ. εκκαθάριση εισερχομένων, αποστολή email, συμπλήρωση φορμών, προγραμματισμός ραντεβού, περιήγηση στο διαδίκτυο, έλεγχος προγράμματος περιήγησης, κ.λπ.).
 
-      **Μάθετε περισσότερα:**
+      - Επέκταση Δεξιοτήτων & Αυτοματοποιημένες Ροές Εργασίας: Υποστηρίζει πρόσθετα κοινότητας, επεκταμένες δεξιότητες και προσαρμοσμένα σενάρια αυτοματισμού, επιτρέποντας στην τεχνητή νοημοσύνη να εκτελεί σύνθετες εργασίες σε διάφορα σενάρια.
 
-      [Επίσημη Τεκμηρίωση και Οδηγίες](https://docs.clawd.bot/)
+      **Μάθετε Περισσότερα:**
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    en_GB: |
-      OpenClaw is an open-source personal AI assistant designed to extend the capabilities of Large Language Models (LLMs) into intelligent agents that proactively execute tasks, interact across multiple platforms, and operate continuously. It supports 24/7 operation on the user's own devices or servers and provides intelligent automation services via common communication tools. OpenClaw connects AI to existing chat channels (such as WhatsApp, Telegram, Discord, etc.) through a locally running "gateway + agent" architecture, enabling it to not only answer questions but also proactively perform actions, manage schedules, process emails, automate workflows, and more.
+      - [Επίσημη Ιστοσελίδα](https://openclaw.ai)
+
+      - [Επίσημη Τεκμηρίωση](https://docs.openclaw.ai/)
+
+      - [Αποθετήριο OpenClaw στο GitHub](https://github.com/openclaw/openclaw)
+
+      - [Οδηγός Διαμόρφωσης]()
+    en_GB: |-
+      OpenClaw is an open-source personal AI assistant designed to extend the capabilities of large language models (LLMs) into intelligent agents that actively execute tasks, interact across multiple platforms, and operate continuously. It supports 24/7 operation on the user's own device or server and provides intelligent automation services through common communication tools. OpenClaw connects AI to existing chat channels (such as WhatsApp, Telegram, Discord, etc.) via a locally running "gateway + agent" architecture, enabling it not only to answer questions but also to proactively perform actions, manage schedules, process emails, automate workflows, and more.
 
       **Key Features**:
 
-      - Local-first & Self-hosted: OpenClaw runs on the user's own devices (macOS, Linux, Windows/WSL2) or cloud servers, does not rely on cloud hosting, data remains local, enhancing privacy and control.
+      - Multi-channel Communication Integration: Interact directly with AI through common communication platforms like WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., without the need for additional applications.
 
-      - Multi-channel Communication Integration: Interact directly with AI via common communication platforms such as WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., without additional applications.
+      - Continuous Online & Long-term Memory: OpenClaw can run 24/7, possessing persistent memory and context retention capabilities, allowing it to remember preferences, historical conversations, and provide personalised services.
 
-      - Always-on & Long-term Memory: OpenClaw can run persistently 24/7, possesses persistent memory and context retention capabilities, can remember preferences, historical conversations, and provide personalised services.
+      - Real Action Execution: Beyond text replies, it can perform system tasks (e.g., clear inbox, send emails, fill forms, schedule appointments, browse web, control browser, etc.).
 
-      - Real Action Execution: Besides text replies, it can perform system tasks (e.g., clear inbox, send emails, fill forms, schedule appointments, browse the web, control browser, etc.).
-
-      - Skill Expansion & Automated Workflows: Supports community plugins, extended skills, and custom automation scripts, enabling AI to perform complex tasks in various scenarios.
+      - Skill Expansion & Automated Workflows: Supports community plugins, extended skills, and custom automation scripts, enabling the AI to execute complex tasks in various scenarios.
 
       **Learn More:**
 
-      [Official Documentation and Guide](https://docs.clawd.bot/)
+      - [Official Website](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    en_US: |
-      OpenClaw 是一个开源的个人 AI 助手，旨在将大型语言模型（LLM）的能力扩展到主动执行任务、跨多平台交互和持续运营的智能代理，它支持在用户自己的设备或服务器上 24/7 运行，并通过常用通讯工具提供智能自动化服务。 OpenClaw 通过一个本地运行的“网关+代理”架构，将 AI 连接到现有的聊天渠道（如 WhatsApp、Telegram、Discord 等），使其不仅能回答问题，还能主动执行操作、管理日程、处理邮件、自动化工作流程等。
+      - [Official Documentation](https://docs.openclaw.ai/)
 
-      **主要特性**：
+      - [OpenClaw GitHub Repository](https://github.com/openclaw/openclaw)
 
-      - 本地优先与自托管： OpenClaw 在用户自己的设备（macOS、Linux、Windows/WSL2）或云服务器上运行，不依赖云托管，数据保留在本地，提高隐私与控制权。
+      - [Configure Guide]()
+    en_US: |-
+      OpenClaw is an open-source personal AI assistant designed to extend the capabilities of large language models (LLMs) into intelligent agents that actively execute tasks, interact across multiple platforms, and operate continuously. It supports 24/7 operation on the user's own device or server and provides intelligent automation services through common communication tools. OpenClaw connects AI to existing chat channels (such as WhatsApp, Telegram, Discord, etc.) via a locally running "gateway + agent" architecture, enabling it not only to answer questions but also to proactively perform actions, manage schedules, process emails, automate workflows, and more.
 
-      - 多渠道通讯集成： 通过 WhatsApp、Telegram、Slack、Discord、Signal、iMessage、Microsoft Teams 等常用通讯平台直接与 AI 交互，无需额外应用。
+      **Key Features**:
 
-      - 持续在线与长期记忆： OpenClaw 可 24/7 常驻运行，拥有持久记忆和上下文保持能力，能记住偏好、历史对话并提供个性化服务。
+      - Multi-channel Communication Integration: Interact directly with AI through common communication platforms like WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., without the need for additional applications.
 
-      - 实际动作执行： 除了文本回复，它可以执行系统任务（如清理收件箱、发送邮件、填写表单、调度日程、浏览网页、控制浏览器等）。
+      - Continuous Online & Long-term Memory: OpenClaw can run 24/7, possessing persistent memory and context retention capabilities, allowing it to remember preferences, historical conversations, and provide personalized services.
 
-      - 技能扩展与自动化工作流： 支持社区插件、扩展技能和自定义自动化脚本，让 AI 能够在不同场景下执行复杂任务。
+      - Real Action Execution: Beyond text replies, it can perform system tasks (e.g., clear inbox, send emails, fill forms, schedule appointments, browse web, control browser, etc.).
 
-      **了解更多：**
+      - Skill Expansion & Automated Workflows: Supports community plugins, extended skills, and custom automation scripts, enabling the AI to execute complex tasks in various scenarios.
 
-      [官方文档和说明](https://docs.clawd.bot/)
+      **Learn More:**
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    fr_FR: |
-      OpenClaw est un assistant IA personnel open-source, conçu pour étendre les capacités des grands modèles linguistiques (LLM) à des agents intelligents qui exécutent des tâches de manière proactive, interagissent sur plusieurs plateformes et fonctionnent en continu. Il prend en charge un fonctionnement 24h/24 et 7j/7 sur les propres appareils ou serveurs de l'utilisateur et fournit des services d'automatisation intelligents via des outils de communication courants. OpenClaw connecte l'IA aux canaux de discussion existants (tels que WhatsApp, Telegram, Discord, etc.) grâce à une architecture "passerelle + agent" exécutée localement, lui permettant non seulement de répondre aux questions, mais aussi d'exécuter des actions de manière proactive, de gérer des plannings, de traiter des e-mails, d'automatiser des flux de travail, etc.
+      - [Official Website](https://openclaw.ai)
 
-      **Caractéristiques principales**:
+      - [Official Documentation](https://docs.openclaw.ai/)
 
-      - Priorité locale et auto-hébergement: OpenClaw fonctionne sur les propres appareils de l'utilisateur (macOS, Linux, Windows/WSL2) ou sur des serveurs cloud, ne dépend pas de l'hébergement cloud, les données restent locales, améliorant la confidentialité et le contrôle.
+      - [OpenClaw GitHub Repository](https://github.com/openclaw/openclaw)
 
-      - Intégration de communication multicanal: Interagissez directement avec l'IA via des plateformes de communication courantes telles que WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., sans applications supplémentaires.
+      - [Configure Guide]()
+    fr_FR: |-
+      OpenClaw est un assistant IA personnel open-source conçu pour étendre les capacités des grands modèles linguistiques (LLM) en agents intelligents qui exécutent activement des tâches, interagissent sur plusieurs plateformes et fonctionnent en continu. Il prend en charge un fonctionnement 24h/24 et 7j/7 sur l'appareil ou le serveur de l'utilisateur et fournit des services d'automatisation intelligente via des outils de communication courants. OpenClaw connecte l'IA aux canaux de discussion existants (tels que WhatsApp, Telegram, Discord, etc.) via une architecture locale "passerelle + agent", lui permettant non seulement de répondre aux questions, mais aussi d'effectuer des actions de manière proactive, de gérer des plannings, de traiter des e-mails, d'automatiser des flux de travail, et bien plus encore.
 
-      - Toujours actif et mémoire à long terme: OpenClaw peut fonctionner en permanence 24h/24 et 7j/7, possède une mémoire persistante et des capacités de rétention de contexte, peut se souvenir des préférences, des conversations passées et fournir des services personnalisés.
+      **Fonctionnalités Clés** :
 
-      - Exécution d'actions réelles: Outre les réponses textuelles, il peut exécuter des tâches système (par exemple, vider la boîte de réception, envoyer des e-mails, remplir des formulaires, planifier des rendez-vous, naviguer sur le web, contrôler le navigateur, etc.).
+      - Intégration de la communication multi-canal : Interagissez directement avec l'IA via des plateformes de communication courantes comme WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., sans avoir besoin d'applications supplémentaires.
 
-      - Extension des compétences et flux de travail automatisés: Prend en charge les plugins communautaires, les compétences étendues et les scripts d'automatisation personnalisés, permettant à l'IA d'exécuter des tâches complexes dans divers scénarios.
+      - Mémoire continue en ligne et à long terme : OpenClaw peut fonctionner 24h/24 et 7j/7, possédant des capacités de mémoire persistante et de rétention de contexte, lui permettant de se souvenir des préférences, des conversations historiques et de fournir des services personnalisés.
 
-      **En savoir plus:**
+      - Exécution d'actions réelles : Au-delà des réponses textuelles, il peut effectuer des tâches système (par exemple, vider la boîte de réception, envoyer des e-mails, remplir des formulaires, planifier des rendez-vous, naviguer sur le web, contrôler le navigateur, etc.).
 
-      [Documentation et guide officiels](https://docs.clawd.bot/)
+      - Extension des compétences et flux de travail automatisés : Prend en charge les plugins communautaires, les compétences étendues et les scripts d'automatisation personnalisés, permettant à l'IA d'exécuter des tâches complexes dans divers scénarios.
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    hr_HR: |
-      OpenClaw je osobni AI asistent otvorenog koda, dizajniran za proširenje mogućnosti velikih jezičnih modela (LLM) na inteligentne agente koji proaktivno izvršavaju zadatke, interagiraju na više platformi i rade kontinuirano. Podržava 24/7 rad na korisnikovim vlastitim uređajima ili poslužiteljima i pruža inteligentne usluge automatizacije putem uobičajenih komunikacijskih alata. OpenClaw povezuje AI s postojećim chat kanalima (kao što su WhatsApp, Telegram, Discord itd.) putem lokalno pokrenute arhitekture "gateway + agent", omogućujući mu ne samo odgovaranje na pitanja, već i proaktivno izvršavanje radnji, upravljanje rasporedima, obradu e-pošte, automatizaciju radnih procesa i još mnogo toga.
+      **En savoir plus :**
 
-      **Glavne značajke**:
+      - [Site Web Officiel](https://openclaw.ai)
 
-      - Lokalno prvo i samostalno hostirano: OpenClaw radi na korisnikovim vlastitim uređajima (macOS, Linux, Windows/WSL2) ili oblačnim poslužiteljima, ne ovisi o oblačnom hostingu, podaci ostaju lokalni, poboljšavajući privatnost i kontrolu.
+      - [Documentation Officielle](https://docs.openclaw.ai/)
 
-      - Integracija višekanalne komunikacije: Izravno komunicirajte s AI putem uobičajenih komunikacijskih platformi kao što su WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams itd., bez dodatnih aplikacija.
+      - [Dépôt GitHub d'OpenClaw](https://github.com/openclaw/openclaw)
 
-      - Uvijek uključen i dugoročno pamćenje: OpenClaw može raditi neprekidno 24/7, posjeduje trajno pamćenje i mogućnosti zadržavanja konteksta, može pamtiti preferencije, povijesne razgovore i pružati personalizirane usluge.
+      - [Guide de Configuration]()
+    hr_HR: |-
+      OpenClaw je osobni AI asistent otvorenog koda dizajniran za proširenje mogućnosti velikih jezičnih modela (LLM) u inteligentne agente koji aktivno izvršavaju zadatke, komuniciraju na više platformi i rade kontinuirano. Podržava 24/7 rad na korisnikovom vlastitom uređaju ili poslužitelju i pruža inteligentne usluge automatizacije putem uobičajenih komunikacijskih alata. OpenClaw povezuje AI s postojećim chat kanalima (kao što su WhatsApp, Telegram, Discord itd.) putem lokalno pokrenute arhitekture "gateway + agent", omogućujući mu ne samo odgovaranje na pitanja, već i proaktivno izvršavanje radnji, upravljanje rasporedima, obradu e-pošte, automatizaciju radnih procesa i još mnogo toga.
 
-      - Izvršavanje stvarnih radnji: Osim tekstualnih odgovora, može izvršavati sistemske zadatke (npr. čišćenje pristigle pošte, slanje e-pošte, ispunjavanje obrazaca, zakazivanje sastanaka, pregledavanje weba, kontrola preglednika itd.).
+      **Ključne značajke**:
+
+      - Integracija višekanalne komunikacije: Izravno komunicirajte s AI putem uobičajenih komunikacijskih platformi kao što su WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams itd., bez potrebe za dodatnim aplikacijama.
+
+      - Kontinuirano mrežno i dugoročno pamćenje: OpenClaw može raditi 24/7, posjedujući trajnu memoriju i mogućnosti zadržavanja konteksta, omogućujući mu da pamti preferencije, povijesne razgovore i pruža personalizirane usluge.
+
+      - Izvršavanje stvarnih radnji: Osim tekstualnih odgovora, može obavljati sistemske zadatke (npr. čišćenje pristigle pošte, slanje e-pošte, ispunjavanje obrazaca, zakazivanje sastanaka, pregledavanje weba, upravljanje preglednikom itd.).
 
       - Proširenje vještina i automatizirani radni procesi: Podržava dodatke zajednice, proširene vještine i prilagođene skripte za automatizaciju, omogućujući AI-u izvršavanje složenih zadataka u različitim scenarijima.
 
       **Saznajte više:**
 
-      [Službena dokumentacija i vodič](https://docs.clawd.bot/)
+      - [Službena web stranica](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    it_IT: |
-      OpenClaw è un assistente AI personale open source, progettato per estendere le capacità dei modelli linguistici di grandi dimensioni (LLM) a agenti intelligenti che eseguono proattivamente attività, interagiscono su più piattaforme e operano continuamente. Supporta il funzionamento 24 ore su 24, 7 giorni su 7 sui dispositivi o server dell'utente e fornisce servizi di automazione intelligenti tramite strumenti di comunicazione comuni. OpenClaw collega l'IA ai canali di chat esistenti (come WhatsApp, Telegram, Discord, ecc.) tramite un'architettura "gateway + agente" in esecuzione locale, consentendogli non solo di rispondere alle domande, ma anche di eseguire proattivamente azioni, gestire programmi, elaborare e-mail, automatizzare flussi di lavoro e altro ancora.
+      - [Službena dokumentacija](https://docs.openclaw.ai/)
 
-      **Caratteristiche principali**:
+      - [OpenClaw GitHub repozitorij](https://github.com/openclaw/openclaw)
 
-      - Local-first e auto-ospitato: OpenClaw funziona sui dispositivi dell'utente (macOS, Linux, Windows/WSL2) o su server cloud, non dipende dall'hosting cloud, i dati rimangono locali, migliorando la privacy e il controllo.
+      - [Vodič za konfiguraciju]()
+    it_IT: |-
+      OpenClaw è un assistente AI personale open-source progettato per estendere le capacità dei modelli linguistici di grandi dimensioni (LLM) in agenti intelligenti che eseguono attivamente compiti, interagiscono su più piattaforme e operano continuamente. Supporta il funzionamento 24 ore su 24, 7 giorni su 7 sul dispositivo o server dell'utente e fornisce servizi di automazione intelligente tramite strumenti di comunicazione comuni. OpenClaw connette l'AI ai canali di chat esistenti (come WhatsApp, Telegram, Discord, ecc.) tramite un'architettura "gateway + agent" in esecuzione locale, consentendogli non solo di rispondere a domande ma anche di eseguire proattivamente azioni, gestire orari, elaborare e-mail, automatizzare flussi di lavoro e altro ancora.
 
-      - Integrazione della comunicazione multicanale: Interagisci direttamente con l'IA tramite piattaforme di comunicazione comuni come WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, ecc., senza applicazioni aggiuntive.
+      **Caratteristiche Principali**:
 
-      - Sempre attivo e memoria a lungo termine: OpenClaw può funzionare in modo persistente 24 ore su 24, 7 giorni su 7, possiede memoria persistente e capacità di mantenimento del contesto, può ricordare preferenze, conversazioni storiche e fornire servizi personalizzati.
+      - Integrazione della comunicazione multi-canale: Interagisci direttamente con l'AI tramite piattaforme di comunicazione comuni come WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, ecc., senza la necessità di applicazioni aggiuntive.
 
-      - Esecuzione di azioni reali: Oltre alle risposte testuali, può eseguire attività di sistema (ad es. svuotare la posta in arrivo, inviare e-mail, compilare moduli, pianificare appuntamenti, navigare sul web, controllare il browser, ecc.).
+      - Memoria continua online e a lungo termine: OpenClaw può funzionare 24 ore su 24, 7 giorni su 7, possedendo capacità di memoria persistente e di ritenzione del contesto, consentendogli di ricordare preferenze, conversazioni storiche e fornire servizi personalizzati.
 
-      - Espansione delle competenze e flussi di lavoro automatizzati: Supporta plugin della community, competenze estese e script di automazione personalizzati, consentendo all'IA di eseguire attività complesse in vari scenari.
+      - Esecuzione di azioni reali: Oltre alle risposte testuali, può eseguire attività di sistema (ad esempio, svuotare la casella di posta, inviare e-mail, compilare moduli, programmare appuntamenti, navigare sul web, controllare il browser, ecc.).
+
+      - Espansione delle competenze e flussi di lavoro automatizzati: Supporta plugin della community, competenze estese e script di automazione personalizzati, consentendo all'AI di eseguire compiti complessi in vari scenari.
 
       **Scopri di più:**
 
-      [Documentazione e guida ufficiali](https://docs.clawd.bot/)
+      - [Sito Ufficiale](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    ja_JP: |
-      OpenClawは、大規模言語モデル（LLM）の機能を、タスクを積極的に実行し、複数のプラットフォーム間で対話し、継続的に運用するインテリジェントエージェントに拡張することを目的としたオープンソースの個人AIアシスタントです。ユーザー自身のデバイスまたはサーバーで24時間365日稼働をサポートし、一般的な通信ツールを介してインテリジェントな自動化サービスを提供します。OpenClawは、ローカルで実行される「ゲートウェイ+エージェント」アーキテクチャを通じて、AIを既存のチャットチャネル（WhatsApp、Telegram、Discordなど）に接続し、質問に答えるだけでなく、積極的にアクションを実行したり、スケジュールを管理したり、メールを処理したり、ワークフローを自動化したりすることができます。
+      - [Documentazione Ufficiale](https://docs.openclaw.ai/)
 
-      **主な機能**:
+      - [Repository GitHub di OpenClaw](https://github.com/openclaw/openclaw)
 
-      - ローカル優先＆セルフホスト型：OpenClawは、ユーザー自身のデバイス（macOS、Linux、Windows/WSL2）またはクラウドサーバーで動作し、クラウドホスティングに依存せず、データはローカルに保持され、プライバシーと制御が向上します。
+      - [Guida alla Configurazione]()
+    ja_JP: |-
+      OpenClawは、大規模言語モデル（LLM）の機能を拡張し、タスクを積極的に実行し、複数のプラットフォームで対話し、継続的に動作するインテリジェントエージェントに変えるために設計された、オープンソースのパーソナルAIアシスタントです。ユーザー自身のデバイスまたはサーバーで24時間年中無休の運用をサポートし、一般的なコミュニケーションツールを通じてインテリジェントな自動化サービスを提供します。OpenClawは、ローカルで実行される「ゲートウェイ + エージェント」アーキテクチャを介して、AIを既存のチャットチャネル（WhatsApp、Telegram、Discordなど）に接続し、質問に答えるだけでなく、プロアクティブにアクションを実行したり、スケジュールを管理したり、メールを処理したり、ワークフローを自動化したりするなど、さまざまなことを可能にします。
 
-      - マルチチャネル通信統合：WhatsApp、Telegram、Slack、Discord、Signal、iMessage、Microsoft Teamsなどの一般的な通信プラットフォームを介してAIと直接対話し、追加のアプリケーションは不要です。
+      **主な機能**：
 
-      - 常時稼働＆長期記憶：OpenClawは24時間365日永続的に稼働でき、永続的な記憶とコンテキスト保持機能を備えており、好みや過去の会話を記憶し、パーソナライズされたサービスを提供できます。
+      - マルチチャネル通信統合：WhatsApp、Telegram、Slack、Discord、Signal、iMessage、Microsoft Teamsなどの一般的な通信プラットフォームを介してAIと直接対話できます。追加のアプリケーションは不要です。
 
-      - 実際のアクション実行：テキスト応答に加えて、システムタスク（受信トレイのクリア、メール送信、フォーム入力、スケジュールの設定、ウェブ閲覧、ブラウザ制御など）を実行できます。
+      - 継続的なオンラインと長期記憶：OpenClawは24時間年中無休で稼働でき、永続的な記憶とコンテキスト保持機能を備えているため、好みや過去の会話を記憶し、パーソナライズされたサービスを提供できます。
 
-      - スキル拡張＆自動化ワークフロー：コミュニティプラグイン、拡張スキル、カスタム自動化スクリプトをサポートし、AIがさまざまなシナリオで複雑なタスクを実行できるようにします。
+      - 実際のアクション実行：テキストによる返信だけでなく、システムタスク（例：受信トレイのクリア、メール送信、フォーム入力、アポイントメントのスケジュール、ウェブ閲覧、ブラウザ制御など）を実行できます。
+
+      - スキル拡張と自動化されたワークフロー：コミュニティプラグイン、拡張スキル、カスタム自動化スクリプトをサポートし、AIがさまざまなシナリオで複雑なタスクを実行できるようにします。
 
       **詳細はこちら：**
 
-      [公式ドキュメントとガイド](https://docs.clawd.bot/)
+      - [公式サイト](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    ko_KR: |
-      OpenClaw은 대규모 언어 모델(LLM)의 기능을 능동적으로 작업을 실행하고, 여러 플랫폼에서 상호 작용하며, 지속적으로 운영되는 지능형 에이전트로 확장하도록 설계된 오픈 소스 개인 AI 비서입니다. 사용자 자신의 장치 또는 서버에서 24시간 연중무휴 작동을 지원하며, 일반적인 통신 도구를 통해 지능형 자동화 서비스를 제공합니다. OpenClaw은 로컬에서 실행되는 "게이트웨이 + 에이전트" 아키텍처를 통해 AI를 기존 채팅 채널(예: WhatsApp, Telegram, Discord 등)에 연결하여 질문에 답할 뿐만 아니라 능동적으로 작업을 수행하고, 일정을 관리하고, 이메일을 처리하고, 워크플로를 자동화하는 등의 작업을 수행할 수 있습니다.
+      - [公式ドキュメント](https://docs.openclaw.ai/)
+
+      - [OpenClaw GitHubリポジトリ](https://github.com/openclaw/openclaw)
+
+      - [設定ガイド]()
+    ko_KR: |-
+      OpenClaw는 대규모 언어 모델(LLM)의 기능을 확장하여 작업을 능동적으로 실행하고, 여러 플랫폼에서 상호 작용하며, 지속적으로 작동하는 지능형 에이전트로 설계된 오픈 소스 개인 AI 비서입니다. 사용자 자신의 장치 또는 서버에서 연중무휴 24시간 작동을 지원하며, 일반적인 통신 도구를 통해 지능형 자동화 서비스를 제공합니다. OpenClaw는 로컬에서 실행되는 "게이트웨이 + 에이전트" 아키텍처를 통해 AI를 기존 채팅 채널(예: WhatsApp, Telegram, Discord 등)에 연결하여 질문에 답변할 뿐만 아니라, 능동적으로 작업을 수행하고, 일정을 관리하고, 이메일을 처리하고, 워크플로우를 자동화하는 등 다양한 기능을 제공합니다.
 
       **주요 기능**:
 
-      - 로컬 우선 및 자체 호스팅: OpenClaw은 사용자 자신의 장치(macOS, Linux, Windows/WSL2) 또는 클라우드 서버에서 실행되며, 클라우드 호스팅에 의존하지 않고 데이터가 로컬에 유지되어 개인 정보 보호 및 제어 기능이 향상됩니다.
+      - 다중 채널 통신 통합: WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams 등과 같은 일반적인 통신 플랫폼을 통해 AI와 직접 상호 작용할 수 있으며, 추가 애플리케이션이 필요 없습니다.
 
-      - 다중 채널 통신 통합: WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams 등과 같은 일반적인 통신 플랫폼을 통해 추가 애플리케이션 없이 AI와 직접 상호 작용합니다.
+      - 지속적인 온라인 및 장기 기억: OpenClaw는 연중무휴 24시간 실행될 수 있으며, 영구적인 메모리 및 컨텍스트 유지 기능을 갖추고 있어 선호도, 과거 대화를 기억하고 개인화된 서비스를 제공할 수 있습니다.
 
-      - 상시 작동 및 장기 기억: OpenClaw은 24시간 연중무휴로 지속적으로 실행될 수 있으며, 영구적인 기억 및 컨텍스트 유지 기능을 갖추고 있어 선호도, 과거 대화를 기억하고 개인화된 서비스를 제공할 수 있습니다.
+      - 실제 작업 실행: 텍스트 답변을 넘어 시스템 작업(예: 받은 편지함 비우기, 이메일 보내기, 양식 작성, 약속 예약, 웹 탐색, 브라우저 제어 등)을 수행할 수 있습니다.
 
-      - 실제 작업 실행: 텍스트 응답 외에도 시스템 작업(예: 받은 편지함 정리, 이메일 보내기, 양식 작성, 일정 예약, 웹 검색, 브라우저 제어 등)을 수행할 수 있습니다.
+      - 스킬 확장 및 자동화된 워크플로우: 커뮤니티 플러그인, 확장된 스킬 및 사용자 지정 자동화 스크립트를 지원하여 AI가 다양한 시나리오에서 복잡한 작업을 실행할 수 있도록 합니다.
 
-      - 기술 확장 및 자동화 워크플로: 커뮤니티 플러그인, 확장된 기술 및 사용자 지정 자동화 스크립트를 지원하여 AI가 다양한 시나리오에서 복잡한 작업을 수행할 수 있도록 합니다.
+      **더 알아보기:**
 
-      **자세히 알아보기:**
+      - [공식 웹사이트](https://openclaw.ai)
 
-      [공식 문서 및 가이드](https://docs.clawd.bot/)
+      - [공식 문서](https://docs.openclaw.ai/)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    nb_NO: |
-      OpenClaw er en åpen kildekode personlig AI-assistent, designet for å utvide kapasiteten til store språkmodeller (LLM-er) til intelligente agenter som proaktivt utfører oppgaver, interagerer på tvers av flere plattformer og opererer kontinuerlig. Den støtter 24/7 drift på brukerens egne enheter eller servere og tilbyr intelligente automatiseringstjenester via vanlige kommunikasjonsverktøy. OpenClaw kobler AI til eksisterende chatkanaler (som WhatsApp, Telegram, Discord osv.) gjennom en lokalt kjørende "gateway + agent"-arkitektur, slik at den ikke bare kan svare på spørsmål, men også proaktivt utføre handlinger, administrere tidsplaner, behandle e-poster, automatisere arbeidsflyter og mer.
+      - [OpenClaw GitHub 저장소](https://github.com/openclaw/openclaw)
 
-      **Hovedfunksjoner**:
+      - [구성 가이드]()
+    nb_NO: |-
+      OpenClaw er en åpen kildekode personlig AI-assistent designet for å utvide mulighetene til store språkmodeller (LLM-er) til intelligente agenter som aktivt utfører oppgaver, interagerer på tvers av flere plattformer og opererer kontinuerlig. Den støtter 24/7 drift på brukerens egen enhet eller server og tilbyr intelligente automatiserings tjenester gjennom vanlige kommunikasjonsverktøy. OpenClaw kobler AI til eksisterende chatkanaler (som WhatsApp, Telegram, Discord, osv.) via en lokalt kjørende "gateway + agent"-arkitektur, noe som gjør den i stand til ikke bare å svare på spørsmål, men også proaktivt utføre handlinger, administrere tidsplaner, behandle e-poster, automatisere arbeidsflyter og mye mer.
 
-      - Lokal-først og selv-hostet: OpenClaw kjører på brukerens egne enheter (macOS, Linux, Windows/WSL2) eller skyserver, er ikke avhengig av skyhosting, data forblir lokale, noe som forbedrer personvern og kontroll.
+      **Nøkkelfunksjoner**:
 
-      - Flerkanals kommunikasjonsintegrasjon: Samhandle direkte med AI via vanlige kommunikasjonsplattformer som WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams osv., uten ekstra applikasjoner.
+      - Integrasjon av flerkanalskommunikasjon: Interager direkte med AI gjennom vanlige kommunikasjonsplattformer som WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, osv., uten behov for ytterligere applikasjoner.
 
-      - Alltid på og langtidshukommelse: OpenClaw kan kjøre vedvarende 24/7, har vedvarende hukommelse og kontekstbevaringsevner, kan huske preferanser, historiske samtaler og tilby personaliserte tjenester.
+      - Kontinuerlig online og langtidshukommelse: OpenClaw kan kjøre 24/7, og besitter vedvarende minne- og kontekstbevaringsevner, slik at den kan huske preferanser, historiske samtaler og tilby personlige tjenester.
 
-      - Utførelse av reelle handlinger: I tillegg til tekstsvar kan den utføre systemoppgaver (f.eks. tømme innboks, sende e-poster, fylle ut skjemaer, planlegge avtaler, surfe på nettet, kontrollere nettleser osv.).
+      - Utførelse av virkelige handlinger: Utover tekstsvar kan den utføre systemoppgaver (f.eks. tømme innboks, sende e-poster, fylle ut skjemaer, planlegge avtaler, bla på nettet, kontrollere nettleser, osv.).
 
       - Ferdighetsutvidelse og automatiserte arbeidsflyter: Støtter fellesskapsplugins, utvidede ferdigheter og tilpassede automatiseringsskript, slik at AI kan utføre komplekse oppgaver i ulike scenarier.
 
       **Lær mer:**
 
-      [Offisiell dokumentasjon og veiledning](https://docs.clawd.bot/)
+      - [Offisiell nettside](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    pt_PT: |
-      OpenClaw é um assistente de IA pessoal de código aberto, concebido para estender as capacidades dos Grandes Modelos de Linguagem (LLMs) a agentes inteligentes que executam tarefas proactivamente, interagem em múltiplas plataformas e operam continuamente. Suporta operação 24/7 nos próprios dispositivos ou servidores do utilizador e fornece serviços de automação inteligentes através de ferramentas de comunicação comuns. O OpenClaw conecta a IA a canais de chat existentes (como WhatsApp, Telegram, Discord, etc.) através de uma arquitetura "gateway + agente" em execução local, permitindo-lhe não só responder a perguntas, mas também executar ações proactivamente, gerir horários, processar e-mails, automatizar fluxos de trabalho e muito mais.
+      - [Offisiell dokumentasjon](https://docs.openclaw.ai/)
 
-      **Principais Características**:
+      - [OpenClaw GitHub-lager](https://github.com/openclaw/openclaw)
 
-      - Local-first e Auto-hospedado: O OpenClaw é executado nos próprios dispositivos do utilizador (macOS, Linux, Windows/WSL2) ou em servidores na nuvem, não depende de alojamento na nuvem, os dados permanecem locais, melhorando a privacidade e o controlo.
+      - [Konfigurasjonsguide]()
+    pt_PT: |-
+      OpenClaw é um assistente pessoal de IA de código aberto concebido para estender as capacidades de grandes modelos de linguagem (LLMs) a agentes inteligentes que executam ativamente tarefas, interagem em múltiplas plataformas e operam continuamente. Suporta operação 24/7 no próprio dispositivo ou servidor do utilizador e fornece serviços de automação inteligente através de ferramentas de comunicação comuns. O OpenClaw conecta a IA a canais de chat existentes (como WhatsApp, Telegram, Discord, etc.) através de uma arquitetura "gateway + agente" em execução local, permitindo-lhe não só responder a perguntas, mas também executar proativamente ações, gerir horários, processar e-mails, automatizar fluxos de trabalho e muito mais.
 
-      - Integração de Comunicação Multicanal: Interaja diretamente com a IA através de plataformas de comunicação comuns como WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., sem aplicações adicionais.
+      **Principais Funcionalidades**:
 
-      - Sempre Ativo e Memória de Longo Prazo: O OpenClaw pode funcionar persistentemente 24/7, possui memória persistente e capacidades de retenção de contexto, pode lembrar preferências, conversas históricas e fornecer serviços personalizados.
+      - Integração de Comunicação Multicanal: Interaja diretamente com a IA através de plataformas de comunicação comuns como WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., sem a necessidade de aplicações adicionais.
 
-      - Execução de Ações Reais: Além das respostas de texto, pode executar tarefas do sistema (por exemplo, limpar a caixa de entrada, enviar e-mails, preencher formulários, agendar compromissos, navegar na web, controlar o navegador, etc.).
+      - Memória Contínua Online e de Longo Prazo: O OpenClaw pode funcionar 24/7, possuindo capacidades de memória persistente e retenção de contexto, permitindo-lhe recordar preferências, conversas históricas e fornecer serviços personalizados.
 
-      - Expansão de Habilidades e Fluxos de Trabalho Automatizados: Suporta plugins da comunidade, habilidades estendidas e scripts de automação personalizados, permitindo que a IA execute tarefas complexas em vários cenários.
+      - Execução de Ações Reais: Além das respostas de texto, pode realizar tarefas de sistema (por exemplo, limpar a caixa de entrada, enviar e-mails, preencher formulários, agendar compromissos, navegar na web, controlar o navegador, etc.).
+
+      - Expansão de Competências e Fluxos de Trabalho Automatizados: Suporta plugins da comunidade, competências estendidas e scripts de automação personalizados, permitindo que a IA execute tarefas complexas em vários cenários.
 
       **Saiba Mais:**
 
-      [Documentação e Guia Oficiais](https://docs.clawd.bot/)
+      - [Website Oficial](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    ru_RU: |
-      OpenClaw — это персональный AI-ассистент с открытым исходным кодом, разработанный для расширения возможностей больших языковых моделей (LLM) до интеллектуальных агентов, которые проактивно выполняют задачи, взаимодействуют на нескольких платформах и работают непрерывно. Он поддерживает круглосуточную работу на собственных устройствах или серверах пользователя и предоставляет интеллектуальные услуги автоматизации через распространенные средства связи. OpenClaw подключает ИИ к существующим чат-каналам (таким как WhatsApp, Telegram, Discord и т. д.) через локально работающую архитектуру «шлюз + агент», что позволяет ему не только отвечать на вопросы, но и проактивно выполнять действия, управлять расписаниями, обрабатывать электронную почту, автоматизировать рабочие процессы и многое другое.
+      - [Documentação Oficial](https://docs.openclaw.ai/)
 
-      **Основные характеристики**:
+      - [Repositório OpenClaw no GitHub](https://github.com/openclaw/openclaw)
 
-      - Локальный приоритет и самостоятельное размещение: OpenClaw работает на собственных устройствах пользователя (macOS, Linux, Windows/WSL2) или облачных серверах, не зависит от облачного хостинга, данные остаются локальными, что повышает конфиденциальность и контроль.
+      - [Guia de Configuração]()
+    ru_RU: |-
+      OpenClaw — это персональный AI-ассистент с открытым исходным кодом, разработанный для расширения возможностей больших языковых моделей (LLM) до интеллектуальных агентов, которые активно выполняют задачи, взаимодействуют на нескольких платформах и работают непрерывно. Он поддерживает круглосуточную работу на собственном устройстве или сервере пользователя и предоставляет интеллектуальные услуги автоматизации через общие средства связи. OpenClaw подключает ИИ к существующим чат-каналам (таким как WhatsApp, Telegram, Discord и т. д.) через локально работающую архитектуру «шлюз + агент», позволяя ему не только отвечать на вопросы, но и проактивно выполнять действия, управлять расписаниями, обрабатывать электронные письма, автоматизировать рабочие процессы и многое другое.
 
-      - Многоканальная интеграция связи: Взаимодействуйте напрямую с ИИ через распространенные коммуникационные платформы, такие как WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams и т. д., без дополнительных приложений.
+      **Ключевые особенности**:
 
-      - Постоянная работа и долгосрочная память: OpenClaw может работать постоянно 24/7, обладает постоянной памятью и возможностями сохранения контекста, может запоминать предпочтения, исторические разговоры и предоставлять персонализированные услуги.
+      - Интеграция многоканальной связи: Взаимодействуйте напрямую с ИИ через общие коммуникационные платформы, такие как WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams и т. д., без необходимости использования дополнительных приложений.
+
+      - Непрерывная работа онлайн и долгосрочная память: OpenClaw может работать круглосуточно, обладая постоянной памятью и возможностями сохранения контекста, что позволяет ему запоминать предпочтения, исторические беседы и предоставлять персонализированные услуги.
 
       - Выполнение реальных действий: Помимо текстовых ответов, он может выполнять системные задачи (например, очищать входящие, отправлять электронные письма, заполнять формы, планировать встречи, просматривать веб-страницы, управлять браузером и т. д.).
 
-      - Расширение навыков и автоматизированные рабочие процессы: Поддерживает плагины сообщества, расширенные навыки и пользовательские сценарии автоматизации, позволяя ИИ выполнять сложные задачи в различных сценариях.
+      - Расширение навыков и автоматизированные рабочие процессы: Поддерживает плагины сообщества, расширенные навыки и пользовательские скрипты автоматизации, позволяя ИИ выполнять сложные задачи в различных сценариях.
 
       **Узнать больше:**
 
-      [Официальная документация и руководство](https://docs.clawd.bot/)
+      - [Официальный сайт](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    sv_SE: |
-      OpenClaw är en öppen källkods personlig AI-assistent, designad för att utöka kapaciteten hos stora språkmodeller (LLM) till intelligenta agenter som proaktivt utför uppgifter, interagerar över flera plattformar och fungerar kontinuerligt. Den stöder 24/7-drift på användarens egna enheter eller servrar och tillhandahåller intelligenta automationstjänster via vanliga kommunikationsverktyg. OpenClaw ansluter AI till befintliga chattkanaler (som WhatsApp, Telegram, Discord, etc.) genom en lokalt körande "gateway + agent"-arkitektur, vilket gör att den inte bara kan svara på frågor utan också proaktivt utföra åtgärder, hantera scheman, bearbeta e-post, automatisera arbetsflöden och mer.
+      - [Официальная документация](https://docs.openclaw.ai/)
 
-      **Huvudfunktioner**:
+      - [Репозиторий OpenClaw на GitHub](https://github.com/openclaw/openclaw)
 
-      - Lokal-först och självvärd: OpenClaw körs på användarens egna enheter (macOS, Linux, Windows/WSL2) eller molnservrar, är inte beroende av molnvärdskap, data förblir lokala, vilket förbättrar integritet och kontroll.
+      - [Руководство по настройке]()
+    sv_SE: |-
+      OpenClaw är en personlig AI-assistent med öppen källkod, designad för att utöka kapaciteten hos stora språkmodeller (LLM) till intelligenta agenter som aktivt utför uppgifter, interagerar över flera plattformar och fungerar kontinuerligt. Den stöder dygnet runt-drift på användarens egen enhet eller server och tillhandahåller intelligenta automationstjänster via vanliga kommunikationsverktyg. OpenClaw ansluter AI till befintliga chattkanaler (som WhatsApp, Telegram, Discord, etc.) via en lokalt körande "gateway + agent"-arkitektur, vilket gör att den inte bara kan svara på frågor utan också proaktivt utföra åtgärder, hantera scheman, bearbeta e-post, automatisera arbetsflöden och mycket mer.
 
-      - Multikanals kommunikationsintegration: Interagera direkt med AI via vanliga kommunikationsplattformar som WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., utan ytterligare applikationer.
+      **Nyckelfunktioner**:
 
-      - Alltid på och långtidsminne: OpenClaw kan köras persistent 24/7, har persistent minne och kontextbevarande förmågor, kan komma ihåg preferenser, historiska konversationer och tillhandahålla personliga tjänster.
+      - Integrering av flerkanalig kommunikation: Interagera direkt med AI via vanliga kommunikationsplattformar som WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams, etc., utan behov av ytterligare applikationer.
 
-      - Verklig åtgärdsutförande: Förutom textsvaren kan den utföra systemuppgifter (t.ex. rensa inkorgen, skicka e-post, fylla i formulär, schemalägga möten, surfa på webben, styra webbläsare, etc.).
+      - Kontinuerlig online och långtidsminne: OpenClaw kan köras dygnet runt och har beständig minnes- och kontextbevaringsförmåga, vilket gör att den kan komma ihåg preferenser, historiska konversationer och tillhandahålla personliga tjänster.
 
-      - Färdighetsutvidgning och automatiserade arbetsflöden: Stöder community-plugins, utökade färdigheter och anpassade automationsskript, vilket gör att AI kan utföra komplexa uppgifter i olika scenarier.
+      - Verklig åtgärdsutförande: Utöver textsvar kan den utföra systemuppgifter (t.ex. rensa inkorgen, skicka e-post, fylla i formulär, schemalägga möten, surfa på webben, styra webbläsare, etc.).
+
+      - Kompetensutökning och automatiserade arbetsflöden: Stöder community-plugins, utökade färdigheter och anpassade automationsskript, vilket gör att AI kan utföra komplexa uppgifter i olika scenarier.
 
       **Läs mer:**
 
-      [Officiell dokumentation och guide](https://docs.clawd.bot/)
+      - [Officiell webbplats](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    tr_TR: |
-      OpenClaw, Büyük Dil Modellerinin (LLM'ler) yeteneklerini proaktif olarak görevleri yürüten, birden fazla platformda etkileşim kuran ve sürekli çalışan akıllı aracılara genişletmek için tasarlanmış açık kaynaklı bir kişisel yapay zeka asistanıdır. Kullanıcının kendi cihazlarında veya sunucularında 7/24 çalışmayı destekler ve yaygın iletişim araçları aracılığıyla akıllı otomasyon hizmetleri sunar. OpenClaw, yerel olarak çalışan bir "ağ geçidi + aracı" mimarisi aracılığıyla yapay zekayı mevcut sohbet kanallarına (WhatsApp, Telegram, Discord vb. gibi) bağlar, böylece sadece soruları yanıtlamakla kalmaz, aynı zamanda proaktif olarak eylemler gerçekleştirebilir, programları yönetebilir, e-postaları işleyebilir, iş akışlarını otomatikleştirebilir ve daha fazlasını yapabilir.
+      - [Officiell dokumentation](https://docs.openclaw.ai/)
 
-      **Ana Özellikler**:
+      - [OpenClaw GitHub-arkiv](https://github.com/openclaw/openclaw)
 
-      - Yerel öncelikli ve kendi kendine barındırılan: OpenClaw, kullanıcının kendi cihazlarında (macOS, Linux, Windows/WSL2) veya bulut sunucularında çalışır, bulut barındırmaya bağımlı değildir, veriler yerel kalır, bu da gizliliği ve kontrolü artırır.
+      - [Konfigurationsguide]()
+    tr_TR: |-
+      OpenClaw, büyük dil modellerinin (LLM'ler) yeteneklerini aktif olarak görevleri yürüten, birden fazla platformda etkileşim kuran ve sürekli çalışan akıllı aracılara dönüştürmek için tasarlanmış açık kaynaklı bir kişisel yapay zeka asistanıdır. Kullanıcının kendi cihazında veya sunucusunda 7/24 çalışmayı destekler ve yaygın iletişim araçları aracılığıyla akıllı otomasyon hizmetleri sunar. OpenClaw, yerel olarak çalışan bir "ağ geçidi + aracı" mimarisi aracılığıyla yapay zekayı mevcut sohbet kanallarına (WhatsApp, Telegram, Discord vb.) bağlayarak, sadece soruları yanıtlamakla kalmayıp aynı zamanda proaktif olarak eylemler gerçekleştirmesini, programları yönetmesini, e-postaları işlemesini, iş akışlarını otomatikleştirmesini ve daha fazlasını sağlar.
 
-      - Çok kanallı İletişim Entegrasyonu: WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams vb. gibi yaygın iletişim platformları aracılığıyla yapay zeka ile ek uygulamalara gerek kalmadan doğrudan etkileşim kurun.
+      **Temel Özellikler**:
 
-      - Her Zaman Açık ve Uzun Süreli Bellek: OpenClaw 7/24 sürekli çalışabilir, kalıcı belleğe ve bağlam koruma yeteneklerine sahiptir, tercihleri, geçmiş konuşmaları hatırlayabilir ve kişiselleştirilmiş hizmetler sunabilir.
+      - Çok Kanallı İletişim Entegrasyonu: WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Microsoft Teams vb. gibi yaygın iletişim platformları aracılığıyla yapay zeka ile doğrudan etkileşim kurun, ek uygulamalara gerek kalmadan.
 
-      - Gerçek Eylem Yürütme: Metin yanıtlarının yanı sıra, sistem görevlerini (örn. gelen kutusunu temizleme, e-posta gönderme, form doldurma, randevu planlama, web'de gezinme, tarayıcı kontrolü vb.) gerçekleştirebilir.
+      - Sürekli Çevrimiçi ve Uzun Süreli Bellek: OpenClaw 7/24 çalışabilir, kalıcı belleğe ve bağlam koruma yeteneklerine sahiptir, bu da tercihleri, geçmiş konuşmaları hatırlamasını ve kişiselleştirilmiş hizmetler sunmasını sağlar.
 
-      - Beceri Genişletme ve Otomatik İş Akışları: Topluluk eklentilerini, genişletilmiş becerileri ve özel otomasyon komut dosyalarını destekler, yapay zekanın çeşitli senaryolarda karmaşık görevleri yerine getirmesini sağlar.
+      - Gerçek Eylem Yürütme: Metin yanıtlarının ötesinde, sistem görevlerini (örn. gelen kutusunu temizleme, e-posta gönderme, form doldurma, randevu planlama, web'de gezinme, tarayıcı kontrolü vb.) gerçekleştirebilir.
+
+      - Beceri Genişletme ve Otomatik İş Akışları: Topluluk eklentilerini, genişletilmiş becerileri ve özel otomasyon komut dosyalarını destekleyerek yapay zekanın çeşitli senaryolarda karmaşık görevleri yürütmesini sağlar.
 
       **Daha Fazla Bilgi Edinin:**
 
-      [Resmi Belgeler ve Kılavuz](https://docs.clawd.bot/)
+      - [Resmi Web Sitesi](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
-    zh_CN: |
-      OpenClaw 是一个开源的个人 AI 助手，旨在将大型语言模型（LLM）的能力扩展到主动执行任务、跨多平台交互和持续运营的智能代理，它支持在用户自己的设备或服务器上 24/7 运行，并通过常用通讯工具提供智能自动化服务。 OpenClaw 通过一个本地运行的“网关+代理”架构，将 AI 连接到现有的聊天渠道（如 WhatsApp、Telegram、Discord 等），使其不仅能回答问题，还能主动执行操作、管理日程、处理邮件、自动化工作流程等。
+      - [Resmi Belgeler](https://docs.openclaw.ai/)
 
-      **主要特性**：
+      - [OpenClaw GitHub Deposu](https://github.com/openclaw/openclaw)
 
-      - 本地优先与自托管： OpenClaw 在用户自己的设备（macOS、Linux、Windows/WSL2）或云服务器上运行，不依赖云托管，数据保留在本地，提高隐私与控制权。
+      - [Yapılandırma Kılavuzu]()
+    zh_CN: |-
+      OpenClaw 是一款开源的个人 AI 助手，旨在将大型语言模型 (LLM) 的能力扩展为智能代理，使其能够主动执行任务、跨多个平台交互并持续运行。它支持用户自己的设备或服务器上 24/7 运行，并通过常用通信工具提供智能自动化服务。OpenClaw 通过本地运行的“网关 + 代理”架构将 AI 连接到现有聊天渠道（如 WhatsApp、Telegram、Discord 等），使其不仅能够回答问题，还能主动执行操作、管理日程、处理电子邮件、自动化工作流程等。
 
-      - 多渠道通讯集成： 通过 WhatsApp、Telegram、Slack、Discord、Signal、iMessage、Microsoft Teams 等常用通讯平台直接与 AI 交互，无需额外应用。
+      **主要特点**：
 
-      - 持续在线与长期记忆： OpenClaw 可 24/7 常驻运行，拥有持久记忆和上下文保持能力，能记住偏好、历史对话并提供个性化服务。
+      - 多渠道通信集成：无需额外应用程序，即可通过 WhatsApp、Telegram、Slack、Discord、Signal、iMessage、Microsoft Teams 等常用通信平台直接与 AI 交互。
 
-      - 实际动作执行： 除了文本回复，它可以执行系统任务（如清理收件箱、发送邮件、填写表单、调度日程、浏览网页、控制浏览器等）。
+      - 持续在线和长期记忆：OpenClaw 可以 24/7 运行，拥有持久的记忆和上下文保留能力，使其能够记住偏好、历史对话并提供个性化服务。
 
-      - 技能扩展与自动化工作流： 支持社区插件、扩展技能和自定义自动化脚本，让 AI 能够在不同场景下执行复杂任务。
+      - 真实行动执行：除了文本回复，它还可以执行系统任务（例如，清理收件箱、发送电子邮件、填写表格、安排约会、浏览网页、控制浏览器等）。
+
+      - 技能扩展和自动化工作流程：支持社区插件、扩展技能和自定义自动化脚本，使 AI 能够在各种场景中执行复杂任务。
 
       **了解更多：**
 
-      [官方文档和说明](https://docs.clawd.bot/)
+      - [官方网站](https://openclaw.ai)
 
-      [GitHub](https://github.com/openclaw/openclaw)
+      - [官方文档](https://docs.openclaw.ai/)
+
+      - [OpenClaw GitHub 仓库](https://github.com/openclaw/openclaw)
+
+      - [配置指南]()
   category: AI
   author: openclaw
   developer: openclaw
