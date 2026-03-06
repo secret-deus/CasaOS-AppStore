@@ -2,19 +2,19 @@
 
 ## 1. 进入容器并启动配置向导
 
-ssh连接zimacube后命令行进入容器：
+1. ssh连接zimaos后命令行进入容器：
 ```bash
 docker exec -it openclaw bash
 ```
 
-在容器终端执行：
+2. 在容器终端执行：
 
 ```bash
 node /app/dist/index.js config
 ```
 
 ![启动配置向导](image.png)
-按提示在 `Where will the Gateway run?` 选择 `Local (this machine)`。
+3. 按提示在 `Where will the Gateway run?` 选择 `Local (this machine)`。
 
 ## 2. 配置模型提供方（Provider）
 1. 在 `Select sections to configure` 中进入 `Model`  
@@ -51,13 +51,30 @@ node /app/dist/index.js config
 
 2. 在配置中填入 `bot token`  
 ![填写 bot token](image-10.png)
-![完成 channel 配置](image-11.png)
+![确认 Telegram 凭证](image-11.png)
+
+3. 当系统询问 `Configure DM access policies now? (default: pairing)` 时，选择 `Yes`，默认使用配对模式。  
+![选择配对模式入口](screenshot-1.png)
+
+4. 在 `Telegram DM policy` 中选择 `Pairing (recommended)`。  
+![选择 Pairing](screenshot-2.png)
+
+5. 返回 `Select sections to configure` 后，选择 `Continue (Done)` 完成 Telegram 配置。  
+![选择 Continue (Done)](screenshot-3.png)
+
+6. 完成上述设置后，在终端执行以下命令，将 `openclaw` 与你的 Bot 绑定：
+
+```bash
+openclaw pairing approve telegram <你的配对码>
+```
+
+将命令中的 `<你的配对码>` 替换为 Telegram 中显示的配对码，看到成功提示即表示配对完成。
 
 ## 5. 访问服务
 配置完成后访问：
 
 ```text
-https://<ip>:18789?token=casaos
+https://<ip>:24190?token=casaos
 ```
 
 ## 6. 出现 `paired required` 时的处理
