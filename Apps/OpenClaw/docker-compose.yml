@@ -12,8 +12,8 @@ services:
           memory: 1G
     volumes:
       - type: bind
-        source: /DATA/AppData/$AppID/workspace
-        target: /home/node/.openclaw/workspace
+        source: /DATA/AppData/$AppID
+        target: /home/node/.openclaw
     ports:
       - target: 18789
         published: "24190"
