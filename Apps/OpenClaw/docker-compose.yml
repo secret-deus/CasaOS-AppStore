@@ -25,14 +25,9 @@ services:
     restart: unless-stopped
     privileged: true
     command:
-      - node
-      - dist/index.js
-      - gateway
-      - --bind
-      - lan
-      - --allow-unconfigured
-      - --port
-      - '18789'
+      - /bin/bash
+      - -c
+      - "/app/start.sh && node dist/index.js gateway --bind lan --allow-unconfigured --port '18789'"
     container_name: openclaw
     x-casaos:
       envs:
