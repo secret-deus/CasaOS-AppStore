@@ -1,6 +1,6 @@
 services:
   openclaw:
-    image: fromxiaobai/openclaw:latest
+    image: icewhaletech/openclaw:2026.3.8
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -27,7 +27,7 @@ services:
     command:
       - /bin/bash
       - -c
-      - "/app/start.sh && node dist/index.js gateway --bind lan --allow-unconfigured --port '18789'"
+      - /app/start.sh && node dist/index.js gateway --bind lan --allow-unconfigured --port '18789'
     container_name: openclaw
     x-casaos:
       envs:
@@ -138,21 +138,21 @@ services:
 name: openclaw
 x-casaos:
   title:
-    de_DE: openclaw
-    el_GR: openclaw
-    en_GB: openclaw
-    en_US: openclaw
-    fr_FR: openclaw
-    hr_HR: openclaw
-    it_IT: openclaw
-    ja_JP: openclaw
-    ko_KR: openclaw
-    nb_NO: openclaw
-    pt_PT: openclaw
-    ru_RU: openclaw
-    sv_SE: openclaw
-    tr_TR: openclaw
-    zh_CN: openclaw
+    de_DE: OpenClaw
+    el_GR: OpenClaw
+    en_GB: OpenClaw
+    en_US: OpenClaw
+    fr_FR: OpenClaw
+    hr_HR: OpenClaw
+    it_IT: OpenClaw
+    ja_JP: OpenClaw
+    ko_KR: OpenClaw
+    nb_NO: OpenClaw
+    pt_PT: OpenClaw
+    ru_RU: OpenClaw
+    sv_SE: OpenClaw
+    tr_TR: OpenClaw
+    zh_CN: OpenClaw
   tagline:
     de_DE: OpenClaw ist ein persönlicher KI-Assistent, den Sie auf Ihren eigenen Geräten ausführen.
     el_GR: Το OpenClaw είναι ένας προσωπικός βοηθός τεχνητής νοημοσύνης που εκτελείτε στις δικές σας συσκευές.
@@ -513,5 +513,23 @@ x-casaos:
   port_map: "24190"
   architectures:
     - amd64
+    - arm64
   index: ?token=casaos
   scheme: https
+  tips:
+    after_install:
+      de_DE: Bitte konfigurieren Sie das Modell und die zugehörigen Einstellungen gemäß der [Konfigurationsanleitung](url), bevor Sie es verwenden.
+      el_GR: Πριν από τη χρήση, παρακαλούμε διαμορφώστε το μοντέλο και τις σχετικές ρυθμίσεις σύμφωνα με τον [Οδηγό Διαμόρφωσης](url).
+      en_GB: Before use, please configure the model and related settings according to the [Configuration Guide](url).
+      en_US: Before use, please configure the model and related settings according to the [Configuration Guide](url).
+      fr_FR: Veuillez configurer le modèle et les paramètres associés conformément au [Guide de configuration](url) avant utilisation.
+      hr_HR: Prije upotrebe, molimo konfigurirajte model i povezane postavke prema [Vodiču za konfiguraciju](url).
+      it_IT: Prima dell'uso, si prega di configurare il modello e le impostazioni correlate secondo la [Guida alla configurazione](url).
+      ja_JP: ご使用前に、[設定ガイド](url) に従ってmodelおよび関連設定を構成してください。
+      ko_KR: 사용 전에 [구성 가이드](url)에 따라 model 및 관련 설정을 구성하십시오.
+      nb_NO: Før bruk, vennligst konfigurer model og relaterte innstillinger i henhold til [Konfigurasjonsveiledningen](url).
+      pt_PT: Antes de usar, por favor, configure o model e as definições relacionadas de acordo com o [Guia de Configuração](url).
+      ru_RU: Перед использованием, пожалуйста, настройте model и связанные параметры в соответствии с [Руководством по настройке](url).
+      sv_SE: Före användning, vänligen konfigurera model och relaterade inställningar enligt [Konfigurationsguiden](url).
+      tr_TR: Kullanmadan önce, lütfen [Yapılandırma Kılavuzu](url)'na göre model ve ilgili ayarları yapılandırın.
+      zh_CN: 使用前请先按照 [配置指南](url) 配置model 及相关配置
