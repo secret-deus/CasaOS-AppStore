@@ -1,0 +1,67 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: linkwarden-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "替换成你的强密码"
+      POSTGRES_DB: linkwarden
+      TZ: Asia/Shanghai
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d linkwarden"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.12.8
+    container_name: linkwarden-meilisearch
+    restart: unless-stopped
+    environment:
+      MEILI_MASTER_KEY: "替换成另一串强随机密钥"
+      MEILI_ENV: production
+    volumes:
+      - ./meili_data:/meili_data
+
+  linkwarden:
+    image: ghcr.io/linkwarden/linkwarden:latest
+    container_name: linkwarden
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      meilisearch:
+        condition: service_started
+    ports:
+      - "3000:3000"
+    environment:
+      TZ: Asia/Shanghai
+
+      # 这里必须写用户真实访问的外部地址，并且要带 /api/v1/auth
+      # 本地测试可先用 http://localhost:3000/api/v1/auth
+      # 正式上线建议改成 https://你的域名/api/v1/auth
+      NEXTAUTH_URL: "http://localhost:3000/api/v1/auth"
+
+      # 必改：认证密钥
+      NEXTAUTH_SECRET: "替换成一串很长的随机字符串"
+
+      # 容器内部连接 postgres，用 service 名 postgres 是对的
+      DATABASE_URL: "postgresql://postgres:替换成你的强密码@postgres:5432/linkwarden"
+
+      # 可选但推荐：文件存储目录
+      STORAGE_FOLDER: "/data/data"
+
+      # 可选：高级搜索连接 meilisearch
+      MEILI_HOST: "http://meilisearch:7700"
+      MEILI_MASTER_KEY: "替换成另一串强随机密钥"
+
+      # 可选：关闭公开注册
+      NEXT_PUBLIC_DISABLE_REGISTRATION: "false"
+
+      # 可选：启用账号密码登录
+      NEXT_PUBLIC_CREDENTIALS_ENABLED: "true"
+    volumes:
+      - ./data:/data/data
