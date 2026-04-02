@@ -743,3 +743,20 @@ x-casaos:
     - arm64
   index: /
   scheme: http
+  tips:
+    before_install:
+      de_DE: Bevor Sie die Anwendung verwenden, füllen Sie die Umgebungsvariablen NEXTAUTH_URL und NEXT_PUBLIC_BASE_URL basierend auf der IP-Adresse des Servers aus. Das Format lautet http://${yourip}:1111
+      el_GR: Πριν τη χρήση, συμπληρώστε τις μεταβλητές περιβάλλοντος NEXTAUTH_URL και NEXT_PUBLIC_BASE_URL με βάση το IP του μηχανήματος, στο μορφότυπο http://${yourip}:1111
+      en_GB: Before use, please set the environment variables NEXTAUTH_URL and NEXT_PUBLIC_BASE_URL based on the machine IP, in the format http://${yourip}:1111
+      en_US: Before using it, please fill in the environment variables NEXTAUTH_URL and NEXT_PUBLIC_BASE_URL according to the machine IP, in the format of http://${yourip}:1111
+      fr_FR: Avant de l'utiliser, veuillez remplir les variables d'environnement NEXTAUTH_URL et NEXT_PUBLIC_BASE_URL en fonction de l'IP de la machine, au format http://${yourip}:1111
+      hr_HR: Prije korištenja, unesite varijable okoline NEXTAUTH_URL i NEXT_PUBLIC_BASE_URL prema IP adresi stroja, u formatu http://${yourip}:1111
+      it_IT: Prima dell'uso, compila le variabili d'ambiente NEXTAUTH_URL e NEXT_PUBLIC_BASE_URL in base all'IP della macchina, nel formato http://${yourip}:1111
+      ja_JP: 使用前には、マシンの IP に基づいて NEXTAUTH_URL と NEXT_PUBLIC_BASE_URL という環境変数を設定してください。形式は http://${yourip}:1111 です
+      ko_KR: 사용하기 전에 NEXTAUTH_URL 과 NEXT_PUBLIC_BASE_URL 환경 변수를 기계 IP 에 따라 http://${yourip}:1111 형식으로 작성해 주세요.
+      nb_NO: Før bruk, må du fylle inn miljøvariablene NEXTAUTH_URL og NEXT_PUBLIC_BASE_URL basert på maskinens IP-adresse, i formatet http://${yourip}:1111
+      pt_PT: Antes de utilizar, preencha as variáveis de ambiente NEXTAUTH_URL e NEXT_PUBLIC_BASE_URL com o IP da máquina, no formato http://${yourip}:1111
+      ru_RU: Перед использованием заполните переменные окружения NEXTAUTH_URL и NEXT_PUBLIC_BASE_URL, указав IP-адрес машины в формате http://${yourip}:1111
+      sv_SE: Använd inte tjänsten förrän du har fyllt i miljövariablerna NEXTAUTH_URL och NEXT_PUBLIC_BASE_URL med maskinens IP-adress, enligt formatet http://${yourip}:1111
+      tr_TR: Kullanmadan önce NEXTAUTH_URL ve NEXT_PUBLIC_BASE_URL çevre değişkenlerini makinenizin IP adresine göre doldurun, formatı http://${yourip}:1111 şeklindedir.
+      zh_CN: 在使用之前，请根据机器 IP 填写环境变量 NEXTAUTH_URL 和 NEXT_PUBLIC_BASE_URL，格式为 http://${yourip}:1111
