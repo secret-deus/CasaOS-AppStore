@@ -129,8 +129,8 @@ services:
         protocol: tcp
     environment:
       NODE_ENV: production
-      NEXTAUTH_URL: http://192.168.1.108:1111
-      NEXT_PUBLIC_BASE_URL: http://192.168.1.108:1111
+      NEXTAUTH_URL: http://localhost:1111
+      NEXT_PUBLIC_BASE_URL: http://localhost:1111
       NEXTAUTH_SECRET: 22PhaGVvvBTEC5E5G+U+5O1xqdmuzZKzjLeDMvdvB7I=
       DATABASE_URL: postgresql://postgres:JWD9bxUR7Um9PaGg7FQZ@postgres:5432/postgres
     volumes:

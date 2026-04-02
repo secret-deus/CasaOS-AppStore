@@ -5,9 +5,11 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 替换成你的强密码
+      POSTGRES_PASSWORD: abc123
       POSTGRES_DB: linkwarden
       TZ: $TZ
+    networks:
+      - linkwarden-net
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/pgdata
@@ -116,12 +118,14 @@ services:
     container_name: linkwarden-meilisearch
     restart: unless-stopped
     environment:
-      MEILI_MASTER_KEY: 替换成另一串强随机密钥
+      MEILI_MASTER_KEY: kZWvi7wFylRjEnOTnNrNucG3d7c892HlIBtN3Vr8M-0
       MEILI_ENV: production
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/meili_data
         target: /meili_data
+    networks:
+      - linkwarden-net
     x-casaos:
       envs:
         - container: MEILI_MASTER_KEY
@@ -194,218 +198,223 @@ services:
     environment:
       TZ: $TZ
       NEXTAUTH_URL: http://localhost:3000/api/v1/auth
-      NEXTAUTH_SECRET: 替换成一串很长的随机字符串
-      DATABASE_URL: postgresql://postgres:替换成你的强密码@postgres:5432/linkwarden
+      NEXTAUTH_SECRET: abc123
+      DATABASE_URL: postgresql://postgres:abc123@postgres:5432/linkwarden
       STORAGE_FOLDER: /data/data
       MEILI_HOST: http://meilisearch:7700
-      MEILI_MASTER_KEY: 替换成另一串强随机密钥
+      MEILI_MASTER_KEY: kZWvi7wFylRjEnOTnNrNucG3d7c892HlIBtN3Vr8M-0
       NEXT_PUBLIC_DISABLE_REGISTRATION: 'false'
       NEXT_PUBLIC_CREDENTIALS_ENABLED: 'true'
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/data
         target: /data/data
-  x-casaos:
-    envs:
-      - container: TZ
-        description:
-          de_DE: Umgebungsvariable TZ
-          el_GR: Μεταβλητή περιβάλλοντος TZ
-          en_GB: Environment variable TZ
-          en_US: Environment variable TZ
-          fr_FR: Variable d’environnement TZ
-          hr_HR: Varijabla okruženja TZ
-          it_IT: Variabile d’ambiente TZ
-          ja_JP: 環境変数 TZ
-          ko_KR: 환경 변수 TZ
-          nb_NO: Miljøvariabel TZ
-          pt_PT: Variável de ambiente TZ
-          ru_RU: Переменная среды TZ
-          sv_SE: Miljövariabel TZ
-          tr_TR: Ortam değişkeni TZ
-          zh_CN: 环境变量 TZ
+    networks:
+      - linkwarden-net
+    x-casaos:
+      envs:
+        - container: TZ
+          description:
+            de_DE: Umgebungsvariable TZ
+            el_GR: Μεταβλητή περιβάλλοντος TZ
+            en_GB: Environment variable TZ
+            en_US: Environment variable TZ
+            fr_FR: Variable d’environnement TZ
+            hr_HR: Varijabla okruženja TZ
+            it_IT: Variabile d’ambiente TZ
+            ja_JP: 環境変数 TZ
+            ko_KR: 환경 변수 TZ
+            nb_NO: Miljøvariabel TZ
+            pt_PT: Variável de ambiente TZ
+            ru_RU: Переменная среды TZ
+            sv_SE: Miljövariabel TZ
+            tr_TR: Ortam değişkeni TZ
+            zh_CN: 环境变量 TZ
 
-      - container: NEXTAUTH_URL
-        description:
-          de_DE: Umgebungsvariable NEXTAUTH_URL
-          el_GR: Μεταβλητή περιβάλλοντος NEXTAUTH_URL
-          en_GB: Environment variable NEXTAUTH_URL
-          en_US: Environment variable NEXTAUTH_URL
-          fr_FR: Variable d’environnement NEXTAUTH_URL
-          hr_HR: Varijabla okruženja NEXTAUTH_URL
-          it_IT: Variabile d’ambiente NEXTAUTH_URL
-          ja_JP: 環境変数 NEXTAUTH_URL
-          ko_KR: 환경 변수 NEXTAUTH_URL
-          nb_NO: Miljøvariabel NEXTAUTH_URL
-          pt_PT: Variável de ambiente NEXTAUTH_URL
-          ru_RU: Переменная среды NEXTAUTH_URL
-          sv_SE: Miljövariabel NEXTAUTH_URL
-          tr_TR: Ortam değişkeni NEXTAUTH_URL
-          zh_CN: 环境变量 NEXTAUTH_URL
+        - container: NEXTAUTH_URL
+          description:
+            de_DE: Umgebungsvariable NEXTAUTH_URL
+            el_GR: Μεταβλητή περιβάλλοντος NEXTAUTH_URL
+            en_GB: Environment variable NEXTAUTH_URL
+            en_US: Environment variable NEXTAUTH_URL
+            fr_FR: Variable d’environnement NEXTAUTH_URL
+            hr_HR: Varijabla okruženja NEXTAUTH_URL
+            it_IT: Variabile d’ambiente NEXTAUTH_URL
+            ja_JP: 環境変数 NEXTAUTH_URL
+            ko_KR: 환경 변수 NEXTAUTH_URL
+            nb_NO: Miljøvariabel NEXTAUTH_URL
+            pt_PT: Variável de ambiente NEXTAUTH_URL
+            ru_RU: Переменная среды NEXTAUTH_URL
+            sv_SE: Miljövariabel NEXTAUTH_URL
+            tr_TR: Ortam değişkeni NEXTAUTH_URL
+            zh_CN: 环境变量 NEXTAUTH_URL
 
-      - container: NEXTAUTH_SECRET
-        description:
-          de_DE: Umgebungsvariable NEXTAUTH_SECRET
-          el_GR: Μεταβλητή περιβάλλοντος NEXTAUTH_SECRET
-          en_GB: Environment variable NEXTAUTH_SECRET
-          en_US: Environment variable NEXTAUTH_SECRET
-          fr_FR: Variable d’environnement NEXTAUTH_SECRET
-          hr_HR: Varijabla okruženja NEXTAUTH_SECRET
-          it_IT: Variabile d’ambiente NEXTAUTH_SECRET
-          ja_JP: 環境変数 NEXTAUTH_SECRET
-          ko_KR: 환경 변수 NEXTAUTH_SECRET
-          nb_NO: Miljøvariabel NEXTAUTH_SECRET
-          pt_PT: Variável de ambiente NEXTAUTH_SECRET
-          ru_RU: Переменная среды NEXTAUTH_SECRET
-          sv_SE: Miljövariabel NEXTAUTH_SECRET
-          tr_TR: Ortam değişkeni NEXTAUTH_SECRET
-          zh_CN: 环境变量 NEXTAUTH_SECRET
+        - container: NEXTAUTH_SECRET
+          description:
+            de_DE: Umgebungsvariable NEXTAUTH_SECRET
+            el_GR: Μεταβλητή περιβάλλοντος NEXTAUTH_SECRET
+            en_GB: Environment variable NEXTAUTH_SECRET
+            en_US: Environment variable NEXTAUTH_SECRET
+            fr_FR: Variable d’environnement NEXTAUTH_SECRET
+            hr_HR: Varijabla okruženja NEXTAUTH_SECRET
+            it_IT: Variabile d’ambiente NEXTAUTH_SECRET
+            ja_JP: 環境変数 NEXTAUTH_SECRET
+            ko_KR: 환경 변수 NEXTAUTH_SECRET
+            nb_NO: Miljøvariabel NEXTAUTH_SECRET
+            pt_PT: Variável de ambiente NEXTAUTH_SECRET
+            ru_RU: Переменная среды NEXTAUTH_SECRET
+            sv_SE: Miljövariabel NEXTAUTH_SECRET
+            tr_TR: Ortam değişkeni NEXTAUTH_SECRET
+            zh_CN: 环境变量 NEXTAUTH_SECRET
 
-      - container: DATABASE_URL
-        description:
-          de_DE: Umgebungsvariable DATABASE_URL
-          el_GR: Μεταβλητή περιβάλλοντος DATABASE_URL
-          en_GB: Environment variable DATABASE_URL
-          en_US: Environment variable DATABASE_URL
-          fr_FR: Variable d’environnement DATABASE_URL
-          hr_HR: Varijabla okruženja DATABASE_URL
-          it_IT: Variabile d’ambiente DATABASE_URL
-          ja_JP: 環境変数 DATABASE_URL
-          ko_KR: 환경 변수 DATABASE_URL
-          nb_NO: Miljøvariabel DATABASE_URL
-          pt_PT: Variável de ambiente DATABASE_URL
-          ru_RU: Переменная среды DATABASE_URL
-          sv_SE: Miljövariabel DATABASE_URL
-          tr_TR: Ortam değişkeni DATABASE_URL
-          zh_CN: 环境变量 DATABASE_URL
+        - container: DATABASE_URL
+          description:
+            de_DE: Umgebungsvariable DATABASE_URL
+            el_GR: Μεταβλητή περιβάλλοντος DATABASE_URL
+            en_GB: Environment variable DATABASE_URL
+            en_US: Environment variable DATABASE_URL
+            fr_FR: Variable d’environnement DATABASE_URL
+            hr_HR: Varijabla okruženja DATABASE_URL
+            it_IT: Variabile d’ambiente DATABASE_URL
+            ja_JP: 環境変数 DATABASE_URL
+            ko_KR: 환경 변수 DATABASE_URL
+            nb_NO: Miljøvariabel DATABASE_URL
+            pt_PT: Variável de ambiente DATABASE_URL
+            ru_RU: Переменная среды DATABASE_URL
+            sv_SE: Miljövariabel DATABASE_URL
+            tr_TR: Ortam değişkeni DATABASE_URL
+            zh_CN: 环境变量 DATABASE_URL
 
-      - container: STORAGE_FOLDER
-        description:
-          de_DE: Umgebungsvariable STORAGE_FOLDER
-          el_GR: Μεταβλητή περιβάλλοντος STORAGE_FOLDER
-          en_GB: Environment variable STORAGE_FOLDER
-          en_US: Environment variable STORAGE_FOLDER
-          fr_FR: Variable d’environnement STORAGE_FOLDER
-          hr_HR: Varijabla okruženja STORAGE_FOLDER
-          it_IT: Variabile d’ambiente STORAGE_FOLDER
-          ja_JP: 環境変数 STORAGE_FOLDER
-          ko_KR: 환경 변수 STORAGE_FOLDER
-          nb_NO: Miljøvariabel STORAGE_FOLDER
-          pt_PT: Variável de ambiente STORAGE_FOLDER
-          ru_RU: Переменная среды STORAGE_FOLDER
-          sv_SE: Miljövariabel STORAGE_FOLDER
-          tr_TR: Ortam değişkeni STORAGE_FOLDER
-          zh_CN: 环境变量 STORAGE_FOLDER
+        - container: STORAGE_FOLDER
+          description:
+            de_DE: Umgebungsvariable STORAGE_FOLDER
+            el_GR: Μεταβλητή περιβάλλοντος STORAGE_FOLDER
+            en_GB: Environment variable STORAGE_FOLDER
+            en_US: Environment variable STORAGE_FOLDER
+            fr_FR: Variable d’environnement STORAGE_FOLDER
+            hr_HR: Varijabla okruženja STORAGE_FOLDER
+            it_IT: Variabile d’ambiente STORAGE_FOLDER
+            ja_JP: 環境変数 STORAGE_FOLDER
+            ko_KR: 환경 변수 STORAGE_FOLDER
+            nb_NO: Miljøvariabel STORAGE_FOLDER
+            pt_PT: Variável de ambiente STORAGE_FOLDER
+            ru_RU: Переменная среды STORAGE_FOLDER
+            sv_SE: Miljövariabel STORAGE_FOLDER
+            tr_TR: Ortam değişkeni STORAGE_FOLDER
+            zh_CN: 环境变量 STORAGE_FOLDER
 
-      - container: MEILI_HOST
-        description:
-          de_DE: Umgebungsvariable MEILI_HOST
-          el_GR: Μεταβλητή περιβάλλοντος MEILI_HOST
-          en_GB: Environment variable MEILI_HOST
-          en_US: Environment variable MEILI_HOST
-          fr_FR: Variable d’environnement MEILI_HOST
-          hr_HR: Varijabla okruženja MEILI_HOST
-          it_IT: Variabile d’ambiente MEILI_HOST
-          ja_JP: 環境変数 MEILI_HOST
-          ko_KR: 환경 변수 MEILI_HOST
-          nb_NO: Miljøvariabel MEILI_HOST
-          pt_PT: Variável de ambiente MEILI_HOST
-          ru_RU: Переменная среды MEILI_HOST
-          sv_SE: Miljövariabel MEILI_HOST
-          tr_TR: Ortam değişkeni MEILI_HOST
-          zh_CN: 环境变量 MEILI_HOST
+        - container: MEILI_HOST
+          description:
+            de_DE: Umgebungsvariable MEILI_HOST
+            el_GR: Μεταβλητή περιβάλλοντος MEILI_HOST
+            en_GB: Environment variable MEILI_HOST
+            en_US: Environment variable MEILI_HOST
+            fr_FR: Variable d’environnement MEILI_HOST
+            hr_HR: Varijabla okruženja MEILI_HOST
+            it_IT: Variabile d’ambiente MEILI_HOST
+            ja_JP: 環境変数 MEILI_HOST
+            ko_KR: 환경 변수 MEILI_HOST
+            nb_NO: Miljøvariabel MEILI_HOST
+            pt_PT: Variável de ambiente MEILI_HOST
+            ru_RU: Переменная среды MEILI_HOST
+            sv_SE: Miljövariabel MEILI_HOST
+            tr_TR: Ortam değişkeni MEILI_HOST
+            zh_CN: 环境变量 MEILI_HOST
 
-      - container: MEILI_MASTER_KEY
-        description:
-          de_DE: Umgebungsvariable MEILI_MASTER_KEY
-          el_GR: Μεταβλητή περιβάλλοντος MEILI_MASTER_KEY
-          en_GB: Environment variable MEILI_MASTER_KEY
-          en_US: Environment variable MEILI_MASTER_KEY
-          fr_FR: Variable d’environnement MEILI_MASTER_KEY
-          hr_HR: Varijabla okruženja MEILI_MASTER_KEY
-          it_IT: Variabile d’ambiente MEILI_MASTER_KEY
-          ja_JP: 環境変数 MEILI_MASTER_KEY
-          ko_KR: 환경 변수 MEILI_MASTER_KEY
-          nb_NO: Miljøvariabel MEILI_MASTER_KEY
-          pt_PT: Variável de ambiente MEILI_MASTER_KEY
-          ru_RU: Переменная среды MEILI_MASTER_KEY
-          sv_SE: Miljövariabel MEILI_MASTER_KEY
-          tr_TR: Ortam değişkeni MEILI_MASTER_KEY
-          zh_CN: 环境变量 MEILI_MASTER_KEY
+        - container: MEILI_MASTER_KEY
+          description:
+            de_DE: Umgebungsvariable MEILI_MASTER_KEY
+            el_GR: Μεταβλητή περιβάλλοντος MEILI_MASTER_KEY
+            en_GB: Environment variable MEILI_MASTER_KEY
+            en_US: Environment variable MEILI_MASTER_KEY
+            fr_FR: Variable d’environnement MEILI_MASTER_KEY
+            hr_HR: Varijabla okruženja MEILI_MASTER_KEY
+            it_IT: Variabile d’ambiente MEILI_MASTER_KEY
+            ja_JP: 環境変数 MEILI_MASTER_KEY
+            ko_KR: 환경 변수 MEILI_MASTER_KEY
+            nb_NO: Miljøvariabel MEILI_MASTER_KEY
+            pt_PT: Variável de ambiente MEILI_MASTER_KEY
+            ru_RU: Переменная среды MEILI_MASTER_KEY
+            sv_SE: Miljövariabel MEILI_MASTER_KEY
+            tr_TR: Ortam değişkeni MEILI_MASTER_KEY
+            zh_CN: 环境变量 MEILI_MASTER_KEY
 
-      - container: NEXT_PUBLIC_DISABLE_REGISTRATION
-        description:
-          de_DE: Umgebungsvariable NEXT_PUBLIC_DISABLE_REGISTRATION
-          el_GR: Μεταβλητή περιβάλλοντος NEXT_PUBLIC_DISABLE_REGISTRATION
-          en_GB: Environment variable NEXT_PUBLIC_DISABLE_REGISTRATION
-          en_US: Environment variable NEXT_PUBLIC_DISABLE_REGISTRATION
-          fr_FR: Variable d’environnement NEXT_PUBLIC_DISABLE_REGISTRATION
-          hr_HR: Varijabla okruženja NEXT_PUBLIC_DISABLE_REGISTRATION
-          it_IT: Variabile d’ambiente NEXT_PUBLIC_DISABLE_REGISTRATION
-          ja_JP: 環境変数 NEXT_PUBLIC_DISABLE_REGISTRATION
-          ko_KR: 환경 변수 NEXT_PUBLIC_DISABLE_REGISTRATION
-          nb_NO: Miljøvariabel NEXT_PUBLIC_DISABLE_REGISTRATION
-          pt_PT: Variável de ambiente NEXT_PUBLIC_DISABLE_REGISTRATION
-          ru_RU: Переменная среды NEXT_PUBLIC_DISABLE_REGISTRATION
-          sv_SE: Miljövariabel NEXT_PUBLIC_DISABLE_REGISTRATION
-          tr_TR: Ortam değişkeni NEXT_PUBLIC_DISABLE_REGISTRATION
-          zh_CN: 环境变量 NEXT_PUBLIC_DISABLE_REGISTRATION
+        - container: NEXT_PUBLIC_DISABLE_REGISTRATION
+          description:
+            de_DE: Umgebungsvariable NEXT_PUBLIC_DISABLE_REGISTRATION
+            el_GR: Μεταβλητή περιβάλλοντος NEXT_PUBLIC_DISABLE_REGISTRATION
+            en_GB: Environment variable NEXT_PUBLIC_DISABLE_REGISTRATION
+            en_US: Environment variable NEXT_PUBLIC_DISABLE_REGISTRATION
+            fr_FR: Variable d’environnement NEXT_PUBLIC_DISABLE_REGISTRATION
+            hr_HR: Varijabla okruženja NEXT_PUBLIC_DISABLE_REGISTRATION
+            it_IT: Variabile d’ambiente NEXT_PUBLIC_DISABLE_REGISTRATION
+            ja_JP: 環境変数 NEXT_PUBLIC_DISABLE_REGISTRATION
+            ko_KR: 환경 변수 NEXT_PUBLIC_DISABLE_REGISTRATION
+            nb_NO: Miljøvariabel NEXT_PUBLIC_DISABLE_REGISTRATION
+            pt_PT: Variável de ambiente NEXT_PUBLIC_DISABLE_REGISTRATION
+            ru_RU: Переменная среды NEXT_PUBLIC_DISABLE_REGISTRATION
+            sv_SE: Miljövariabel NEXT_PUBLIC_DISABLE_REGISTRATION
+            tr_TR: Ortam değişkeni NEXT_PUBLIC_DISABLE_REGISTRATION
+            zh_CN: 环境变量 NEXT_PUBLIC_DISABLE_REGISTRATION
 
-      - container: NEXT_PUBLIC_CREDENTIALS_ENABLED
-        description:
-          de_DE: Umgebungsvariable NEXT_PUBLIC_CREDENTIALS_ENABLED
-          el_GR: Μεταβλητή περιβάλλοντος NEXT_PUBLIC_CREDENTIALS_ENABLED
-          en_GB: Environment variable NEXT_PUBLIC_CREDENTIALS_ENABLED
-          en_US: Environment variable NEXT_PUBLIC_CREDENTIALS_ENABLED
-          fr_FR: Variable d’environnement NEXT_PUBLIC_CREDENTIALS_ENABLED
-          hr_HR: Varijabla okruženja NEXT_PUBLIC_CREDENTIALS_ENABLED
-          it_IT: Variabile d’ambiente NEXT_PUBLIC_CREDENTIALS_ENABLED
-          ja_JP: 環境変数 NEXT_PUBLIC_CREDENTIALS_ENABLED
-          ko_KR: 환경 변수 NEXT_PUBLIC_CREDENTIALS_ENABLED
-          nb_NO: Miljøvariabel NEXT_PUBLIC_CREDENTIALS_ENABLED
-          pt_PT: Variável de ambiente NEXT_PUBLIC_CREDENTIALS_ENABLED
-          ru_RU: Переменная среды NEXT_PUBLIC_CREDENTIALS_ENABLED
-          sv_SE: Miljövariabel NEXT_PUBLIC_CREDENTIALS_ENABLED
-          tr_TR: Ortam değişkeni NEXT_PUBLIC_CREDENTIALS_ENABLED
-          zh_CN: 环境变量 NEXT_PUBLIC_CREDENTIALS_ENABLED
+        - container: NEXT_PUBLIC_CREDENTIALS_ENABLED
+          description:
+            de_DE: Umgebungsvariable NEXT_PUBLIC_CREDENTIALS_ENABLED
+            el_GR: Μεταβλητή περιβάλλοντος NEXT_PUBLIC_CREDENTIALS_ENABLED
+            en_GB: Environment variable NEXT_PUBLIC_CREDENTIALS_ENABLED
+            en_US: Environment variable NEXT_PUBLIC_CREDENTIALS_ENABLED
+            fr_FR: Variable d’environnement NEXT_PUBLIC_CREDENTIALS_ENABLED
+            hr_HR: Varijabla okruženja NEXT_PUBLIC_CREDENTIALS_ENABLED
+            it_IT: Variabile d’ambiente NEXT_PUBLIC_CREDENTIALS_ENABLED
+            ja_JP: 環境変数 NEXT_PUBLIC_CREDENTIALS_ENABLED
+            ko_KR: 환경 변수 NEXT_PUBLIC_CREDENTIALS_ENABLED
+            nb_NO: Miljøvariabel NEXT_PUBLIC_CREDENTIALS_ENABLED
+            pt_PT: Variável de ambiente NEXT_PUBLIC_CREDENTIALS_ENABLED
+            ru_RU: Переменная среды NEXT_PUBLIC_CREDENTIALS_ENABLED
+            sv_SE: Miljövariabel NEXT_PUBLIC_CREDENTIALS_ENABLED
+            tr_TR: Ortam değişkeni NEXT_PUBLIC_CREDENTIALS_ENABLED
+            zh_CN: 环境变量 NEXT_PUBLIC_CREDENTIALS_ENABLED
 
-    ports:
-      - container: "3000"
-        description:
-          de_DE: Port 3000
-          el_GR: Θύρα 3000
-          en_GB: Port 3000
-          en_US: Port 3000
-          fr_FR: Port 3000
-          hr_HR: Priključak 3000
-          it_IT: Porta 3000
-          ja_JP: ポート 3000
-          ko_KR: 포트 3000
-          nb_NO: Port 3000
-          pt_PT: Porta 3000
-          ru_RU: Порт 3000
-          sv_SE: Port 3000
-          tr_TR: Bağlantı noktası 3000
-          zh_CN: 端口 3000
+      ports:
+        - container: "3000"
+          description:
+            de_DE: Port 3000
+            el_GR: Θύρα 3000
+            en_GB: Port 3000
+            en_US: Port 3000
+            fr_FR: Port 3000
+            hr_HR: Priključak 3000
+            it_IT: Porta 3000
+            ja_JP: ポート 3000
+            ko_KR: 포트 3000
+            nb_NO: Port 3000
+            pt_PT: Porta 3000
+            ru_RU: Порт 3000
+            sv_SE: Port 3000
+            tr_TR: Bağlantı noktası 3000
+            zh_CN: 端口 3000
 
-    volumes:
-      - container: /data/data
-        description:
-          de_DE: Datenvolumen /data/data
-          el_GR: Τόμος δεδομένων /data/data
-          en_GB: Data volume /data/data
-          en_US: Data volume /data/data
-          fr_FR: Volume de données /data/data
-          hr_HR: Podatkovni volumen /data/data
-          it_IT: Volume dati /data/data
-          ja_JP: データボリューム /data/data
-          ko_KR: 데이터 볼륨 /data/data
-          nb_NO: Datavolum /data/data
-          pt_PT: Volume de dados /data/data
-          ru_RU: Том данных /data/data
-          sv_SE: Datavolym /data/data
-          tr_TR: Veri birimi /data/data
-          zh_CN: 数据卷 /data/data
+      volumes:
+        - container: /data/data
+          description:
+            de_DE: Datenvolumen /data/data
+            el_GR: Τόμος δεδομένων /data/data
+            en_GB: Data volume /data/data
+            en_US: Data volume /data/data
+            fr_FR: Volume de données /data/data
+            hr_HR: Podatkovni volumen /data/data
+            it_IT: Volume dati /data/data
+            ja_JP: データボリューム /data/data
+            ko_KR: 데이터 볼륨 /data/data
+            nb_NO: Datavolum /data/data
+            pt_PT: Volume de dados /data/data
+            ru_RU: Том данных /data/data
+            sv_SE: Datavolym /data/data
+            tr_TR: Veri birimi /data/data
+            zh_CN: 数据卷 /data/data
+networks:
+  linkwarden-net:
+    driver: bridge
 name: linkwarden
 x-casaos:
   title:
