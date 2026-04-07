@@ -1,122 +1,7 @@
 services:
-  postgres:
-    image: postgres:14
-    container_name: blinko-postgres
-    restart: always
-    environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: JWD9bxUR7Um9PaGg7FQZ
-      TZ: $TZ
-    networks:
-      - blinko-net
-    volumes:
-      - type: bind
-        source: /DATA/AppData/$AppID/postgres_data
-        target: /var/lib/postgresql/data
-    healthcheck:
-      test:
-        - CMD
-        - pg_isready
-        - -U
-        - postgres
-        - -d
-        - postgres
-      interval: 5s
-      timeout: 10s
-      retries: 5
-    x-casaos:
-      envs:
-        - container: POSTGRES_DB
-          description:
-            de_DE: Name der zu erstellenden und zu verwendenden PostgreSQL-Datenbank
-            el_GR: Το όνομα της βάσης δεδομένων PostgreSQL που θα δημιουργηθεί και θα χρησιμοποιηθεί
-            en_GB: Name of the PostgreSQL database to create and use
-            en_US: Name of the PostgreSQL database to create and use
-            fr_FR: Nom de la base de données PostgreSQL à créer et utiliser
-            hr_HR: Ime baze podataka PostgreSQL-a koju treba stvoriti i koristiti
-            it_IT: Nome del database PostgreSQL da creare e utilizzare
-            ja_JP: 作成して使用する PostgreSQL データベースの名前
-            ko_KR: PostgreSQL 데이터베이스를 생성하고 사용할 이름
-            nb_NO: Navnet på PostgreSQL-databasen som skal opprettes og brukes
-            pt_PT: Nome da base de dados PostgreSQL a criar e utilizar
-            ru_RU: Имя базы данных PostgreSQL для создания и использования
-            sv_SE: Namnet på den PostgreSQL-databas som ska skapas och användas
-            tr_TR: PostgreSQL veritabanı oluşturulacak ve kullanılacak ad
-            zh_CN: 要创建并使用的 PostgreSQL 数据库名称
-        - container: POSTGRES_USER
-          description:
-            de_DE: PostgreSQL-Datenbankbenutzer für die Authentifizierung
-            el_GR: Χρήστης βάσης δεδομένων PostgreSQL για πιστοποίηση
-            en_GB: PostgreSQL database user for authentication
-            en_US: PostgreSQL database user for authentication
-            fr_FR: Utilisateur de base de données PostgreSQL pour l'authentification
-            hr_HR: Baza podataka PostgreSQL korisnik za autentifikaciju
-            it_IT: Utente del database PostgreSQL per l'autenticazione
-            ja_JP: PostgreSQL データベースユーザーの認証用
-            ko_KR: PostgreSQL 데이터베이스 사용자를 인증을 위한
-            nb_NO: Bruker for PostgreSQL-databasen til autentisering
-            pt_PT: Utilizador da base de dados PostgreSQL para autenticação
-            ru_RU: Пользователь базы данных PostgreSQL для аутентификации
-            sv_SE: Användare för databas PostgreSQL för autentisering
-            tr_TR: PostgreSQL veritabanı kullanıcısı kimlik doğrulama için
-            zh_CN: PostgreSQL 数据库用户用于身份验证
-        - container: POSTGRES_PASSWORD
-          description:
-            de_DE: PostgreSQL-Datenbankbenutzerpasswort für die Authentifizierung
-            el_GR: Λέξη κωδικού χρήστη βάσης δεδομένων PostgreSQL για πιστοποίηση
-            en_GB: PostgreSQL database user password for authentication
-            en_US: PostgreSQL database user password for authentication
-            fr_FR: Mot de passe utilisateur de la base de données PostgreSQL pour l'authentification
-            hr_HR: Lozinka korisnika baze podataka PostgreSQL za autentifikaciju
-            it_IT: Password dell'utente del database PostgreSQL per l'autenticazione
-            ja_JP: PostgreSQL データベースユーザーのパスワード（認証用）
-            ko_KR: PostgreSQL 데이터베이스 사용자 비밀번호 인증
-            nb_NO: Passord for PostgreSQL-databasbruker for autentisering
-            pt_PT: Palavra-passe do utilizador da base de dados PostgreSQL para autenticação
-            ru_RU: Пароль пользователя базы данных PostgreSQL для аутентификации
-            sv_SE: Lösenord för användare i PostgreSQL-databasen för autentisering
-            tr_TR: PostgreSQL veritabanı kullanıcı şifresi kimlik doğrulama için
-            zh_CN: PostgreSQL 数据库用户密码用于身份验证
-        - container: TZ
-          description:
-            de_DE: Zeitzone-Einstellung für den PostgreSQL-Server
-            el_GR: Ρύθμιση ζώνης ώρας για τον δίαυλο PostgreSQL
-            en_GB: Timezone setting for the PostgreSQL server
-            en_US: Timezone setting for the PostgreSQL server
-            fr_FR: Paramétrage de la zone horaire pour le serveur PostgreSQL
-            hr_HR: PostgreSQL server postavka vremenske zone
-            it_IT: Impostazione del fuso orario per il server PostgreSQL
-            ja_JP: PostgreSQL サーバーのタイムゾーン設定
-            ko_KR: PostgreSQL 서버의 시간대 설정
-            nb_NO: Tidsoneinnstilling for PostgreSQL-serveren
-            pt_PT: Definição da zona horária para o servidor PostgreSQL
-            ru_RU: Настройка часового пояса для сервера PostgreSQL
-            sv_SE: Inställning av tidszon för PostgreSQL-servern
-            tr_TR: PostgreSQL sunucu için zaman dilimi ayarı
-            zh_CN: PostgreSQL 服务器的时区设置
-      ports: []
-      volumes:
-        - container: /var/lib/postgresql/data
-          description:
-            de_DE: PostgreSQL-Datenspeicher für persistente Datenbank-Speicherung
-            el_GR: Διεύθυνση καταλόγου δεδομένων PostgreSQL για μόνιμη αποθήκευση βάσης δεδομένων
-            en_GB: PostgreSQL data directory for persistent database storage
-            en_US: PostgreSQL data directory for persistent database storage
-            fr_FR: Répertoire de données PostgreSQL pour le stockage persistant de la base de données
-            hr_HR: PostgreSQL direktorij podataka za trajno pohranjivanje baze podataka
-            it_IT: Directory dei dati PostgreSQL per l'archiviazione persistente del database
-            ja_JP: PostgreSQL データディレクトリ（永続的なデータベースストレージ用）
-            ko_KR: PostgreSQL 데이터 디렉토리는 영구적인 데이터베이스 저장에 사용됩니다.
-            nb_NO: PostgreSQL-datakatalog for varig lagring av databaser
-            pt_PT: Diretório de dados do PostgreSQL para armazenamento persistente de base de dados
-            ru_RU: Каталог данных PostgreSQL для постоянного хранения базы данных
-            sv_SE: PostgreSQL-datakatalog för permanent lagring av databaser
-            tr_TR: PostgreSQL veri dizini kalıcı veritabanı depolama için
-            zh_CN: PostgreSQL 数据目录用于持久化数据库存储
   blinko:
     image: blinkospace/blinko:1.8.6
-    container_name: blinko-website
+    container_name: blinko
     restart: always
     networks:
       - blinko-net
@@ -264,6 +149,120 @@ services:
             sv_SE: Data för Blinko-appen, uppladdningar och konfigurationsfiler
             tr_TR: Blinko uygulama verileri, yüklemeleri ve yapılandırma dosyaları
             zh_CN: Blinko 应用程序数据、上传文件和配置文件
+  postgres:
+    image: postgres:14
+    container_name: blinko-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: JWD9bxUR7Um9PaGg7FQZ
+      TZ: $TZ
+    networks:
+      - blinko-net
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/postgres_data
+        target: /var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD
+        - pg_isready
+        - -U
+        - postgres
+        - -d
+        - postgres
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    x-casaos:
+      envs:
+        - container: POSTGRES_DB
+          description:
+            de_DE: Name der zu erstellenden und zu verwendenden PostgreSQL-Datenbank
+            el_GR: Το όνομα της βάσης δεδομένων PostgreSQL που θα δημιουργηθεί και θα χρησιμοποιηθεί
+            en_GB: Name of the PostgreSQL database to create and use
+            en_US: Name of the PostgreSQL database to create and use
+            fr_FR: Nom de la base de données PostgreSQL à créer et utiliser
+            hr_HR: Ime baze podataka PostgreSQL-a koju treba stvoriti i koristiti
+            it_IT: Nome del database PostgreSQL da creare e utilizzare
+            ja_JP: 作成して使用する PostgreSQL データベースの名前
+            ko_KR: PostgreSQL 데이터베이스를 생성하고 사용할 이름
+            nb_NO: Navnet på PostgreSQL-databasen som skal opprettes og brukes
+            pt_PT: Nome da base de dados PostgreSQL a criar e utilizar
+            ru_RU: Имя базы данных PostgreSQL для создания и использования
+            sv_SE: Namnet på den PostgreSQL-databas som ska skapas och användas
+            tr_TR: PostgreSQL veritabanı oluşturulacak ve kullanılacak ad
+            zh_CN: 要创建并使用的 PostgreSQL 数据库名称
+        - container: POSTGRES_USER
+          description:
+            de_DE: PostgreSQL-Datenbankbenutzer für die Authentifizierung
+            el_GR: Χρήστης βάσης δεδομένων PostgreSQL για πιστοποίηση
+            en_GB: PostgreSQL database user for authentication
+            en_US: PostgreSQL database user for authentication
+            fr_FR: Utilisateur de base de données PostgreSQL pour l'authentification
+            hr_HR: Baza podataka PostgreSQL korisnik za autentifikaciju
+            it_IT: Utente del database PostgreSQL per l'autenticazione
+            ja_JP: PostgreSQL データベースユーザーの認証用
+            ko_KR: PostgreSQL 데이터베이스 사용자를 인증을 위한
+            nb_NO: Bruker for PostgreSQL-databasen til autentisering
+            pt_PT: Utilizador da base de dados PostgreSQL para autenticação
+            ru_RU: Пользователь базы данных PostgreSQL для аутентификации
+            sv_SE: Användare för databas PostgreSQL för autentisering
+            tr_TR: PostgreSQL veritabanı kullanıcısı kimlik doğrulama için
+            zh_CN: PostgreSQL 数据库用户用于身份验证
+        - container: POSTGRES_PASSWORD
+          description:
+            de_DE: PostgreSQL-Datenbankbenutzerpasswort für die Authentifizierung
+            el_GR: Λέξη κωδικού χρήστη βάσης δεδομένων PostgreSQL για πιστοποίηση
+            en_GB: PostgreSQL database user password for authentication
+            en_US: PostgreSQL database user password for authentication
+            fr_FR: Mot de passe utilisateur de la base de données PostgreSQL pour l'authentification
+            hr_HR: Lozinka korisnika baze podataka PostgreSQL za autentifikaciju
+            it_IT: Password dell'utente del database PostgreSQL per l'autenticazione
+            ja_JP: PostgreSQL データベースユーザーのパスワード（認証用）
+            ko_KR: PostgreSQL 데이터베이스 사용자 비밀번호 인증
+            nb_NO: Passord for PostgreSQL-databasbruker for autentisering
+            pt_PT: Palavra-passe do utilizador da base de dados PostgreSQL para autenticação
+            ru_RU: Пароль пользователя базы данных PostgreSQL для аутентификации
+            sv_SE: Lösenord för användare i PostgreSQL-databasen för autentisering
+            tr_TR: PostgreSQL veritabanı kullanıcı şifresi kimlik doğrulama için
+            zh_CN: PostgreSQL 数据库用户密码用于身份验证
+        - container: TZ
+          description:
+            de_DE: Zeitzone-Einstellung für den PostgreSQL-Server
+            el_GR: Ρύθμιση ζώνης ώρας για τον δίαυλο PostgreSQL
+            en_GB: Timezone setting for the PostgreSQL server
+            en_US: Timezone setting for the PostgreSQL server
+            fr_FR: Paramétrage de la zone horaire pour le serveur PostgreSQL
+            hr_HR: PostgreSQL server postavka vremenske zone
+            it_IT: Impostazione del fuso orario per il server PostgreSQL
+            ja_JP: PostgreSQL サーバーのタイムゾーン設定
+            ko_KR: PostgreSQL 서버의 시간대 설정
+            nb_NO: Tidsoneinnstilling for PostgreSQL-serveren
+            pt_PT: Definição da zona horária para o servidor PostgreSQL
+            ru_RU: Настройка часового пояса для сервера PostgreSQL
+            sv_SE: Inställning av tidszon för PostgreSQL-servern
+            tr_TR: PostgreSQL sunucu için zaman dilimi ayarı
+            zh_CN: PostgreSQL 服务器的时区设置
+      volumes:
+        - container: /var/lib/postgresql/data
+          description:
+            de_DE: PostgreSQL-Datenspeicher für persistente Datenbank-Speicherung
+            el_GR: Διεύθυνση καταλόγου δεδομένων PostgreSQL για μόνιμη αποθήκευση βάσης δεδομένων
+            en_GB: PostgreSQL data directory for persistent database storage
+            en_US: PostgreSQL data directory for persistent database storage
+            fr_FR: Répertoire de données PostgreSQL pour le stockage persistant de la base de données
+            hr_HR: PostgreSQL direktorij podataka za trajno pohranjivanje baze podataka
+            it_IT: Directory dei dati PostgreSQL per l'archiviazione persistente del database
+            ja_JP: PostgreSQL データディレクトリ（永続的なデータベースストレージ用）
+            ko_KR: PostgreSQL 데이터 디렉토리는 영구적인 데이터베이스 저장에 사용됩니다.
+            nb_NO: PostgreSQL-datakatalog for varig lagring av databaser
+            pt_PT: Diretório de dados do PostgreSQL para armazenamento persistente de base de dados
+            ru_RU: Каталог данных PostgreSQL для постоянного хранения базы данных
+            sv_SE: PostgreSQL-datakatalog för permanent lagring av databaser
+            tr_TR: PostgreSQL veri dizini kalıcı veritabanı depolama için
+            zh_CN: PostgreSQL 数据目录用于持久化数据库存储
 networks:
   blinko-net:
     driver: bridge
