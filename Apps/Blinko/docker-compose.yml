@@ -2,7 +2,7 @@ services:
   blinko:
     image: blinkospace/blinko:1.8.6
     container_name: blinko
-    restart: always
+    restart: unless-stopped
     networks:
       - blinko-net
     depends_on:
@@ -25,7 +25,7 @@ services:
     logging:
       options:
         max-size: 10m
-        max-file: '3'
+        max-file: "3"
     x-casaos:
       envs:
         - container: NODE_ENV
@@ -149,10 +149,10 @@ services:
             sv_SE: Data för Blinko-appen, uppladdningar och konfigurationsfiler
             tr_TR: Blinko uygulama verileri, yüklemeleri ve yapılandırma dosyaları
             zh_CN: Blinko 应用程序数据、上传文件和配置文件
-  postgres:
+  blinko-postgres:
     image: postgres:14
     container_name: blinko-postgres
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
@@ -571,7 +571,7 @@ x-casaos:
       **了解更多：**
 
       - [Blinko GitHub](https://github.com/blinkospace/blinko)
-  category: AI
+  category: NOTES
   author: blinkospace
   developer: blinkospace
   icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Blinko/icon.png
