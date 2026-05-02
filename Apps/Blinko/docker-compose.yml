@@ -587,3 +587,35 @@ x-casaos:
     - arm64
   index: /
   scheme: http
+  version: "1.8.7"
+  updateAt: "2026-05-02"
+  releaseNotes:
+    en_US: |-
+      ✨ New Features
+      - Add MiniMax as first-class LLM provider (3ada33c)
+
+      🐛 Bug Fixes
+      - Sanitize filenames before path validation to prevent upload 500 errors (#1138) (f7ed24c)
+      - Clear tag filters when resetting search (f995a2e)
+      - Update Turkish translations for various UI elements (9c9d8ad)
+
+      ♻️ Refactors
+      - Streamline search state clearing and URL updates (5795884)
+
+      ✅ Tests
+      - Add integration tests for file upload + fix consecutive dots issue (27ae1df)
+      - Add E2E tests for file upload endpoint (1a8cdcd)
+
+      🔧 Chores
+      - Remove CircleCI config (0799275)
+      - Update version to 1.8.7 (03d48f2)
+
+      🌍 Localization & Other
+      - Rewrite French translation based on English file (4bb3587)
+      - Translation fixes and improvements (087674a, c610a7f)
+      - Add and refine French translations (35d08ec, 3eae5bf, 46e61d9)
+      - Fix typo in English translation for password reset (01047eb)
+  website: https://blinko.space/
+  repo: https://github.com/blinkospace/blinko
+  support:
+  docs: https://docs.blinko.space/

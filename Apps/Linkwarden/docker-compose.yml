@@ -752,3 +752,20 @@ x-casaos:
     - arm64
   index: /
   scheme: http
+  version: "v2.14.1"
+  updateAt: "2026-05-02"
+  releaseNotes:
+    en_US: |-
+      ✨ What's Changed
+      - Added support for serving preserved HTML archives from a separate public hostname to isolate untrusted content from the main Linkwarden app (see "Setting Up a User Content Domain")
+      - Improved UX when selecting tags
+
+      🐛 Bug Fixes
+      - Various bug fixes and stability improvements
+
+      👥 New Contributors
+      - @xiebaiyuan made their first contribution (#1667)
+  website: https://linkwarden.app/
+  repo: https://github.com/linkwarden/linkwarden
+  support:
+  docs: https://docs.linkwarden.app/
