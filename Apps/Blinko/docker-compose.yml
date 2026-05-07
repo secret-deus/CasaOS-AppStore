@@ -2,7 +2,7 @@ services:
   blinko:
     image: blinkospace/blinko:1.8.7
     container_name: blinko
-    restart: always
+    restart: unless-stopped
     networks:
       - blinko-net
     depends_on:

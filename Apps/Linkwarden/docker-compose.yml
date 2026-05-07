@@ -197,9 +197,9 @@ services:
     container_name: linkwarden
     restart: unless-stopped
     depends_on:
-      postgres:
+      linkwarden-postgres:
         condition: service_healthy
-      meilisearch:
+      linkwarden-meilisearch:
         condition: service_started
     ports:
       - target: 3000
