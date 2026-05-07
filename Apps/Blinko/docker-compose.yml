@@ -30,7 +30,6 @@ services:
       resources:
         reservations:
           memory: 512m
-          cpus: '0.2'
     x-casaos:
       envs:
         - container: NODE_ENV
@@ -173,7 +172,6 @@ services:
       resources:
         reservations:
           memory: 256m
-          cpus: '0.2'
     healthcheck:
       test:
         - CMD
