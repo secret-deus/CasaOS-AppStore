@@ -6,9 +6,13 @@ services:
     restart: unless-stopped
     command: gateway run
     ports:
-      - '8642:8642'
+      - target: 8642
+        published: '8642'
+        protocol: tcp
     volumes:
-      - /DATA/AppData/hermes-agent/data:/opt/data
+      - type: bind
+        source: /DATA/AppData/hermes-agent/data
+        target: /opt/data
     networks:
       - hermes-net
     environment:
@@ -17,7 +21,7 @@ services:
     user: root
     deploy:
       resources:
-        limits:
+        reservations:
           memory: 4G
           cpus: '2.0'
     x-casaos:
@@ -98,9 +102,13 @@ services:
     restart: unless-stopped
     command: dashboard --host 0.0.0.0 --insecure
     ports:
-      - '9119:9119'
+      - target: 9119
+        published: '9119'
+        protocol: tcp
     volumes:
-      - /DATA/AppData/hermes-agent/data:/opt/data
+      - type: bind
+        source: /DATA/AppData/hermes-agent/data
+        target: /opt/data
     environment:
       GATEWAY_HEALTH_URL: http://hermes:8642
     networks:
@@ -111,6 +119,9 @@ services:
     deploy:
       resources:
         limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
           memory: 512M
           cpus: '0.5'
     x-casaos:
@@ -340,13 +351,35 @@ x-casaos:
       - Shared persistent storage at /opt/data
       - Optional Telegram bot integration via TELEGRAM_BOT_TOKEN
       - User access toggled with GATEWAY_ALLOW_ALL_USERS
-  category: Utilities
-  author: unknown
-  developer: casaos-gen
   main: hermes
   port_map: '8642'
   scheme: http
   index: /
+  category: Utilities
+  author: unknown
+  developer: casaos-gen
   architectures:
     - amd64
     - arm64
+  version: 1.0.0
+  updateAt: '2026-04-28'
+  releaseNotes:
+    en_US: Initial release.
+    zh_CN: 首次发布。
+    ja_JP: 初回リリース。
+    de_DE: Erstveröffentlichung.
+    fr_FR: Première version.
+    ko_KR: 초기 릴리스입니다.
+    ru_RU: Первый выпуск.
+    it_IT: Prima versione.
+    pt_PT: Lançamento inicial.
+    sv_SE: Första utgåvan.
+    nb_NO: Første utgivelse.
+    tr_TR: İlk sürüm.
+    el_GR: Αρχική έκδοση.
+    hr_HR: Prvo izdanje.
+    en_GB: Initial release.
+  website: ''
+  repo: ''
+  support: ''
+  docs: ''

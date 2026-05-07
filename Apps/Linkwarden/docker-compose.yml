@@ -1,5 +1,5 @@
 services:
-  postgres:
+  linkwarden-postgres:
     image: postgres:16-alpine
     container_name: linkwarden-postgres
     restart: unless-stopped
@@ -21,6 +21,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+    deploy:
+      resources:
+        reservations:
+          memory: 512m
+          cpus: '0.2'
     x-casaos:
       envs:
         - container: POSTGRES_USER
@@ -113,7 +118,7 @@ services:
             sv_SE: Datavolym /var/lib/postgresql/data
             tr_TR: Veri birimi /var/lib/postgresql/data
             zh_CN: 数据卷 /var/lib/postgresql/data
-  meilisearch:
+  linkwarden-meilisearch:
     image: getmeili/meilisearch:v1.12.8
     container_name: linkwarden-meilisearch
     restart: unless-stopped
@@ -126,6 +131,11 @@ services:
         target: /meili_data
     networks:
       - linkwarden-net
+    deploy:
+      resources:
+        reservations:
+          memory: 256m
+          cpus: '0.2'
     x-casaos:
       envs:
         - container: MEILI_MASTER_KEY
@@ -193,15 +203,15 @@ services:
         condition: service_started
     ports:
       - target: 3000
-        published: "3000"
+        published: "3428"
         protocol: tcp
     environment:
       TZ: $TZ
       NEXTAUTH_URL: http://localhost:3000/api/v1/auth
       NEXTAUTH_SECRET: abc123
-      DATABASE_URL: postgresql://postgres:abc123@postgres:5432/linkwarden
+      DATABASE_URL: postgresql://postgres:abc123@linkwarden-postgres:5432/linkwarden
       STORAGE_FOLDER: /data/data
-      MEILI_HOST: http://meilisearch:7700
+      MEILI_HOST: http://linkwarden-meilisearch:7700
       MEILI_MASTER_KEY: kZWvi7wFylRjEnOTnNrNucG3d7c892HlIBtN3Vr8M-0
       NEXT_PUBLIC_DISABLE_REGISTRATION: 'false'
       NEXT_PUBLIC_CREDENTIALS_ENABLED: 'true'
@@ -211,6 +221,11 @@ services:
         target: /data/data
     networks:
       - linkwarden-net
+    deploy:
+      resources:
+        reservations:
+          memory: 512m
+          cpus: '0.2'
     x-casaos:
       envs:
         - container: TZ
@@ -746,7 +761,7 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Linkwarden/screenshot-2.png
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Linkwarden/screenshot-3.png
   main: linkwarden
-  port_map: "3000"
+  port_map: "3428"
   architectures:
     - amd64
     - arm64
