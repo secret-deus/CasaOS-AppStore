@@ -1,3 +1,5 @@
 .idea/
 .DS_Store
 *.bak
+.casaos_gen/
+.casaos-gen/cache.sqlite
