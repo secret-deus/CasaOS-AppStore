@@ -1,6 +1,6 @@
 services:
   linkwarden:
-    image: ghcr.io/linkwarden/linkwarden:v2.14.0
+    image: ghcr.io/linkwarden/linkwarden:v2.14.1
     container_name: linkwarden
     restart: unless-stopped
     depends_on:
@@ -258,7 +258,7 @@ services:
     deploy:
       resources:
         reservations:
-          memory: 512m
+          memory: 256m
     x-casaos:
       envs:
         - container: POSTGRES_USER
@@ -748,7 +748,7 @@ x-casaos:
       **了解更多：**
 
       - [Linkwarden GitHub](https://github.com/linkwarden/linkwarden)
-  category: AI
+  category: Notes
   author: linkwarden
   developer: linkwarden
   icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Linkwarden/icon.png
