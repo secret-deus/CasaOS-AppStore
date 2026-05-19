@@ -1,0 +1,534 @@
+name: invidious
+services:
+  invidious:
+    image: fromxiaobai/invidious:1.0.0
+    container_name: invidious
+    deploy:
+      resources:
+        reservations:
+          memory: 512M
+    restart: unless-stopped
+    networks:
+      - invidious_network
+    depends_on:
+      invidious-db:
+        condition: service_healthy
+        restart: true
+    ports:
+      - target: 3000
+        published: "13455"
+        protocol: tcp
+    environment:
+      INVIDIOUS_CONFIG: |
+        db:
+          dbname: invidious
+          user: kemal
+          password: kemal
+          host: invidious-db
+          port: 5432
+        check_tables: true
+        hmac_key: "sajdfljaskflskladfkasdf"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/v1/trending"]
+      interval: 30s
+      timeout: 5s
+      retries: 2
+    x-casaos:
+      ports:
+        - container: "3000"
+          description:
+            en_US: Invidious Web Interface Port
+            en_GB: Invidious Web Interface Port
+            it_IT: Porta interfaccia web Invidious
+            nb_NO: Invidious webgrensesnittport
+            zh_CN: Invidious Web界面端口
+            ja_JP: Invidious Webインターフェースポート
+            ko_KR: Invidious 웹 인터페이스 포트
+            fr_FR: Port de l'interface web Invidious
+            de_DE: Invidious Web-Oberflächen-Port
+            sv_SE: Invidious webbgränssnittsport
+            el_GR: Θύρα διαδικτυακής διεπαφής Invidious
+            hr_HR: Invidious web sučelje port
+            pt_PT: Porta da Interface Web Invidious
+            ru_RU: Порт веб-интерфейса Invidious
+            tr_TR: Invidious Web Arayüz Portu
+      envs:
+        - container: INVIDIOUS_CONFIG
+          description:
+            en_US: Invidious Configuration Settings
+            en_GB: Invidious Configuration Settings
+            it_IT: Impostazioni di configurazione Invidious
+            nb_NO: Invidious konfigurasjonsinnstillinger
+            zh_CN: Invidious配置设置
+            ja_JP: Invidious設定設定
+            ko_KR: Invidious 구성 설정
+            fr_FR: Paramètres de configuration Invidious
+            de_DE: Invidious-Konfigurationseinstellungen
+            sv_SE: Invidious konfigurationsinställningar
+            el_GR: Ρυθμίσεις διαμόρφωσης Invidious
+            hr_HR: Invidious konfiguracijske postavke
+            pt_PT: Definições de Configuração Invidious
+            ru_RU: Настройки конфигурации Invidious
+            tr_TR: Invidious Yapılandırma Ayarları
+
+  invidious-db:
+    image: fromxiaobai/invidious-db:1.0.0
+    container_name: invidious-db
+    deploy:
+      resources:
+        reservations:
+          memory: 256M
+    restart: unless-stopped
+    networks:
+      - invidious_network
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID
+        target: /var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: invidious
+      POSTGRES_USER: kemal
+      POSTGRES_PASSWORD: kemal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    x-casaos:
+      volumes:
+        - container: /var/lib/postgresql/data
+          description:
+            en_US: PostgreSQL Data Directory
+            en_GB: PostgreSQL Data Directory
+            it_IT: Directory dati PostgreSQL
+            nb_NO: PostgreSQL datakatalog
+            zh_CN: PostgreSQL数据目录
+            ja_JP: PostgreSQLデータディレクトリ
+            ko_KR: PostgreSQL 데이터 디렉토리
+            fr_FR: Répertoire de données PostgreSQL
+            de_DE: PostgreSQL-Datenverzeichnis
+            sv_SE: PostgreSQL datakatalog
+            el_GR: Κατάλογος δεδομένων PostgreSQL
+            hr_HR: PostgreSQL podatkovni direktorij
+            pt_PT: Diretório de Dados PostgreSQL
+            ru_RU: Каталог данных PostgreSQL
+            tr_TR: PostgreSQL Veri Dizini
+      envs:
+        - container: POSTGRES_DB
+          description:
+            en_US: PostgreSQL Database Name
+            en_GB: PostgreSQL Database Name
+            it_IT: Nome database PostgreSQL
+            nb_NO: PostgreSQL databasenavn
+            zh_CN: PostgreSQL数据库名称
+            ja_JP: PostgreSQLデータベース名
+            ko_KR: PostgreSQL 데이터베이스 이름
+            fr_FR: Nom de la base de données PostgreSQL
+            de_DE: PostgreSQL-Datenbankname
+            sv_SE: PostgreSQL databasnamn
+            el_GR: Όνομα βάσης δεδομένων PostgreSQL
+            hr_HR: PostgreSQL naziv baze podataka
+            pt_PT: Nome da Base de Dados PostgreSQL
+            ru_RU: Имя базы данных PostgreSQL
+            tr_TR: PostgreSQL Veritabanı Adı
+        - container: POSTGRES_USER
+          description:
+            en_US: PostgreSQL Username
+            en_GB: PostgreSQL Username
+            it_IT: Nome utente PostgreSQL
+            nb_NO: PostgreSQL brukernavn
+            zh_CN: PostgreSQL用户名
+            ja_JP: PostgreSQLユーザー名
+            ko_KR: PostgreSQL 사용자 이름
+            fr_FR: Nom d'utilisateur PostgreSQL
+            de_DE: PostgreSQL-Benutzername
+            sv_SE: PostgreSQL användarnamn
+            el_GR: Όνομα χρήστη PostgreSQL
+            hr_HR: PostgreSQL korisničko ime
+            pt_PT: Nome de Utilizador PostgreSQL
+            ru_RU: Имя пользователя PostgreSQL
+            tr_TR: PostgreSQL Kullanıcı Adı
+        - container: POSTGRES_PASSWORD
+          description:
+            en_US: PostgreSQL Password
+            en_GB: PostgreSQL Password
+            it_IT: Password PostgreSQL
+            nb_NO: PostgreSQL passord
+            zh_CN: PostgreSQL密码
+            ja_JP: PostgreSQLパスワード
+            ko_KR: PostgreSQL 암호
+            fr_FR: Mot de passe PostgreSQL
+            de_DE: PostgreSQL-Passwort
+            sv_SE: PostgreSQL lösenord
+            el_GR: Κωδικός πρόσβασης PostgreSQL
+            hr_HR: PostgreSQL lozinka
+            pt_PT: Palavra-passe PostgreSQL
+            ru_RU: Пароль PostgreSQL
+            tr_TR: PostgreSQL Parolası
+
+networks:
+  invidious_network:
+    driver: bridge
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  main: invidious
+  category: Media
+  developer: iv-org
+  author: iv-org
+  tagline:
+    en_US: Open source YouTube frontend
+    en_GB: Open source YouTube frontend
+    it_IT: Frontend YouTube open source
+    nb_NO: Åpen kildekode YouTube frontend
+    zh_CN: 开源YouTube前端
+    ja_JP: オープンソースYouTubeフロントエンド
+    ko_KR: 오픈 소스 YouTube 프론트엔드
+    fr_FR: Frontend YouTube open source
+    de_DE: Open-Source-YouTube-Frontend
+    sv_SE: Open source YouTube frontend
+    el_GR: Open source frontend για το YouTube
+    hr_HR: Open source YouTube frontend
+    pt_PT: Frontend YouTube de código aberto
+    ru_RU: Открытый фронтенд для YouTube
+    tr_TR: Açık kaynaklı YouTube ön yüzü
+  description:
+    en_US: |
+      Invidious is an open source alternative frontend to YouTube. It provides a privacy-focused, ad-free experience for watching YouTube videos without tracking or invasive data collection. The interface is lightweight and fast, designed to give users control over their viewing experience.
+      
+      The system consists of two main components:
+      - **Invidious**: The main application providing the web interface and video streaming capabilities
+      - **PostgreSQL**: A robust database system for storing user data, preferences, and video metadata
+      
+      **Key Features:**
+      - Privacy-focused YouTube browsing without tracking
+      - Ad-free video streaming experience
+      - Lightweight and fast interface
+      - Subscription management without Google account
+      - Video and audio download capabilities
+      - Customizable appearance and playback settings
+      - API access for third-party applications
+      
+      **Learn More:**
+      - [Invidious Official Website](https://invidious.io)
+      - [Invidious GitHub Repository](https://github.com/iv-org/invidious)
+      - [Documentation](https://github.com/iv-org/invidious/wiki)
+    en_GB: |
+      Invidious is an open source alternative frontend to YouTube. It provides a privacy-focused, ad-free experience for watching YouTube videos without tracking or invasive data collection. The interface is lightweight and fast, designed to give users control over their viewing experience.
+      
+      The system consists of two main components:
+      - **Invidious**: The main application providing the web interface and video streaming capabilities
+      - **PostgreSQL**: A robust database system for storing user data, preferences, and video metadata
+      
+      **Key Features:**
+      - Privacy-focused YouTube browsing without tracking
+      - Ad-free video streaming experience
+      - Lightweight and fast interface
+      - Subscription management without Google account
+      - Video and audio download capabilities
+      - Customisable appearance and playback settings
+      - API access for third-party applications
+      
+      **Learn More:**
+      - [Invidious Official Website](https://invidious.io)
+      - [Invidious GitHub Repository](https://github.com/iv-org/invidious)
+      - [Documentation](https://github.com/iv-org/invidious/wiki)
+    it_IT: |
+      Invidious è un frontend alternativo open source per YouTube. Fornisce un'esperienza focalizzata sulla privacy e senza pubblicità per guardare i video di YouTube senza tracciamento o raccolta di dati invasiva. L'interfaccia è leggera e veloce, progettata per dare agli utenti il controllo sulla loro esperienza di visualizzazione.
+      
+      Il sistema è composto da due componenti principali:
+      - **Invidious**: L'applicazione principale che fornisce l'interfaccia web e le capacità di streaming video
+      - **PostgreSQL**: Un robusto sistema di database per memorizzare i dati utente, le preferenze e i metadati dei video
+      
+      **Caratteristiche principali:**
+      - Navigazione YouTube focalizzata sulla privacy senza tracciamento
+      - Esperienza di streaming video senza pubblicità
+      - Interfaccia leggera e veloce
+      - Gestione delle sottoscrizioni senza account Google
+      - Capacità di download di video e audio
+      - Aspetto e impostazioni di riproduzione personalizzabili
+      - Accesso API per applicazioni di terze parti
+      
+      **Scopri di più:**
+      - [Sito web ufficiale Invidious](https://invidious.io)
+      - [Repository GitHub Invidious](https://github.com/iv-org/invidious)
+      - [Documentazione](https://github.com/iv-org/invidious/wiki)
+    nb_NO: |
+      Invidious er en åpen kildekode alternativ frontend til YouTube. Det gir en personvernfokusert, reklamefri opplevelse for å se YouTube-videoer uten sporing eller invasiv datainnsamling. Grensesnittet er lettvektig og raskt, designet for å gi brukere kontroll over sin visningsopplevelse.
+      
+      Systemet består av to hovedkomponenter:
+      - **Invidious**: Hovedapplikasjonen som gir webgrensesnitt og videostrømmingsmuligheter
+      - **PostgreSQL**: Et robustet databasesystem for lagring av brukerdata, preferanser og videometadata
+      
+      **Nøkkelegenskaper:**
+      - Personvernfokusert YouTube-browsing uten sporing
+      - Reklamefri videostrømmingsopplevelse
+      - Lettvektig og raskt grensesnitt
+      - Abonnementsstyring uten Google-konto
+      - Video- og lyd-nedlastingsmuligheter
+      - Tilpassbart utseende og avspillingsinnstillinger
+      - API-tilgang for tredjepartsapplikasjoner
+      
+      **Lær mer:**
+      - [Invidious offisielt nettsted](https://invidious.io)
+      - [Invidious GitHub Repository](https://github.com/iv-org/invidious)
+      - [Dokumentasjon](https://github.com/iv-org/invidious/wiki)
+    zh_CN: |
+      Invidious是一个开源的YouTube替代前端。它提供注重隐私、无广告的YouTube视频观看体验，没有跟踪或侵入性数据收集。界面轻量且快速，旨在让用户控制自己的观看体验。
+      
+      该系统由两个主要组件组成：
+      - **Invidious**: 提供Web界面和视频流媒体功能的主应用程序
+      - **PostgreSQL**: 用于存储用户数据、偏好设置和视频元数据的强大数据库系统
+      
+      **主要功能：**
+      - 注重隐私的YouTube浏览，无跟踪
+      - 无广告视频流媒体体验
+      - 轻量级快速界面
+      - 无需Google账户的订阅管理
+      - 视频和音频下载功能
+      - 可自定义外观和播放设置
+      - 第三方应用程序的API访问
+      
+      **了解更多：**
+      - [Invidious官方网站](https://invidious.io)
+      - [Invidious GitHub仓库](https://github.com/iv-org/invidious)
+      - [文档](https://github.com/iv-org/invidious/wiki)
+    ja_JP: |
+      Invidiousは、YouTubeのオープンソース代替フロントエンドです。トラッキングや侵入的なデータ収集なしでYouTube動画を視聴するための、プライバシーに焦点を当てた広告なしの体験を提供します。インターフェースは軽量で高速で、ユーザーが視聴体験を制御できるように設計されています。
+      
+      このシステムは2つの主要コンポーネントで構成されています：
+      - **Invidious**: Webインターフェースと動画ストリーミング機能を提供するメインアプリケーション
+      - **PostgreSQL**: ユーザーデータ、設定、動画メタデータを保存するための堅牢なデータベースシステム
+      
+      **主な機能：**
+      - トラッキングなしのプライバシーに焦点を当てたYouTubeブラウジング
+      - 広告なしの動画ストリーミング体験
+      - 軽量で高速なインターフェース
+      - Googleアカウントなしの購読管理
+      - 動画とオーディオのダウンロード機能
+      - カスタマイズ可能な外観と再生設定
+      - サードパーティアプリケーションのAPIアクセス
+      
+      **詳細情報：**
+      - [Invidious公式ウェブサイト](https://invidious.io)
+      - [Invidious GitHubリポジトリ](https://github.com/iv-org/invidious)
+      - [ドキュメント](https://github.com/iv-org/invidious/wiki)
+    ko_KR: |
+      Invidious는 YouTube의 오픈 소스 대안 프론트엔드입니다. 추적이나 침입적인 데이터 수집 없이 YouTube 동영상을 시청하기 위한 프라이버시 중심의 광고 없는 경험을 제공합니다. 인터페이스는 가볍고 빠르며, 사용자가 시청 경험을 제어할 수 있도록 설계되었습니다.
+      
+      이 시스템은 두 가지 주요 구성 요소로 이루어져 있습니다:
+      - **Invidious**: 웹 인터페이스와 비디오 스트리밍 기능을 제공하는 주요 애플리케이션
+      - **PostgreSQL**: 사용자 데이터, 선호 설정 및 비디오 메타데이터를 저장하기 위한 강력한 데이터베이스 시스템
+      
+      **주요 기능:**
+      - 추적 없는 프라이버시 중심 YouTube 브라우징
+      - 광고 없는 비디오 스트리밍 경험
+      - 가볍고 빠른 인터페이스
+      - Google 계정 없는 구독 관리
+      - 비디오 및 오디오 다운로드 기능
+      - 사용자 정의 가능한 외관 및 재생 설정
+      - 타사 애플리케이션을 위한 API 액세스
+      
+      **더 알아보기:**
+      - [Invidious 공식 웹사이트](https://invidious.io)
+      - [Invidious GitHub 저장소](https://github.com/iv-org/invidious)
+      - [문서](https://github.com/iv-org/invidious/wiki)
+    fr_FR: |
+      Invidious est une alternative frontend open source à YouTube. Il fournit une expérience axée sur la confidentialité et sans publicités pour regarder des vidéos YouTube sans suivi ou collecte de données invasive. L'interface est légère et rapide, conçue pour donner aux utilisateurs le contrôle de leur expérience de visionnage.
+      
+      Le système se compose de deux composants principaux :
+      - **Invidious** : L'application principale fournissant l'interface web et les capacités de streaming vidéo
+      - **PostgreSQL** : Un système de base de données robuste pour stocker les données utilisateur, les préférences et les métadonnées vidéo
+      
+      **Fonctionnalités clés :**
+      - Navigation YouTube axée sur la confidentialité sans suivi
+      - Expérience de streaming vidéo sans publicités
+      - Interface légère et rapide
+      - Gestion des abonnements sans compte Google
+      - Capacités de téléchargement vidéo et audio
+      - Apparence et paramètres de lecture personnalisables
+      - Accès API pour les applications tierces
+      
+      **En savoir plus :**
+      - [Site officiel Invidious](https://invidious.io)
+      - [Dépôt GitHub Invidious](https://github.com/iv-org/invidious)
+      - [Documentation](https://github.com/iv-org/invidious/wiki)
+    de_DE: |
+      Invidious ist eine Open-Source-Alternative-Frontend für YouTube. Es bietet ein datenschutzorientiertes, werbefreies Erlebnis zum Ansehen von YouTube-Videos ohne Tracking oder invasive Datenerfassung. Die Oberfläche ist leichtgewichtig und schnell, entwickelt um Benutzern die Kontrolle über ihr Seherlebnis zu geben.
+      
+      Das System besteht aus zwei Hauptkomponenten:
+      - **Invidious**: Die Hauptanwendung, die die Weboberfläche und Video-Streaming-Fähigkeiten bereitstellt
+      - **PostgreSQL**: Ein robustes Datenbanksystem zur Speicherung von Benutzerdaten, Einstellungen und Video-Metadaten
+      
+      **Hauptmerkmale:**
+      - Datenschutzorientiertes YouTube-Browsing ohne Tracking
+      - Werbefreies Video-Streaming-Erlebnis
+      - Leichtgewichtige und schnelle Oberfläche
+      - Abonnementverwaltung ohne Google-Konto
+      - Video- und Audio-Download-Fähigkeiten
+      - Anpassbares Erscheinungsbild und Wiedergabeeinstellungen
+      - API-Zugang für Drittanwendungen
+      
+      **Mehr erfahren:**
+      - [Invidious offizielle Website](https://invidious.io)
+      - [Invidious GitHub Repository](https://github.com/iv-org/invidious)
+      - [Dokumentation](https://github.com/iv-org/invidious/wiki)
+    sv_SE: |
+      Invidious är en öppen källkods alternativ frontend till YouTube. Den ger en integritetsfokuserad, reklamfri upplevelse för att titta på YouTube-videor utan spårning eller invasiv datainsamling. Gränssnittet är lättviktigt och snabbt, utformat för att ge användare kontroll över sin visningsupplevelse.
+      
+      Systemet består av två huvudkomponenter:
+      - **Invidious**: Huvudapplikationen som tillhandahåller webbgränssnitt och videoströmningsfunktioner
+      - **PostgreSQL**: Ett robustt databassystem för lagring av användardata, inställningar och videometadata
+      
+      **Nyckelfunktioner:**
+      - Integritetsfokuserat YouTube-browsing utan spårning
+      - Reklamfri videoströmningsupplevelse
+      - Lättviktigt och snabbt gränssnitt
+      - Prenumerationshantering utan Google-konto
+      - Video- och ljud-nedladdningsmöjligheter
+      - Anpassningsbart utseende och uppspelningsinställningar
+      - API-åtkomst för tredjepartsapplikationer
+      
+      **Läs mer:**
+      - [Invidious officiella webbplats](https://invidious.io)
+      - [Invidious GitHub Repository](https://github.com/iv-org/invidious)
+      - [Dokumentation](https://github.com/iv-org/invidious/wiki)
+    el_GR: |
+      Το Invidious είναι μια εναλλακτική frontend ανοιχτού κώδικα για το YouTube. Παρέχει μια εμπειρία εστιασμένη στην ιδιωτικότητα και χωρίς διαφημίσεις για την παρακολούθηση βίντεο YouTube χωρίς παρακολούθηση ή εισβολική συλλογή δεδομένων. Η διεπαφή είναι ελαφριά και γρήγορη, σχεδιασμένη για να δίνει στους χρήστες τον έλεγχο της εμπειρίας παρακολούθησής τους.
+      
+      Το σύστημα αποτελείται από δύο κύρια στοιχεία:
+      - **Invidious**: Η κύρια εφαρμογή που παρέχει τη διαδικτυακή διεπαφή και τις δυνατότητες ροής βίντεο
+      - **PostgreSQL**: Ένα στιβαρό σύστημα βάσης δεδομένων για την αποθήκευση δεδομένων χρήστη, προτιμήσεων και μεταδεδομένων βίντεο
+      
+      **Βασικά Χαρακτηριστικά:**
+      - Περιήγηση YouTube εστιασμένη στην ιδιωτικότητα χωρίς παρακολούθηση
+      - Εμπειρία ροής βίντεο χωρίς διαφημίσεις
+      - Ελαφριά και γρήγορη διεπαφή
+      - Διαχείριση συνδρομών χωρίς λογαριασμό Google
+      - Δυνατότητες λήψης βίντεο και ήχου
+      - Προσαρμόσιμη εμφάνιση και ρυθμίσεις αναπαραγωγής
+      - Πρόσβαση API για εφαρμογές τρίτων μερών
+      
+      **Μάθετε Περισσότερα:**
+      - [Επίσημη Ιστοσελίδα Invidious](https://invidious.io)
+      - [Αποθήκη GitHub Invidious](https://github.com/iv-org/invidious)
+      - [Τεκμηρίωση](https://github.com/iv-org/invidious/wiki)
+    hr_HR: |
+      Invidious je open source alternativa frontend za YouTube. Pruža iskustvo usmjereno na privatnost i bez oglasa za gledanje YouTube videozapisa bez praćenja ili invazivnog prikupljanja podataka. Sučelje je lagano i brzo, dizajnirano da korisnicima pruži kontrolu nad njihovim iskustvo gledanja.
+      
+      Sustav se sastoji od dvije glavne komponente:
+      - **Invidious**: Glavna aplikacija koja pruža web sučelje i mogućnosti strujanja videozapisa
+      - **PostgreSQL**: Robustan sustav baze podataka za pohranu korisničkih podataka, postavki i metapodataka videozapisa
+      
+      **Ključne značajke:**
+      - YouTube pregledavanje usmjereno na privatnost bez praćenja
+      - Iskustvo strujanja videozapisa bez oglasa
+      - Lagano i brzo sučelje
+      - Upravljanje pretplatama bez Google računa
+      - Mogućnosti preuzimanja videozapisa i zvuka
+      - Prilagodljiv izgled i postavke reprodukcije
+      - API pristup za aplikacije trećih strana
+      
+      **Saznajte više:**
+      - [Službena web stranica Invidious](https://invidious.io)
+      - [Invidious GitHub Repozitorij](https://github.com/iv-org/invidious)
+      - [Dokumentacija](https://github.com/iv-org/invidious/wiki)
+    pt_PT: |
+      Invidious é uma alternativa de frontend de código aberto para o YouTube. Fornece uma experiência focada na privacidade e sem anúncios para assistir a vídeos do YouTube sem rastreamento ou recolha de dados invasiva. A interface é leve e rápida, concebida para dar aos utilizadores controlo sobre a sua experiência de visualização.
+      
+      O sistema consiste em dois componentes principais:
+      - **Invidious**: A aplicação principal que fornece a interface web e capacidades de streaming de vídeo
+      - **PostgreSQL**: Um sistema de base de dados robusto para armazenar dados do utilizador, preferências e metadados de vídeo
+      
+      **Características Principais:**
+      - Navegação YouTube focada na privacidade sem rastreamento
+      - Experiência de streaming de vídeo sem anúncios
+      - Interface leve e rápida
+      - Gestão de subscrições sem conta Google
+      - Capacidades de download de vídeo e áudio
+      - Aparência e definições de reprodução personalizáveis
+      - Acesso API para aplicações de terceiros
+      
+      **Saiba Mais:**
+      - [Website Oficial Invidious](https://invidious.io)
+      - [Repositório GitHub Invidious](https://github.com/iv-org/invidious)
+      - [Documentação](https://github.com/iv-org/invidious/wiki)
+    ru_RU: |
+      Invidious - это альтернативный фронтенд с открытым исходным кодом для YouTube. Он предоставляет ориентированный на конфиденциальность, безрекламный опыт просмотра видео YouTube без отслеживания или навязчивого сбора данных. Интерфейс легкий и быстрый, разработанный для предоставления пользователям контроля над своим опытом просмотра.
+      
+      Система состоит из двух основных компонентов:
+      - **Invidious**: Основное приложение, предоставляющее веб-интерфейс и возможности потоковой передачи видео
+      - **PostgreSQL**: Надежная система баз данных для хранения пользовательских данных, настроек и метаданных видео
+      
+      **Ключевые особенности:**
+      - Ориентированный на конфиденциальность просмотр YouTube без отслеживания
+      - Безрекламный опыт потоковой передачи видео
+      - Легкий и быстрый интерфейс
+      - Управление подписками без аккаунта Google
+      - Возможности загрузки видео и аудио
+      - Настраиваемый внешний вид и настройки воспроизведения
+      - Доступ к API для сторонних приложений
+      
+      **Узнать больше:**
+      - [Официальный сайт Invidious](https://invidious.io)
+      - [Репозиторий Invidious на GitHub](https://github.com/iv-org/invidious)
+      - [Документация](https://github.com/iv-org/invidious/wiki)
+    tr_TR: |
+      Invidious, YouTube için açık kaynaklı alternatif bir ön yüzüdür. İzleme veya invaziv veri toplama olmadan YouTube videolarını izlemek için gizlilik odaklı, reklamsız bir deneyim sunar. Arayüz hafif ve hızlıdır, kullanıcılara izleme deneyimleri üzerinde kontrol sağlamak için tasarlanmıştır.
+      
+      Sistem iki ana bileşenden oluşur:
+      - **Invidious**: Web arayüzü ve video akışı yetenekleri sağlayan ana uygulama
+      - **PostgreSQL**: Kullanıcı verilerini, tercihlerini ve video meta verilerini depolamak için sağlam bir veritabanı sistemi
+      
+      **Ana Özellikler:**
+      - İzleme olmadan gizlilik odaklı YouTube tarama
+      - Reklamsız video akışı deneyimi
+      - Hafif ve hızlı arayüz
+      - Google hesabı olmadan abonelik yönetimi
+      - Video ve ses indirme yetenekleri
+      - Özelleştirilebilir görünüm ve oynatma ayarları
+      - Üçüncü taraf uygulamalar için API erişimi
+      
+      **Daha Fazla Bilgi Edinin:**
+      - [Invidious Resmi Web Sitesi](https://invidious.io)
+      - [Invidious GitHub Deposu](https://github.com/iv-org/invidious)
+      - [Belgeler](https://github.com/iv-org/invidious/wiki)
+  icon: https://raw.githubusercontent.com/iv-org/invidious/master/assets/logo.svg
+  screenshot_link:
+    - https://raw.githubusercontent.com/iv-org/invidious/master/assets/screenshot1.png
+    - https://raw.githubusercontent.com/iv-org/invidious/master/assets/screenshot2.png
+    - https://raw.githubusercontent.com/iv-org/invidious/master/assets/screenshot3.png
+  thumbnail: ""
+  tips:
+    before_install:
+      en_US: |
+        Invidious requires a PostgreSQL database for storing user data and preferences. This deployment includes a PostgreSQL database container that will be automatically configured.
+        
+        **Database Configuration**
+        
+        - Database Name: invidious
+        - Username: kemal
+        - Password: kemal
+        
+        These credentials are used internally by Invidious and should not need to be modified.
+  scheme: http
+  port_map: "13455"
+  index: /
+  title:
+    en_US: Invidious
+    en_GB: Invidious
+    it_IT: Invidious
+    nb_NO: Invidious
+    zh_CN: Invidious
+    ja_JP: Invidious
+    ko_KR: Invidious
+    fr_FR: Invidious
+    de_DE: Invidious
+    sv_SE: Invidious
+    el_GR: Invidious
+    hr_HR: Invidious
+    pt_PT: Invidious
+    ru_RU: Invidious
+    tr_TR: Invidious
