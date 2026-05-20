@@ -1,0 +1,698 @@
+name: khoj
+services:
+  khoj-db:
+    image: docker.io/pgvector/pgvector:pg15@sha256:bd12d6788a617f4147d5a2ae0b56d07921398adabfe5a033bd3f50c245df55a1
+    container_name: khoj-db
+    restart: unless-stopped
+    networks:
+    - khoj
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID/postgres
+      target: /var/lib/postgresql/data
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U postgres -d postgres
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    x-casaos:
+      envs:
+      - container: POSTGRES_DB
+        description:
+          de_DE: Name der PostgreSQL-Datenbank, die Khoj verwendet.
+          el_GR: Όνομα βάσης δεδομένων PostgreSQL που χρησιμοποιεί το Khoj.
+          en_GB: PostgreSQL database name used by Khoj.
+          en_US: PostgreSQL database name used by Khoj.
+          fr_FR: Nom de la base de données PostgreSQL utilisée par Khoj.
+          hr_HR: Naziv PostgreSQL baze podataka koju koristi Khoj.
+          it_IT: Nome del database PostgreSQL usato da Khoj.
+          ja_JP: Khoj が使用する PostgreSQL データベース名。
+          ko_KR: Khoj에서 사용하는 PostgreSQL 데이터베이스 이름입니다.
+          nb_NO: Navn på PostgreSQL-databasen som brukes av Khoj.
+          pt_PT: Nome da base de dados PostgreSQL usada pelo Khoj.
+          ru_RU: Имя базы данных PostgreSQL, используемой Khoj.
+          sv_SE: Namn på PostgreSQL-databasen som används av Khoj.
+          tr_TR: Khoj tarafından kullanılan PostgreSQL veritabanı adı.
+          zh_CN: Khoj 使用的 PostgreSQL 数据库名称。
+      - container: POSTGRES_USER
+        description:
+          de_DE: PostgreSQL-Datenbankbenutzer, den Khoj verwendet.
+          el_GR: Χρήστης βάσης δεδομένων PostgreSQL που χρησιμοποιεί το Khoj.
+          en_GB: PostgreSQL database user used by Khoj.
+          en_US: PostgreSQL database user used by Khoj.
+          fr_FR: Utilisateur PostgreSQL utilisé par Khoj.
+          hr_HR: Korisnik PostgreSQL baze podataka kojeg koristi Khoj.
+          it_IT: Utente del database PostgreSQL usato da Khoj.
+          ja_JP: Khoj が使用する PostgreSQL データベースユーザー。
+          ko_KR: Khoj에서 사용하는 PostgreSQL 데이터베이스 사용자입니다.
+          nb_NO: PostgreSQL-databasebruker som brukes av Khoj.
+          pt_PT: Utilizador da base de dados PostgreSQL usado pelo Khoj.
+          ru_RU: Пользователь базы данных PostgreSQL, используемый Khoj.
+          sv_SE: PostgreSQL-databasanvändare som används av Khoj.
+          tr_TR: Khoj tarafından kullanılan PostgreSQL veritabanı kullanıcısı.
+          zh_CN: Khoj 使用的 PostgreSQL 数据库用户。
+      - container: POSTGRES_PASSWORD
+        description:
+          de_DE: PostgreSQL-Datenbankpasswort, das Khoj verwendet.
+          el_GR: Κωδικός πρόσβασης PostgreSQL που χρησιμοποιεί το Khoj.
+          en_GB: PostgreSQL database password used by Khoj.
+          en_US: PostgreSQL database password used by Khoj.
+          fr_FR: Mot de passe PostgreSQL utilisé par Khoj.
+          hr_HR: Lozinka PostgreSQL baze podataka koju koristi Khoj.
+          it_IT: Password del database PostgreSQL usata da Khoj.
+          ja_JP: Khoj が使用する PostgreSQL データベースパスワード。
+          ko_KR: Khoj에서 사용하는 PostgreSQL 데이터베이스 비밀번호입니다.
+          nb_NO: PostgreSQL-databasepassord som brukes av Khoj.
+          pt_PT: Palavra-passe da base de dados PostgreSQL usada pelo Khoj.
+          ru_RU: Пароль базы данных PostgreSQL, используемый Khoj.
+          sv_SE: PostgreSQL-databaslösenord som används av Khoj.
+          tr_TR: Khoj tarafından kullanılan PostgreSQL veritabanı parolası.
+          zh_CN: Khoj 使用的 PostgreSQL 数据库密码。
+      volumes:
+      - container: /var/lib/postgresql/data
+        description:
+          de_DE: Datenverzeichnis von PostgreSQL.
+          el_GR: Κατάλογος δεδομένων PostgreSQL.
+          en_GB: PostgreSQL data directory.
+          en_US: PostgreSQL data directory.
+          fr_FR: Répertoire de données PostgreSQL.
+          hr_HR: Direktorij podataka PostgreSQL-a.
+          it_IT: Directory dei dati PostgreSQL.
+          ja_JP: PostgreSQL データディレクトリ。
+          ko_KR: PostgreSQL 데이터 디렉터리입니다.
+          nb_NO: PostgreSQL-datakatalog.
+          pt_PT: Diretório de dados do PostgreSQL.
+          ru_RU: Каталог данных PostgreSQL.
+          sv_SE: PostgreSQL-datakatalog.
+          tr_TR: PostgreSQL veri dizini.
+          zh_CN: PostgreSQL 数据目录。
+  khoj-sandbox:
+    image: ghcr.io/khoj-ai/terrarium@sha256:caf9356305daf9f7f4e4a63ef1ce3a72dc2c0190cb8fdfa4e0e837d2298f19ce
+    container_name: khoj-sandbox
+    restart: unless-stopped
+    networks:
+    - khoj
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl -f http://localhost:8080/health
+      interval: 30s
+      timeout: 10s
+      retries: 2
+  khoj-search:
+    image: docker.io/searxng/searxng@sha256:25ff3c045548971d12726e54bea4564b8ec3bedb3d6951aecdefd01caf840974
+    container_name: khoj-search
+    restart: unless-stopped
+    networks:
+    - khoj
+    environment:
+      SEARXNG_BASE_URL: http://localhost:8080/
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID/searxng
+      target: /etc/searxng
+    x-casaos:
+      envs:
+      - container: SEARXNG_BASE_URL
+        description:
+          de_DE: Interne SearXNG-Basis-URL für die Websuche von Khoj.
+          el_GR: Εσωτερικό βασικό URL του SearXNG για την αναζήτηση ιστού του Khoj.
+          en_GB: Internal SearXNG base URL used for Khoj web search.
+          en_US: Internal SearXNG base URL used for Khoj web search.
+          fr_FR: URL de base SearXNG interne utilisée pour la recherche web de Khoj.
+          hr_HR: Interni osnovni URL SearXNG-a za Khoj web pretraživanje.
+          it_IT: URL base interna di SearXNG usata per la ricerca web di Khoj.
+          ja_JP: Khoj の Web 検索で使用する内部 SearXNG ベース URL。
+          ko_KR: Khoj 웹 검색에 사용하는 내부 SearXNG 기본 URL입니다.
+          nb_NO: Intern SearXNG-baseadresse som brukes til Khoj-nettsøk.
+          pt_PT: URL base interna do SearXNG usada para a pesquisa web do Khoj.
+          ru_RU: Внутренний базовый URL SearXNG для веб-поиска Khoj.
+          sv_SE: Intern SearXNG-basadress som används för Khojs webbsökning.
+          tr_TR: Khoj web araması için kullanılan dahili SearXNG temel URL'si.
+          zh_CN: Khoj 联网搜索使用的内部 SearXNG 基础地址。
+      volumes:
+      - container: /etc/searxng
+        description:
+          de_DE: Konfigurationsverzeichnis von SearXNG.
+          el_GR: Κατάλογος ρυθμίσεων SearXNG.
+          en_GB: SearXNG configuration directory.
+          en_US: SearXNG configuration directory.
+          fr_FR: Répertoire de configuration SearXNG.
+          hr_HR: Direktorij konfiguracije SearXNG-a.
+          it_IT: Directory di configurazione SearXNG.
+          ja_JP: SearXNG 設定ディレクトリ。
+          ko_KR: SearXNG 구성 디렉터리입니다.
+          nb_NO: SearXNG-konfigurasjonskatalog.
+          pt_PT: Diretório de configuração do SearXNG.
+          ru_RU: Каталог конфигурации SearXNG.
+          sv_SE: SearXNG-konfigurationskatalog.
+          tr_TR: SearXNG yapılandırma dizini.
+          zh_CN: SearXNG 配置目录。
+  khoj:
+    image: ghcr.io/khoj-ai/khoj:2.0.0-beta.28@sha256:eb2e44669df44b51cb206b394dc0a00c782ac152dda02c97c9e3dac3d643dbb4
+    container_name: khoj
+    restart: unless-stopped
+    depends_on:
+      khoj-db:
+        condition: service_healthy
+      khoj-sandbox:
+        condition: service_started
+      khoj-search:
+        condition: service_started
+    networks:
+    - khoj
+    ports:
+    - target: 42110
+      published: "42110"
+      protocol: tcp
+    extra_hosts:
+    - host.docker.internal:host-gateway
+    working_dir: /app
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: khoj-db
+      POSTGRES_PORT: '5432'
+      KHOJ_ADMIN_EMAIL: admin@khoj.local
+      KHOJ_ADMIN_PASSWORD: khoj
+      KHOJ_DJANGO_SECRET_KEY: change-me-khoj-casaos-secret
+      KHOJ_DEBUG: 'False'
+      KHOJ_NO_HTTPS: 'True'
+      KHOJ_TELEMETRY_DISABLE: 'True'
+      KHOJ_TERRARIUM_URL: http://khoj-sandbox:8080
+      KHOJ_SEARXNG_URL: http://khoj-search:8080
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID/config
+      target: /root/.khoj
+    - type: bind
+      source: /DATA/AppData/$AppID/models
+      target: /root/.cache/torch/sentence_transformers
+    - type: bind
+      source: /DATA/AppData/$AppID/models
+      target: /root/.cache/huggingface
+    command: --host="0.0.0.0" --port=42110 -vv --anonymous-mode --non-interactive
+    x-casaos:
+      ports:
+      - container: '42110'
+        description:
+          de_DE: Port der Khoj-Weboberfläche.
+          el_GR: Θύρα της διεπαφής ιστού του Khoj.
+          en_GB: Khoj Web UI port.
+          en_US: Khoj Web UI port.
+          fr_FR: Port de l’interface web de Khoj.
+          hr_HR: Port web sučelja Khoj.
+          it_IT: Porta dell’interfaccia web di Khoj.
+          ja_JP: Khoj Web UI ポート。
+          ko_KR: Khoj Web UI 포트입니다.
+          nb_NO: Port for Khoj-webgrensesnittet.
+          pt_PT: Porta da interface web do Khoj.
+          ru_RU: Порт веб-интерфейса Khoj.
+          sv_SE: Port för Khoj-webbgränssnittet.
+          tr_TR: Khoj Web arayüzü bağlantı noktası.
+          zh_CN: Khoj Web 管理界面端口。
+      envs:
+      - container: KHOJ_ADMIN_EMAIL
+        description:
+          de_DE: Administrator-E-Mail, die für Khoj erstellt wird.
+          el_GR: Email διαχειριστή που δημιουργείται για το Khoj.
+          en_GB: Admin email created for Khoj.
+          en_US: Admin email created for Khoj.
+          fr_FR: Adresse e-mail administrateur créée pour Khoj.
+          hr_HR: Administratorska e-pošta stvorena za Khoj.
+          it_IT: Email amministratore creata per Khoj.
+          ja_JP: Khoj 用に作成される管理者メール。
+          ko_KR: Khoj용으로 생성되는 관리자 이메일입니다.
+          nb_NO: Administrator-e-post som opprettes for Khoj.
+          pt_PT: Email de administrador criada para o Khoj.
+          ru_RU: Адрес администратора, создаваемый для Khoj.
+          sv_SE: Administratörs-e-post som skapas för Khoj.
+          tr_TR: Khoj için oluşturulan yönetici e-postası.
+          zh_CN: Khoj 管理员邮箱。
+      - container: KHOJ_ADMIN_PASSWORD
+        description:
+          de_DE: Administratorpasswort für Khoj. Ändern Sie es, bevor Sie Khoj außerhalb eines vertrauenswürdigen Netzwerks freigeben.
+          el_GR: Κωδικός διαχειριστή για το Khoj. Αλλάξτε τον πριν εκθέσετε το Khoj έξω από αξιόπιστο δίκτυο.
+          en_GB: Admin password created for Khoj. Change it before exposing Khoj outside a trusted network.
+          en_US: Admin password created for Khoj. Change it before exposing Khoj outside a trusted network.
+          fr_FR: Mot de passe administrateur créé pour Khoj. Modifiez-le avant d’exposer Khoj hors d’un réseau de confiance.
+          hr_HR: Administratorska lozinka stvorena za Khoj. Promijenite je prije izlaganja Khoj-a izvan pouzdane mreže.
+          it_IT: Password amministratore creata per Khoj. Modificala prima di esporre Khoj fuori da una rete fidata.
+          ja_JP: Khoj 用に作成される管理者パスワード。信頼できるネットワーク外に公開する前に変更してください。
+          ko_KR: Khoj용으로 생성되는 관리자 비밀번호입니다. 신뢰할 수 있는 네트워크 밖에 공개하기 전에 변경하세요.
+          nb_NO: Administratorpassord som opprettes for Khoj. Endre det før Khoj eksponeres utenfor et klarert nettverk.
+          pt_PT: Palavra-passe de administrador criada para o Khoj. Altere-a antes de expor o Khoj fora de uma rede de confiança.
+          ru_RU: Пароль администратора, создаваемый для Khoj. Измените его перед публикацией Khoj вне доверенной сети.
+          sv_SE: Administratörslösenord som skapas för Khoj. Ändra det innan Khoj exponeras utanför ett betrott nätverk.
+          tr_TR: Khoj için oluşturulan yönetici parolası. Khoj’u güvenilir ağ dışına açmadan önce değiştirin.
+          zh_CN: Khoj 管理员密码。若要暴露到可信局域网之外，请先修改。
+      - container: KHOJ_DJANGO_SECRET_KEY
+        description:
+          de_DE: Django-Geheimschlüssel für signierte Cookies und Sitzungen. Für den Produktivbetrieb ändern.
+          el_GR: Μυστικό κλειδί Django για υπογεγραμμένα cookies και συνεδρίες. Αλλάξτε το για παραγωγική χρήση.
+          en_GB: Django secret key for signed cookies and sessions. Change it for production use.
+          en_US: Django secret key for signed cookies and sessions. Change it for production use.
+          fr_FR: Clé secrète Django pour les cookies et sessions signés. Modifiez-la en production.
+          hr_HR: Django tajni ključ za potpisane kolačiće i sesije. Promijenite ga za produkcijsku upotrebu.
+          it_IT: Chiave segreta Django per cookie e sessioni firmati. Modificala per l’uso in produzione.
+          ja_JP: 署名付き Cookie とセッション用の Django シークレットキー。本番利用では変更してください。
+          ko_KR: 서명된 쿠키와 세션을 위한 Django 비밀 키입니다. 운영 환경에서는 변경하세요.
+          nb_NO: Django-hemmelig nøkkel for signerte informasjonskapsler og økter. Endre den for produksjon.
+          pt_PT: Chave secreta do Django para cookies e sessões assinadas. Altere-a para produção.
+          ru_RU: Секретный ключ Django для подписанных cookie и сессий. Измените его для production.
+          sv_SE: Django-hemlig nyckel för signerade cookies och sessioner. Ändra den för produktion.
+          tr_TR: İmzalı çerezler ve oturumlar için Django gizli anahtarı. Üretim kullanımı için değiştirin.
+          zh_CN: 用于 Cookie 和会话签名的 Django 密钥。生产使用前请修改。
+      - container: KHOJ_NO_HTTPS
+        description:
+          de_DE: Erlaubt HTTP-Zugriff, wenn Khoj über CasaOS in einem vertrauenswürdigen Netzwerk bereitgestellt wird.
+          el_GR: Επιτρέπει πρόσβαση HTTP όταν το Khoj παρέχεται από το CasaOS σε αξιόπιστο δίκτυο.
+          en_GB: Allows HTTP access when Khoj is served by CasaOS on a trusted network.
+          en_US: Allows HTTP access when Khoj is served by CasaOS on a trusted network.
+          fr_FR: Autorise l’accès HTTP lorsque Khoj est servi par CasaOS sur un réseau de confiance.
+          hr_HR: Dopušta HTTP pristup kada Khoj poslužuje CasaOS na pouzdanoj mreži.
+          it_IT: Consente l’accesso HTTP quando Khoj è servito da CasaOS su una rete fidata.
+          ja_JP: 信頼できるネットワーク上で CasaOS 経由で Khoj を提供する場合に HTTP アクセスを許可します。
+          ko_KR: 신뢰할 수 있는 네트워크에서 CasaOS가 Khoj를 제공할 때 HTTP 접근을 허용합니다.
+          nb_NO: Tillater HTTP-tilgang når Khoj serveres av CasaOS på et klarert nettverk.
+          pt_PT: Permite acesso HTTP quando o Khoj é servido pelo CasaOS numa rede de confiança.
+          ru_RU: Разрешает HTTP-доступ, когда Khoj обслуживается CasaOS в доверенной сети.
+          sv_SE: Tillåter HTTP-åtkomst när Khoj körs via CasaOS på ett betrott nätverk.
+          tr_TR: Khoj güvenilir bir ağda CasaOS tarafından sunulduğunda HTTP erişimine izin verir.
+          zh_CN: 允许通过 CasaOS 在可信网络中使用 HTTP 访问 Khoj。
+      - container: KHOJ_TELEMETRY_DISABLE
+        description:
+          de_DE: Deaktiviert Khoj-Telemetrie für selbst gehostete Bereitstellungen.
+          el_GR: Απενεργοποιεί την τηλεμετρία Khoj για αυτοφιλοξενούμενες εγκαταστάσεις.
+          en_GB: Disables Khoj telemetry for self-hosted deployments.
+          en_US: Disables Khoj telemetry for self-hosted deployments.
+          fr_FR: Désactive la télémétrie Khoj pour les déploiements auto-hébergés.
+          hr_HR: Onemogućuje Khoj telemetriju za samostalno hostane instalacije.
+          it_IT: Disabilita la telemetria Khoj per le distribuzioni self-hosted.
+          ja_JP: セルフホスト環境で Khoj のテレメトリを無効にします。
+          ko_KR: 셀프 호스팅 배포에서 Khoj 텔레메트리를 비활성화합니다.
+          nb_NO: Deaktiverer Khoj-telemetri for selvhostede installasjoner.
+          pt_PT: Desativa a telemetria do Khoj em instalações autoalojadas.
+          ru_RU: Отключает телеметрию Khoj для самостоятельных развертываний.
+          sv_SE: Inaktiverar Khoj-telemetri för självhostade installationer.
+          tr_TR: Kendi barındırılan kurulumlarda Khoj telemetrisini devre dışı bırakır.
+          zh_CN: 在自托管部署中关闭 Khoj 遥测。
+      volumes:
+      - container: /root/.khoj
+        description:
+          de_DE: Khoj-Konfiguration und hochgeladene Daten.
+          el_GR: Ρυθμίσεις και μεταφορτωμένα δεδομένα του Khoj.
+          en_GB: Khoj configuration and uploaded data.
+          en_US: Khoj configuration and uploaded data.
+          fr_FR: Configuration Khoj et données téléversées.
+          hr_HR: Khoj konfiguracija i preneseni podaci.
+          it_IT: Configurazione Khoj e dati caricati.
+          ja_JP: Khoj の設定とアップロードデータ。
+          ko_KR: Khoj 구성 및 업로드된 데이터입니다.
+          nb_NO: Khoj-konfigurasjon og opplastede data.
+          pt_PT: Configuração do Khoj e dados carregados.
+          ru_RU: Конфигурация Khoj и загруженные данные.
+          sv_SE: Khoj-konfiguration och uppladdade data.
+          tr_TR: Khoj yapılandırması ve yüklenen veriler.
+          zh_CN: Khoj 配置和上传数据目录。
+      - container: /root/.cache/torch/sentence_transformers
+        description:
+          de_DE: Cache für Sentence-Transformer-Modelle.
+          el_GR: Cache μοντέλων Sentence Transformer.
+          en_GB: Sentence transformer model cache.
+          en_US: Sentence transformer model cache.
+          fr_FR: Cache des modèles Sentence Transformer.
+          hr_HR: Predmemorija Sentence Transformer modela.
+          it_IT: Cache dei modelli Sentence Transformer.
+          ja_JP: Sentence Transformer モデルキャッシュ。
+          ko_KR: Sentence Transformer 모델 캐시입니다.
+          nb_NO: Cache for Sentence Transformer-modeller.
+          pt_PT: Cache de modelos Sentence Transformer.
+          ru_RU: Кэш моделей Sentence Transformer.
+          sv_SE: Cache för Sentence Transformer-modeller.
+          tr_TR: Sentence Transformer model önbelleği.
+          zh_CN: Sentence Transformer 模型缓存目录。
+      - container: /root/.cache/huggingface
+        description:
+          de_DE: Cache für Hugging-Face-Modelle.
+          el_GR: Cache μοντέλων Hugging Face.
+          en_GB: Hugging Face model cache.
+          en_US: Hugging Face model cache.
+          fr_FR: Cache des modèles Hugging Face.
+          hr_HR: Predmemorija Hugging Face modela.
+          it_IT: Cache dei modelli Hugging Face.
+          ja_JP: Hugging Face モデルキャッシュ。
+          ko_KR: Hugging Face 모델 캐시입니다.
+          nb_NO: Cache for Hugging Face-modeller.
+          pt_PT: Cache de modelos Hugging Face.
+          ru_RU: Кэш моделей Hugging Face.
+          sv_SE: Cache för Hugging Face-modeller.
+          tr_TR: Hugging Face model önbelleği.
+          zh_CN: Hugging Face 模型缓存目录。
+networks:
+  khoj:
+    driver: bridge
+x-casaos:
+  architectures:
+  - amd64
+  - arm64
+  main: khoj
+  category: AI
+  developer: Khoj Inc.
+  author: Khoj Inc.
+  tagline:
+    de_DE: Ihr selbst gehostetes KI-Zweitgehirn.
+    el_GR: Ο αυτοφιλοξενούμενος δεύτερος εγκέφαλος AI σας.
+    en_GB: Your self-hosted AI second brain.
+    en_US: Your self-hosted AI second brain.
+    fr_FR: Votre second cerveau IA auto-hébergé.
+    hr_HR: Vaš samostalno hostani AI drugi mozak.
+    it_IT: Il tuo secondo cervello AI self-hosted.
+    ja_JP: 自分でホストできる AI の第二の脳。
+    ko_KR: 직접 호스팅하는 AI 세컨드 브레인입니다.
+    nb_NO: Din selvhostede AI-andrehjerne.
+    pt_PT: O seu segundo cérebro de IA autoalojado.
+    ru_RU: Ваш самостоятельно размещаемый второй мозг на базе ИИ.
+    sv_SE: Din självhostade AI-andrahjärna.
+    tr_TR: Kendi barındırdığınız yapay zeka ikinci beyniniz.
+    zh_CN: 自托管的 AI 第二大脑。
+  description:
+    de_DE: |
+      Khoj ist eine quelloffene, selbst hostbare persönliche KI-App zum Suchen, Chatten und Schlussfolgern über Ihre Dokumente und Online-Informationen. Sie kann mit lokalen oder Online-LLMs arbeiten, Notizen und Dateien indexieren, eigene Agenten erstellen, Recherche-Workflows ausführen und Fragen aus Ihrer Wissensbasis beantworten.
+
+      Diese CasaOS-App enthält PostgreSQL mit pgvector für die Speicherung, Terrarium für lokale Codeausführung und SearXNG für Websuche.
+
+      **Mehr erfahren:**
+
+      - [Khoj-Website](https://khoj.dev)
+      - [Khoj-Dokumentation](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    el_GR: |
+      Το Khoj είναι μια ανοιχτού κώδικα, αυτοφιλοξενούμενη προσωπική εφαρμογή AI για αναζήτηση, συνομιλία και συλλογισμό πάνω στα έγγραφα και τις διαδικτυακές πληροφορίες σας. Μπορεί να λειτουργήσει με τοπικά ή διαδικτυακά LLM, να ευρετηριάσει σημειώσεις και αρχεία, να δημιουργήσει προσαρμοσμένους πράκτορες, να εκτελέσει ροές εργασίας έρευνας και να απαντήσει σε ερωτήσεις από τη βάση γνώσεών σας.
+
+      Αυτή η εφαρμογή CasaOS περιλαμβάνει PostgreSQL με pgvector για αποθήκευση, Terrarium για τοπική εκτέλεση κώδικα και SearXNG για αναζήτηση ιστού.
+
+      **Μάθετε περισσότερα:**
+
+      - [Ιστότοπος Khoj](https://khoj.dev)
+      - [Τεκμηρίωση Khoj](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    en_GB: |
+      Khoj is an open-source, self-hostable personal AI app for searching, chatting with, and reasoning over your documents and online information. It can work with local or online LLMs, index notes and files, create custom agents, run research workflows, and answer questions from your knowledge base.
+
+      This CasaOS app includes PostgreSQL with pgvector for storage, Terrarium for local code execution, and SearXNG for web search support.
+
+      **Learn more:**
+
+      - [Khoj Website](https://khoj.dev)
+      - [Khoj Documentation](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    en_US: |
+      Khoj is an open-source, self-hostable personal AI app for searching, chatting with, and reasoning over your documents and online information. It can work with local or online LLMs, index notes and files, create custom agents, run research workflows, and answer questions from your knowledge base.
+
+      This CasaOS app includes PostgreSQL with pgvector for storage, Terrarium for local code execution, and SearXNG for web search support.
+
+      **Learn more:**
+
+      - [Khoj Website](https://khoj.dev)
+      - [Khoj Documentation](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    fr_FR: |
+      Khoj est une application IA personnelle open source et auto-hébergeable pour rechercher, discuter et raisonner sur vos documents et informations en ligne. Elle peut fonctionner avec des LLM locaux ou en ligne, indexer des notes et des fichiers, créer des agents personnalisés, exécuter des flux de recherche et répondre aux questions à partir de votre base de connaissances.
+
+      Cette application CasaOS inclut PostgreSQL avec pgvector pour le stockage, Terrarium pour l’exécution locale de code et SearXNG pour la recherche web.
+
+      **En savoir plus :**
+
+      - [Site web Khoj](https://khoj.dev)
+      - [Documentation Khoj](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    hr_HR: |
+      Khoj je osobna AI aplikacija otvorenog koda koju možete samostalno hostati za pretraživanje, razgovor i zaključivanje nad vašim dokumentima i mrežnim informacijama. Može raditi s lokalnim ili mrežnim LLM-ovima, indeksirati bilješke i datoteke, stvarati prilagođene agente, pokretati istraživačke tokove rada i odgovarati na pitanja iz vaše baze znanja.
+
+      Ova CasaOS aplikacija uključuje PostgreSQL s pgvectorom za pohranu, Terrarium za lokalno izvršavanje koda i SearXNG za web pretraživanje.
+
+      **Saznajte više:**
+
+      - [Khoj web stranica](https://khoj.dev)
+      - [Khoj dokumentacija](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    it_IT: |
+      Khoj è un’app AI personale open source e self-hostable per cercare, conversare e ragionare sui tuoi documenti e sulle informazioni online. Può funzionare con LLM locali o online, indicizzare note e file, creare agenti personalizzati, eseguire flussi di ricerca e rispondere alle domande dalla tua base di conoscenza.
+
+      Questa app CasaOS include PostgreSQL con pgvector per l’archiviazione, Terrarium per l’esecuzione locale del codice e SearXNG per la ricerca web.
+
+      **Scopri di più:**
+
+      - [Sito web Khoj](https://khoj.dev)
+      - [Documentazione Khoj](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    ja_JP: |
+      Khoj は、ドキュメントやオンライン情報を検索し、会話し、推論するための、オープンソースでセルフホスト可能な個人向け AI アプリです。ローカルまたはオンラインの LLM と連携し、ノートやファイルのインデックス作成、カスタムエージェントの作成、調査ワークフローの実行、ナレッジベースからの回答に対応します。
+
+      この CasaOS アプリには、保存用の PostgreSQL/pgvector、ローカルコード実行用の Terrarium、Web 検索用の SearXNG が含まれます。
+
+      **詳しく見る:**
+
+      - [Khoj ウェブサイト](https://khoj.dev)
+      - [Khoj ドキュメント](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    ko_KR: |
+      Khoj는 문서와 온라인 정보를 검색하고, 대화하고, 추론할 수 있는 오픈 소스 셀프 호스팅 개인 AI 앱입니다. 로컬 또는 온라인 LLM과 함께 사용할 수 있으며, 노트와 파일을 색인화하고, 사용자 지정 에이전트를 만들고, 연구 워크플로를 실행하며, 지식 기반에서 질문에 답할 수 있습니다.
+
+      이 CasaOS 앱에는 저장소용 PostgreSQL/pgvector, 로컬 코드 실행용 Terrarium, 웹 검색 지원용 SearXNG가 포함되어 있습니다.
+
+      **자세히 알아보기:**
+
+      - [Khoj 웹사이트](https://khoj.dev)
+      - [Khoj 문서](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    nb_NO: |
+      Khoj er en åpen kildekode-basert, selvhostbar personlig AI-app for søk, samtaler og resonnering over dokumentene dine og nettinformasjon. Den kan bruke lokale eller nettbaserte LLM-er, indeksere notater og filer, lage egendefinerte agenter, kjøre forskningsarbeidsflyter og svare på spørsmål fra kunnskapsbasen din.
+
+      Denne CasaOS-appen inkluderer PostgreSQL med pgvector for lagring, Terrarium for lokal kodekjøring og SearXNG for nettsøk.
+
+      **Lær mer:**
+
+      - [Khoj-nettsted](https://khoj.dev)
+      - [Khoj-dokumentasjon](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    pt_PT: |
+      Khoj é uma aplicação pessoal de IA, open source e autoalojável, para pesquisar, conversar e raciocinar sobre os seus documentos e informações online. Pode trabalhar com LLMs locais ou online, indexar notas e ficheiros, criar agentes personalizados, executar fluxos de investigação e responder a perguntas a partir da sua base de conhecimento.
+
+      Esta aplicação CasaOS inclui PostgreSQL com pgvector para armazenamento, Terrarium para execução local de código e SearXNG para pesquisa web.
+
+      **Saiba mais:**
+
+      - [Website do Khoj](https://khoj.dev)
+      - [Documentação do Khoj](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    ru_RU: |
+      Khoj — это открытое персональное AI-приложение для самостоятельного размещения, поиска, общения и рассуждений по вашим документам и онлайн-информации. Оно может работать с локальными или онлайн LLM, индексировать заметки и файлы, создавать пользовательских агентов, запускать исследовательские рабочие процессы и отвечать на вопросы из вашей базы знаний.
+
+      Это приложение CasaOS включает PostgreSQL с pgvector для хранения, Terrarium для локального выполнения кода и SearXNG для веб-поиска.
+
+      **Подробнее:**
+
+      - [Сайт Khoj](https://khoj.dev)
+      - [Документация Khoj](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    sv_SE: |
+      Khoj är en öppen källkodsbaserad, självhostbar personlig AI-app för att söka, chatta och resonera över dina dokument och din onlineinformation. Den kan fungera med lokala eller onlinebaserade LLM:er, indexera anteckningar och filer, skapa egna agenter, köra forskningsflöden och svara på frågor från din kunskapsbas.
+
+      Den här CasaOS-appen innehåller PostgreSQL med pgvector för lagring, Terrarium för lokal kodkörning och SearXNG för webbsökning.
+
+      **Läs mer:**
+
+      - [Khoj-webbplats](https://khoj.dev)
+      - [Khoj-dokumentation](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    tr_TR: |
+      Khoj, belgeleriniz ve çevrimiçi bilgileriniz üzerinde arama yapmak, sohbet etmek ve akıl yürütmek için açık kaynaklı, kendi barındırılabilir kişisel bir yapay zeka uygulamasıdır. Yerel veya çevrimiçi LLM’lerle çalışabilir, notları ve dosyaları dizine ekleyebilir, özel ajanlar oluşturabilir, araştırma iş akışları çalıştırabilir ve bilgi tabanınızdan soruları yanıtlayabilir.
+
+      Bu CasaOS uygulaması depolama için PostgreSQL/pgvector, yerel kod yürütme için Terrarium ve web araması desteği için SearXNG içerir.
+
+      **Daha fazla bilgi:**
+
+      - [Khoj Web Sitesi](https://khoj.dev)
+      - [Khoj Belgeleri](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+    zh_CN: |
+      Khoj 是一个开源、自托管的个人 AI 应用，可用于搜索、对话，并基于你的文档和在线信息进行推理。它支持本地或在线大模型，可以索引笔记和文件、创建自定义 Agent、运行研究工作流，并从你的知识库中回答问题。
+
+      这个 CasaOS 应用包含用于存储的 PostgreSQL/pgvector、用于本地代码执行的 Terrarium，以及用于联网搜索的 SearXNG。
+
+      **了解更多：**
+
+      - [Khoj 官网](https://khoj.dev)
+      - [Khoj 文档](https://docs.khoj.dev)
+      - [Khoj GitHub](https://github.com/khoj-ai/khoj)
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Khoj/icon.png
+  screenshot_link:
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Khoj/screenshot-1.png
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Khoj/screenshot-2.png
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Khoj/screenshot-3.png
+  thumbnail: ''
+  tips:
+    before_install:
+      de_DE: |
+        Khoj startet im anonymen Modus, damit die erste Nutzung reibungslos verläuft. Verwenden Sie es nur in einem vertrauenswürdigen Netzwerk oder entfernen Sie `--anonymous-mode`, bevor Sie es öffentlich freigeben.
+
+        Standard-Administratorkonto:
+
+        - E-Mail: `admin@khoj.local`
+        - Passwort: `khoj`
+
+        Ändern Sie `KHOJ_ADMIN_PASSWORD` und `KHOJ_DJANGO_SECRET_KEY` für jede gemeinsam genutzte oder produktive Bereitstellung. Nach dem Start können Sie den Modellanbieter in den Khoj-Einstellungen konfigurieren oder über `OPENAI_BASE_URL` auf einen OpenAI-kompatiblen lokalen Server wie Ollama zeigen.
+      el_GR: |
+        Το Khoj ξεκινά σε ανώνυμη λειτουργία για ομαλή πρώτη χρήση. Κρατήστε το σε αξιόπιστο δίκτυο ή αφαιρέστε το `--anonymous-mode` πριν το εκθέσετε δημόσια.
+
+        Προεπιλεγμένος λογαριασμός διαχειριστή:
+
+        - Email: `admin@khoj.local`
+        - Κωδικός: `khoj`
+
+        Αλλάξτε τα `KHOJ_ADMIN_PASSWORD` και `KHOJ_DJANGO_SECRET_KEY` για κοινόχρηστη ή παραγωγική εγκατάσταση. Μετά την εκκίνηση, ρυθμίστε τον πάροχο μοντέλου από τις ρυθμίσεις του Khoj ή δείξτε το `OPENAI_BASE_URL` σε έναν τοπικό διακομιστή συμβατό με OpenAI, όπως το Ollama.
+      en_GB: |
+        Khoj starts in anonymous mode for a smooth first run. Keep it on a trusted network or remove `--anonymous-mode` before exposing it publicly.
+
+        Default admin account:
+
+        - Email: `admin@khoj.local`
+        - Password: `khoj`
+
+        Change `KHOJ_ADMIN_PASSWORD` and `KHOJ_DJANGO_SECRET_KEY` for any shared or production deployment. After launch, configure your model provider from Khoj settings, or point it at an OpenAI-compatible local server such as Ollama through `OPENAI_BASE_URL`.
+      en_US: |
+        Khoj starts in anonymous mode for a smooth first run. Keep it on a trusted network or remove `--anonymous-mode` before exposing it publicly.
+
+        Default admin account:
+
+        - Email: `admin@khoj.local`
+        - Password: `khoj`
+
+        Change `KHOJ_ADMIN_PASSWORD` and `KHOJ_DJANGO_SECRET_KEY` for any shared or production deployment. After launch, configure your model provider from Khoj settings, or point it at an OpenAI-compatible local server such as Ollama through `OPENAI_BASE_URL`.
+      fr_FR: |
+        Khoj démarre en mode anonyme pour faciliter la première utilisation. Gardez-le sur un réseau de confiance ou supprimez `--anonymous-mode` avant de l’exposer publiquement.
+
+        Compte administrateur par défaut :
+
+        - E-mail : `admin@khoj.local`
+        - Mot de passe : `khoj`
+
+        Modifiez `KHOJ_ADMIN_PASSWORD` et `KHOJ_DJANGO_SECRET_KEY` pour tout déploiement partagé ou de production. Après le lancement, configurez votre fournisseur de modèle dans les paramètres Khoj ou pointez `OPENAI_BASE_URL` vers un serveur local compatible OpenAI, comme Ollama.
+      hr_HR: |
+        Khoj se pokreće u anonimnom načinu rada radi jednostavnog prvog pokretanja. Koristite ga na pouzdanoj mreži ili uklonite `--anonymous-mode` prije javnog izlaganja.
+
+        Zadani administratorski račun:
+
+        - E-pošta: `admin@khoj.local`
+        - Lozinka: `khoj`
+
+        Promijenite `KHOJ_ADMIN_PASSWORD` i `KHOJ_DJANGO_SECRET_KEY` za svaku dijeljenu ili produkcijsku instalaciju. Nakon pokretanja konfigurirajte pružatelja modela u postavkama Khoj-a ili usmjerite `OPENAI_BASE_URL` na lokalni OpenAI-kompatibilni poslužitelj kao što je Ollama.
+      it_IT: |
+        Khoj si avvia in modalità anonima per semplificare il primo utilizzo. Mantienilo su una rete fidata oppure rimuovi `--anonymous-mode` prima di esporlo pubblicamente.
+
+        Account amministratore predefinito:
+
+        - Email: `admin@khoj.local`
+        - Password: `khoj`
+
+        Modifica `KHOJ_ADMIN_PASSWORD` e `KHOJ_DJANGO_SECRET_KEY` per qualsiasi distribuzione condivisa o di produzione. Dopo l’avvio, configura il provider del modello dalle impostazioni di Khoj oppure punta `OPENAI_BASE_URL` a un server locale compatibile con OpenAI, come Ollama.
+      ja_JP: |
+        Khoj は初回利用をスムーズにするため、匿名モードで起動します。信頼できるネットワーク内で使用するか、公開する前に `--anonymous-mode` を削除してください。
+
+        既定の管理者アカウント:
+
+        - メール: `admin@khoj.local`
+        - パスワード: `khoj`
+
+        共有環境または本番環境では、`KHOJ_ADMIN_PASSWORD` と `KHOJ_DJANGO_SECRET_KEY` を変更してください。起動後、Khoj の設定でモデルプロバイダーを構成するか、`OPENAI_BASE_URL` を Ollama などの OpenAI 互換ローカルサーバーに向けてください。
+      ko_KR: |
+        Khoj는 첫 실행을 쉽게 하기 위해 익명 모드로 시작됩니다. 신뢰할 수 있는 네트워크에서만 사용하거나 공개하기 전에 `--anonymous-mode`를 제거하세요.
+
+        기본 관리자 계정:
+
+        - 이메일: `admin@khoj.local`
+        - 비밀번호: `khoj`
+
+        공유 또는 운영 배포에서는 `KHOJ_ADMIN_PASSWORD`와 `KHOJ_DJANGO_SECRET_KEY`를 변경하세요. 실행 후 Khoj 설정에서 모델 제공자를 구성하거나 `OPENAI_BASE_URL`을 Ollama 같은 OpenAI 호환 로컬 서버로 지정할 수 있습니다.
+      nb_NO: |
+        Khoj starter i anonym modus for en enkel første oppstart. Bruk det på et klarert nettverk, eller fjern `--anonymous-mode` før du eksponerer det offentlig.
+
+        Standard administratorkonto:
+
+        - E-post: `admin@khoj.local`
+        - Passord: `khoj`
+
+        Endre `KHOJ_ADMIN_PASSWORD` og `KHOJ_DJANGO_SECRET_KEY` for alle delte eller produksjonsbaserte installasjoner. Etter oppstart kan du konfigurere modellleverandøren i Khoj-innstillingene eller peke `OPENAI_BASE_URL` til en OpenAI-kompatibel lokal server som Ollama.
+      pt_PT: |
+        O Khoj inicia em modo anónimo para uma primeira utilização simples. Mantenha-o numa rede de confiança ou remova `--anonymous-mode` antes de o expor publicamente.
+
+        Conta de administrador predefinida:
+
+        - Email: `admin@khoj.local`
+        - Palavra-passe: `khoj`
+
+        Altere `KHOJ_ADMIN_PASSWORD` e `KHOJ_DJANGO_SECRET_KEY` em qualquer instalação partilhada ou de produção. Após o arranque, configure o fornecedor de modelo nas definições do Khoj ou aponte `OPENAI_BASE_URL` para um servidor local compatível com OpenAI, como o Ollama.
+      ru_RU: |
+        Khoj запускается в анонимном режиме для удобного первого запуска. Используйте его в доверенной сети или удалите `--anonymous-mode` перед публичной публикацией.
+
+        Учетная запись администратора по умолчанию:
+
+        - Email: `admin@khoj.local`
+        - Пароль: `khoj`
+
+        Измените `KHOJ_ADMIN_PASSWORD` и `KHOJ_DJANGO_SECRET_KEY` для любого общего или production-развертывания. После запуска настройте поставщика модели в настройках Khoj или укажите `OPENAI_BASE_URL` на локальный OpenAI-совместимый сервер, например Ollama.
+      sv_SE: |
+        Khoj startar i anonymt läge för en smidig första körning. Använd det i ett betrott nätverk eller ta bort `--anonymous-mode` innan du exponerar det offentligt.
+
+        Standardkonto för administratör:
+
+        - E-post: `admin@khoj.local`
+        - Lösenord: `khoj`
+
+        Ändra `KHOJ_ADMIN_PASSWORD` och `KHOJ_DJANGO_SECRET_KEY` för alla delade miljöer eller produktionsmiljöer. Efter start kan du konfigurera modellleverantören i Khoj-inställningarna eller peka `OPENAI_BASE_URL` mot en lokal OpenAI-kompatibel server som Ollama.
+      tr_TR: |
+        Khoj ilk çalıştırmayı kolaylaştırmak için anonim modda başlar. Güvenilir bir ağda kullanın veya herkese açık hale getirmeden önce `--anonymous-mode` seçeneğini kaldırın.
+
+        Varsayılan yönetici hesabı:
+
+        - E-posta: `admin@khoj.local`
+        - Parola: `khoj`
+
+        Paylaşılan veya üretim dağıtımlarında `KHOJ_ADMIN_PASSWORD` ve `KHOJ_DJANGO_SECRET_KEY` değerlerini değiştirin. Başlattıktan sonra model sağlayıcınızı Khoj ayarlarından yapılandırabilir veya `OPENAI_BASE_URL` ile Ollama gibi OpenAI uyumlu yerel bir sunucuya yönlendirebilirsiniz.
+      zh_CN: |
+        Khoj 默认以匿名模式启动，便于首次运行。请仅在可信网络中使用；若要公网暴露，请先移除 `--anonymous-mode` 并配置认证。
+
+        默认管理员账号：
+
+        - 邮箱：`admin@khoj.local`
+        - 密码：`khoj`
+
+        如用于多人共享或生产环境，请修改 `KHOJ_ADMIN_PASSWORD` 和 `KHOJ_DJANGO_SECRET_KEY`。启动后可在 Khoj 设置中配置模型服务，也可以通过 `OPENAI_BASE_URL` 指向 Ollama 等 OpenAI 兼容的本地服务。
+  scheme: http
+  port_map: "42110"
+  index: /
+  title:
+    de_DE: Khoj
+    el_GR: Khoj
+    en_GB: Khoj
+    en_US: Khoj
+    fr_FR: Khoj
+    hr_HR: Khoj
+    it_IT: Khoj
+    ja_JP: Khoj
+    ko_KR: Khoj
+    nb_NO: Khoj
+    pt_PT: Khoj
+    ru_RU: Khoj
+    sv_SE: Khoj
+    tr_TR: Khoj
+    zh_CN: Khoj
