@@ -198,6 +198,10 @@ services:
       KHOJ_TELEMETRY_DISABLE: 'True'
       KHOJ_TERRARIUM_URL: http://khoj-sandbox:8080
       KHOJ_SEARXNG_URL: http://khoj-search:8080
+      KHOJ_ALLOWED_DOMAIN:
+      OPENAI_API_KEY:
+      OPENAI_BASE_URL:
+      KHOJ_DEFAULT_CHAT_MODEL:
     volumes:
     - type: bind
       source: /DATA/AppData/$AppID/config
@@ -321,6 +325,74 @@ services:
           sv_SE: Inaktiverar Khoj-telemetri för självhostade installationer.
           tr_TR: Kendi barındırılan kurulumlarda Khoj telemetrisini devre dışı bırakır.
           zh_CN: 在自托管部署中关闭 Khoj 遥测。
+      - container: KHOJ_ALLOWED_DOMAIN
+        description:
+          de_DE: Hostname oder LAN-IP, über die Khoj geöffnet wird. Dies ist für WebSocket-Chat über eine direkte IP-Adresse erforderlich.
+          el_GR: Όνομα κεντρικού υπολογιστή ή LAN IP που χρησιμοποιείται για το άνοιγμα του Khoj. Απαιτείται για συνομιλία WebSocket μέσω άμεσης IP.
+          en_GB: Hostname or LAN IP used to open Khoj. Required for WebSocket chat when using a direct IP address.
+          en_US: Hostname or LAN IP used to open Khoj. Required for WebSocket chat when using a direct IP address.
+          fr_FR: Nom d’hôte ou IP LAN utilisé pour ouvrir Khoj. Requis pour le chat WebSocket avec une adresse IP directe.
+          hr_HR: Naziv hosta ili LAN IP kojim se otvara Khoj. Potrebno za WebSocket razgovor pri korištenju izravne IP adrese.
+          it_IT: Nome host o IP LAN usato per aprire Khoj. Necessario per la chat WebSocket quando si usa un IP diretto.
+          ja_JP: Khoj を開くときに使用するホスト名または LAN IP。直接 IP で WebSocket チャットを使う場合に必要です。
+          ko_KR: Khoj를 열 때 사용하는 호스트 이름 또는 LAN IP입니다. 직접 IP 주소로 WebSocket 채팅을 사용할 때 필요합니다.
+          nb_NO: Vertsnavn eller LAN-IP som brukes til å åpne Khoj. Kreves for WebSocket-chat ved bruk av direkte IP-adresse.
+          pt_PT: Nome do anfitrião ou IP LAN usado para abrir o Khoj. Necessário para chat WebSocket ao usar um IP direto.
+          ru_RU: Имя хоста или LAN IP, через который открывается Khoj. Требуется для WebSocket-чата при использовании прямого IP-адреса.
+          sv_SE: Värdnamn eller LAN-IP som används för att öppna Khoj. Krävs för WebSocket-chatt med en direkt IP-adress.
+          tr_TR: Khoj’u açmak için kullanılan ana makine adı veya LAN IP adresi. Doğrudan IP adresiyle WebSocket sohbeti için gereklidir.
+          zh_CN: 打开 Khoj 时使用的主机名或局域网 IP。使用直接 IP 访问时，WebSocket 对话需要填写此项。
+      - container: OPENAI_API_KEY
+        description:
+          de_DE: Optionaler API-Schlüssel für OpenAI-kompatible Chat-Anbieter.
+          el_GR: Προαιρετικό κλειδί API για παρόχους συνομιλίας συμβατούς με OpenAI.
+          en_GB: Optional API key for OpenAI-compatible chat providers.
+          en_US: Optional API key for OpenAI-compatible chat providers.
+          fr_FR: Clé API optionnelle pour les fournisseurs de chat compatibles OpenAI.
+          hr_HR: Neobavezni API ključ za pružatelje razgovora kompatibilne s OpenAI.
+          it_IT: Chiave API opzionale per provider di chat compatibili con OpenAI.
+          ja_JP: OpenAI 互換チャットプロバイダー用の任意の API キー。
+          ko_KR: OpenAI 호환 채팅 제공자를 위한 선택적 API 키입니다.
+          nb_NO: Valgfri API-nøkkel for OpenAI-kompatible chatleverandører.
+          pt_PT: Chave de API opcional para fornecedores de chat compatíveis com OpenAI.
+          ru_RU: Необязательный API-ключ для OpenAI-совместимых поставщиков чата.
+          sv_SE: Valfri API-nyckel för OpenAI-kompatibla chattleverantörer.
+          tr_TR: OpenAI uyumlu sohbet sağlayıcıları için isteğe bağlı API anahtarı.
+          zh_CN: OpenAI 兼容对话服务的可选 API key。
+      - container: OPENAI_BASE_URL
+        description:
+          de_DE: Optionale Basis-URL für eine OpenAI-kompatible API, zum Beispiel einen lokalen oder Drittanbieter-Endpunkt mit /v1.
+          el_GR: Προαιρετικό βασικό URL για OpenAI-compatible API, όπως τοπικό ή τρίτο endpoint με /v1.
+          en_GB: Optional base URL for an OpenAI-compatible API, such as a local or third-party /v1 endpoint.
+          en_US: Optional base URL for an OpenAI-compatible API, such as a local or third-party /v1 endpoint.
+          fr_FR: URL de base optionnelle pour une API compatible OpenAI, comme un point de terminaison local ou tiers en /v1.
+          hr_HR: Neobavezni osnovni URL za API kompatibilan s OpenAI, primjerice lokalni ili vanjski /v1 endpoint.
+          it_IT: URL base opzionale per un’API compatibile con OpenAI, ad esempio un endpoint locale o di terze parti /v1.
+          ja_JP: OpenAI 互換 API の任意のベース URL。ローカルまたはサードパーティの /v1 エンドポイントなど。
+          ko_KR: OpenAI 호환 API의 선택적 기본 URL입니다. 로컬 또는 타사 /v1 엔드포인트 등을 사용할 수 있습니다.
+          nb_NO: Valgfri basisadresse for et OpenAI-kompatibelt API, for eksempel et lokalt eller tredjeparts /v1-endepunkt.
+          pt_PT: URL base opcional para uma API compatível com OpenAI, como um endpoint local ou de terceiros em /v1.
+          ru_RU: Необязательный базовый URL для OpenAI-совместимого API, например локальная или сторонняя конечная точка /v1.
+          sv_SE: Valfri basadress för ett OpenAI-kompatibelt API, till exempel en lokal eller tredjeparts /v1-slutpunkt.
+          tr_TR: OpenAI uyumlu API için isteğe bağlı temel URL; örneğin yerel veya üçüncü taraf /v1 uç noktası.
+          zh_CN: OpenAI 兼容 API 的可选基础地址，例如本地或第三方的 /v1 接口。
+      - container: KHOJ_DEFAULT_CHAT_MODEL
+        description:
+          de_DE: Optionaler Standard-Chatmodellname. Er muss mit der Modell-ID des konfigurierten Anbieters übereinstimmen.
+          el_GR: Προαιρετικό προεπιλεγμένο όνομα μοντέλου συνομιλίας. Πρέπει να ταιριάζει με το model ID του ρυθμισμένου παρόχου.
+          en_GB: Optional default chat model name. It must match the configured provider's model ID.
+          en_US: Optional default chat model name. It must match the configured provider's model ID.
+          fr_FR: Nom optionnel du modèle de chat par défaut. Il doit correspondre à l’ID de modèle du fournisseur configuré.
+          hr_HR: Neobavezni naziv zadanog modela razgovora. Mora odgovarati ID-u modela konfiguriranog pružatelja.
+          it_IT: Nome opzionale del modello chat predefinito. Deve corrispondere all’ID modello del provider configurato.
+          ja_JP: 任意の既定チャットモデル名。設定したプロバイダーのモデル ID と一致する必要があります。
+          ko_KR: 선택적 기본 채팅 모델 이름입니다. 설정된 제공자의 모델 ID와 일치해야 합니다.
+          nb_NO: Valgfritt standardnavn for chatmodell. Det må samsvare med modell-ID-en hos den konfigurerte leverandøren.
+          pt_PT: Nome opcional do modelo de chat predefinido. Deve corresponder ao ID do modelo do fornecedor configurado.
+          ru_RU: Необязательное имя модели чата по умолчанию. Оно должно совпадать с ID модели настроенного поставщика.
+          sv_SE: Valfritt standardnamn för chattmodell. Det måste matcha modell-ID:t hos den konfigurerade leverantören.
+          tr_TR: İsteğe bağlı varsayılan sohbet modeli adı. Yapılandırılan sağlayıcının model ID’siyle eşleşmelidir.
+          zh_CN: 可选的默认对话模型名称，必须与已配置服务商的模型 ID 一致。
       volumes:
       - container: /root/.khoj
         description:
