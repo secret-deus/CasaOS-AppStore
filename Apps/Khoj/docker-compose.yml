@@ -154,6 +154,16 @@ services:
           sv_SE: SearXNG-konfigurationskatalog.
           tr_TR: SearXNG yapılandırma dizini.
           zh_CN: SearXNG 配置目录。
+  khoj-computer:
+    image: ghcr.io/khoj-ai/khoj-computer:latest@sha256:7d3dd5c09b45c4792af99365f2232410e534d0706afd1eb69cc62a38cad23757
+    container_name: khoj-computer
+    restart: unless-stopped
+    networks:
+    - khoj
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID/computer
+      target: /home/operator
   khoj:
     image: ghcr.io/khoj-ai/khoj:2.0.0-beta.28@sha256:eb2e44669df44b51cb206b394dc0a00c782ac152dda02c97c9e3dac3d643dbb4
     container_name: khoj
